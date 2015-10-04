@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0510"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3AD3F78118E624BF000691D0"
+               BuildableName = "Share Location.app"
+               BlueprintName = "Share Location"
+               ReferencedContainer = "container:Share Location.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3AD3F7A218E624BF000691D0"
+               BuildableName = "Share LocationTests.xctest"
+               BlueprintName = "Share LocationTests"
+               ReferencedContainer = "container:Share Location.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3AD3F7A218E624BF000691D0"
+               BuildableName = "Share LocationTests.xctest"
+               BlueprintName = "Share LocationTests"
+               ReferencedContainer = "container:Share Location.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3AD3F78118E624BF000691D0"
+            BuildableName = "Share Location.app"
+            BlueprintName = "Share Location"
+            ReferencedContainer = "container:Share Location.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3AD3F78118E624BF000691D0"
+            BuildableName = "Share Location.app"
+            BlueprintName = "Share Location"
+            ReferencedContainer = "container:Share Location.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
+      <LocationScenarioReference
+         identifier = "San Francisco, CA, USA"
+         referenceType = "1">
+      </LocationScenarioReference>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3AD3F78118E624BF000691D0"
+            BuildableName = "Share Location.app"
+            BlueprintName = "Share Location"
+            ReferencedContainer = "container:Share Location.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#!/bin/bash&#10;#&#10;# (Above line comes out when placing in Xcode scheme)&#10;#&#10;# Valid and working as of 10/29/2013&#10;# Xcode 5.0.1, XCode Server&#10;#&#10;export http_proxy=&quot;http://10.129.51.254:3128&quot;&#10;PRODUCT_NAME=&quot;Share Location&quot;&#10;API_TOKEN=&quot;76d462da00677ee39496ae16ccee0ec3_MTg3OTY4MTIwMTQtMDUtMjggMTg6MTE6NTYuOTU3Mjkz&quot;&#10;TEAM_TOKEN=&quot;cc003fd1404982f2edc1c20791cc383e_Mzg2NTQ5MjAxNC0wNS0yOCAxODoxMzowMC4yNDA1Mjc &quot;&#10;SIGNING_IDENTITY=&quot;iPhone Distribution: Outbox Sp. z o. o. (WAT2472SWQ)&quot;&#10;PROVISIONING_PROFILE=&quot;/Library/Server/Xcode/Data/ProvisioningProfiles/Add_hock_2_ploutboxShareLocation.mobileprovision&quot;&#10;#EXAMPLE:&quot;/Library/Server/Xcode/Data/ProvisioningProfiles/DocLink_InHouse_2013.mobileprovision&quot;&#10;&#10;#EXAMPLE:&quot;iPhone Distribution: Unwired Revolution, LLC.&quot;&#10;&#10;# DO NOT EDIT BELOW HERE!&#10;########################################&#10;DSYM=&quot;/tmp/Archive.xcarchive/dSYMs/${PRODUCT_NAME}.app.dSYM&quot;&#10;&#10;IPA=&quot;/tmp/${PRODUCT_NAME}.ipa&quot;&#10;&#10;APP=&quot;/tmp/Archive.xcarchive/Products/Applications/${PRODUCT_NAME}.app&quot;&#10;&#10;# Clear out any old copies of the Archive&#10;echo &quot;Removing old Archive files from /tmp...&quot;;&#10;/bin/rm -rf /tmp/Archive.xcarchive*&#10;&#10;#Copy over the latest build the bot just created&#10;echo &quot;Copying latest Archive to /tmp/...&quot;;&#10;LATESTBUILD=$(ls -1rt /Library/Server/Xcode/Data/BotRuns | tail -1)&#10;/bin/cp -Rp &quot;/Library/Server/Xcode/Data/BotRuns/${LATESTBUILD}/output/Archive.xcarchive&quot; &quot;/tmp/&quot;&#10;&#10;echo &quot;Creating .ipa for ${PRODUCT_NAME}&quot;&#10;/bin/rm &quot;${IPA}&quot;&#10;/usr/bin/xcrun -sdk iphoneos PackageApplication -v &quot;${APP}&quot; -o &quot;${IPA}&quot; --sign &quot;${SIGNING_IDENTITY}&quot; --embed &quot;${PROVISIONING_PROFILE}&quot;&#10;&#10;echo &quot;Done with IPA creation.&quot;&#10;&#10;echo &quot;Zipping .dSYM for ${PRODUCT_NAME}&quot;&#10;/bin/rm &quot;${DSYM}.zip&quot;&#10;/usr/bin/zip -r &quot;${DSYM}.zip&quot; &quot;${DSYM}&quot;&#10;&#10;echo &quot;Created .dSYM for ${PRODUCT_NAME}&quot;&#10;&#10;echo &quot;*** Uploading ${PRODUCT_NAME} to TestFlight ***&quot;&#10;/usr/bin/curl &quot;http://testflightapp.com/api/builds.json&quot; \&#10;-F file=@&quot;${IPA}&quot; \&#10;-F dsym=@&quot;${DSYM}.zip&quot; \&#10;-F api_token=&quot;${API_TOKEN}&quot; \&#10;-F team_token=&quot;${TEAM_TOKEN}&quot; \&#10;-F distribution_lists=&quot;${DISTRIBUTION_LISTS}&quot; \&#10;-F notes=&quot;Build uploaded automatically from Xcode Server Bot.&quot;&#10;&#10;echo &quot;TestFlight upload finished!&quot;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "3AD3F78118E624BF000691D0"
+                     BuildableName = "Share Location.app"
+                     BlueprintName = "Share Location"
+                     ReferencedContainer = "container:Share Location.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+   </ArchiveAction>
+</Scheme>

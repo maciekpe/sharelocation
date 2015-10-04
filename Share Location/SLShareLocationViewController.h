@@ -1,0 +1,2 @@
+@interface SLShareLocationViewController : UIViewController
+@end
