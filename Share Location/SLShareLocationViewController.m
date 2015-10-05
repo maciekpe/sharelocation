@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *userDataField;
 // pole widok wiadomosci
 // uchwyt do obslugi tap-niecia ekranu
-@property (weak, nonatomic) UITapGestureRecognizer *tap;
+@property (strong, nonatomic) UITapGestureRecognizer *tap;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 

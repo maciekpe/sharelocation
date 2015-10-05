@@ -53,7 +53,7 @@ NSDate *lastSound;
     }else{
         NSLog(@"enter viewDidLoad skip ");
     }
-    /*
+    
     NSString* path = [[NSBundle mainBundle]
                       pathForResource:@"sonar" ofType:@"wav"];
     NSURL* url = [NSURL fileURLWithPath:path];
@@ -62,7 +62,7 @@ NSDate *lastSound;
     path = [[NSBundle mainBundle]
                       pathForResource:@"error" ofType:@"wav"];
     url = [NSURL fileURLWithPath:path];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &furtherSoundID);*/
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &furtherSoundID);
 }
 
 - (void)didReceiveMemoryWarning

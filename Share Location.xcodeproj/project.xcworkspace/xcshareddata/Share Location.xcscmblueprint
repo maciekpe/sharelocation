@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B8DCCB9D8B1F3FAE34F82CCDCD79D4EDC366666B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "fad5fc66-066b-4d3e-88e6-8c8e37570a90++8317" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B8DCCB9D8B1F3FAE34F82CCDCD79D4EDC366666B" : 0,
+    "fad5fc66-066b-4d3e-88e6-8c8e37570a90++8317" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6CD20A34-AD19-4AC9-9A4D-E30D237E86BA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B8DCCB9D8B1F3FAE34F82CCDCD79D4EDC366666B" : "sharelocation\/",
+    "fad5fc66-066b-4d3e-88e6-8c8e37570a90++8317" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Share Location",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Share Location.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/maciekpe\/sharelocation.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B8DCCB9D8B1F3FAE34F82CCDCD79D4EDC366666B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/chinczyk.pd\/repos\/pd",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "fad5fc66-066b-4d3e-88e6-8c8e37570a90++8317"
+    }
+  ]
+}
