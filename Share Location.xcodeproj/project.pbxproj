@@ -110,6 +110,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A04AB511BC330D30012ACB9 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3F79418E624BF000691D0 /* SLAppDelegate.h */,
+				3AD3F79518E624BF000691D0 /* SLAppDelegate.m */,
+				3A04AB531BC3311D0012ACB9 /* model */,
+				3A04AB521BC330E40012ACB9 /* controllers */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		3A04AB521BC330E40012ACB9 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3AA30A8218E7525F00FAD973 /* SLShareLocationViewController.h */,
+				3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */,
+				3AD3F7BA18E63E8B000691D0 /* SLLocationViewController.h */,
+				3AD3F7BB18E63E8B000691D0 /* SLLocationViewController.m */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		3A04AB531BC3311D0012ACB9 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				3AD3F7BF18E647B9000691D0 /* SLMapAnnotation.h */,
+				3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */,
+				3AA30A8918E7567900FAD973 /* SLData.h */,
+				3AA30A8A18E7567900FAD973 /* SLData.m */,
+				3A5C21A7192F7C110046BC60 /* SLPinAnnotationView.h */,
+				3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		3A08001B193C72160035E148 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,24 +190,13 @@
 		3AD3F78B18E624BF000691D0 /* Share Location */ = {
 			isa = PBXGroup;
 			children = (
+				3A04AB511BC330D30012ACB9 /* Source */,
 				3A04AB4E1BC328280012ACB9 /* multimedia */,
 				3A560D571BC1D5D900E8B578 /* Media.xcassets */,
 				3A08001B193C72160035E148 /* iPad */,
 				3A080018193C712D0035E148 /* Main_ipad.storyboard */,
-				3AA30A8218E7525F00FAD973 /* SLShareLocationViewController.h */,
-				3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */,
-				3AD3F7BF18E647B9000691D0 /* SLMapAnnotation.h */,
-				3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */,
-				3AD3F79418E624BF000691D0 /* SLAppDelegate.h */,
-				3AD3F79518E624BF000691D0 /* SLAppDelegate.m */,
 				3AD3F79718E624BF000691D0 /* Main.storyboard */,
 				3AD3F78C18E624BF000691D0 /* Supporting Files */,
-				3AD3F7BA18E63E8B000691D0 /* SLLocationViewController.h */,
-				3AD3F7BB18E63E8B000691D0 /* SLLocationViewController.m */,
-				3AA30A8918E7567900FAD973 /* SLData.h */,
-				3AA30A8A18E7567900FAD973 /* SLData.m */,
-				3A5C21A7192F7C110046BC60 /* SLPinAnnotationView.h */,
-				3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */,
 			);
 			path = "Share Location";
 			sourceTree = "<group>";
