@@ -1,2 +1,3 @@
 language: objective-c
+osx_image: xcode7
 script:  xctool -project Share\ Location.xcodeproj -scheme Share\ Location clean build test -sdk iphonesimulator
