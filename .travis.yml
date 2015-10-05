@@ -1,2 +1,2 @@
 language: objective-c
-script:  xctool -project Share\ Location.xcodeproj -scheme Share\ Location clean build --configuration Debug
+script:  xctool -project Share\ Location.xcodeproj -scheme Share\ Location clean build test -sdk iphonesimulator
