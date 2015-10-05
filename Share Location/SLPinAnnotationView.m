@@ -27,7 +27,7 @@
 
 -(void) drawRect:(CGRect)rect
 {
-    UIImage *image = [UIImage imageNamed:@"person.png"];
+    UIImage *image = [UIImage imageNamed:@"multimedia/pics/person.png"];
     [image drawInRect:CGRectMake(0, 0, 35, 35)];
 }
 

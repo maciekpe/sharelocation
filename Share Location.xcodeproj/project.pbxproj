@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A04AB4F1BC328280012ACB9 /* multimedia in Resources */ = {isa = PBXBuildFile; fileRef = 3A04AB4E1BC328280012ACB9 /* multimedia */; settings = {ASSET_TAGS = (); }; };
 		3A08001A193C712D0035E148 /* Main_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A080018193C712D0035E148 /* Main_ipad.storyboard */; };
 		3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A560D571BC1D5D900E8B578 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 		3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */; };
-		3A5C21AB192F801C0046BC60 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5C21AA192F801C0046BC60 /* arrow.png */; };
-		3A5C21AD192F817C0046BC60 /* person.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A5C21AC192F817C0046BC60 /* person.png */; };
-		3A64820A192FC8EB00FE1D0D /* target2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A648209192FC8EB00FE1D0D /* target2.jpg */; };
 		3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */; };
 		3AA30A8618E755EC00FAD973 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8518E755EC00FAD973 /* MessageUI.framework */; };
 		3AA30A8818E755FC00FAD973 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8718E755FC00FAD973 /* CoreLocation.framework */; };
@@ -33,11 +31,7 @@
 		3AD3F7BC18E63E8B000691D0 /* SLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7BB18E63E8B000691D0 /* SLLocationViewController.m */; };
 		3AD3F7BE18E64013000691D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F7BD18E64013000691D0 /* MapKit.framework */; };
 		3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */; };
-		3AE550E8193DD0D200837DBC /* see_ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE550E6193DD0D200837DBC /* see_ipad.png */; };
-		3AE550E9193DD0D200837DBC /* see_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AE550E7193DD0D200837DBC /* see_iphone.png */; };
 		3AE550EB193DF88900837DBC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE550EA193DF88900837DBC /* AudioToolbox.framework */; };
-		3AE550ED193E011500837DBC /* sonar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3AE550EC193E011500837DBC /* sonar.wav */; };
-		3AE550EF193E071500837DBC /* error.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3AE550EE193E071500837DBC /* error.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A04AB4E1BC328280012ACB9 /* multimedia */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multimedia; sourceTree = "<group>"; };
 		3A080019193C712D0035E148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Share Location/Base.lproj/Main_ipad.storyboard"; sourceTree = "<group>"; };
 		3A560D571BC1D5D900E8B578 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		3A5C21A7192F7C110046BC60 /* SLPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPinAnnotationView.h; sourceTree = "<group>"; };
 		3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPinAnnotationView.m; sourceTree = "<group>"; };
-		3A5C21AA192F801C0046BC60 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
-		3A5C21AC192F817C0046BC60 /* person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person.png; sourceTree = "<group>"; };
-		3A648209192FC8EB00FE1D0D /* target2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = target2.jpg; sourceTree = "<group>"; };
 		3AA30A8218E7525F00FAD973 /* SLShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLShareLocationViewController.h; sourceTree = "<group>"; };
 		3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLShareLocationViewController.m; sourceTree = "<group>"; };
 		3AA30A8518E755EC00FAD973 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -86,11 +78,7 @@
 		3AD3F7BD18E64013000691D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3AD3F7BF18E647B9000691D0 /* SLMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLMapAnnotation.h; sourceTree = "<group>"; };
 		3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLMapAnnotation.m; sourceTree = "<group>"; };
-		3AE550E6193DD0D200837DBC /* see_ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = see_ipad.png; sourceTree = "<group>"; };
-		3AE550E7193DD0D200837DBC /* see_iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = see_iphone.png; sourceTree = "<group>"; };
 		3AE550EA193DF88900837DBC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		3AE550EC193E011500837DBC /* sonar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sonar.wav; sourceTree = "<group>"; };
-		3AE550EE193E071500837DBC /* error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = error.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,16 +155,10 @@
 		3AD3F78B18E624BF000691D0 /* Share Location */ = {
 			isa = PBXGroup;
 			children = (
+				3A04AB4E1BC328280012ACB9 /* multimedia */,
 				3A560D571BC1D5D900E8B578 /* Media.xcassets */,
 				3A08001B193C72160035E148 /* iPad */,
 				3A080018193C712D0035E148 /* Main_ipad.storyboard */,
-				3AE550E6193DD0D200837DBC /* see_ipad.png */,
-				3AE550E7193DD0D200837DBC /* see_iphone.png */,
-				3A648209192FC8EB00FE1D0D /* target2.jpg */,
-				3A5C21AC192F817C0046BC60 /* person.png */,
-				3A5C21AA192F801C0046BC60 /* arrow.png */,
-				3AE550EE193E071500837DBC /* error.wav */,
-				3AE550EC193E011500837DBC /* sonar.wav */,
 				3AA30A8218E7525F00FAD973 /* SLShareLocationViewController.h */,
 				3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */,
 				3AD3F7BF18E647B9000691D0 /* SLMapAnnotation.h */,
@@ -309,16 +291,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A5C21AD192F817C0046BC60 /* person.png in Resources */,
-				3AE550E8193DD0D200837DBC /* see_ipad.png in Resources */,
-				3AE550EF193E071500837DBC /* error.wav in Resources */,
-				3AE550ED193E011500837DBC /* sonar.wav in Resources */,
+				3A04AB4F1BC328280012ACB9 /* multimedia in Resources */,
 				3AD3F79018E624BF000691D0 /* InfoPlist.strings in Resources */,
 				3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */,
-				3A64820A192FC8EB00FE1D0D /* target2.jpg in Resources */,
 				3A08001A193C712D0035E148 /* Main_ipad.storyboard in Resources */,
-				3A5C21AB192F801C0046BC60 /* arrow.png in Resources */,
-				3AE550E9193DD0D200837DBC /* see_iphone.png in Resources */,
 				3AD3F79918E624BF000691D0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -41,10 +41,10 @@
     _messageDataField2.attributedText = [self composeHtmlAttributedMessage];
     //_messageDataField.layer.cornerRadius=5.0f;
     if(_mainView != nil){
-        _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"see_ipad.png"]];
+        _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"multimedia/pics/see_ipad.png"]];
     }
     if(_scrollView != nil){
-        _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"see_iphone.png"]];
+        _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"multimedia/pics/see_iphone.png"]];
     }
     
     

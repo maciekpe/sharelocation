@@ -10,12 +10,10 @@
 @interface SLLocationViewController ()<UIApplicationDelegate, UIAlertViewDelegate, CLLocationManagerDelegate,MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *composit;
 @property (weak, nonatomic) IBOutlet MKMapView *viewMap;
-
 @end
 
 @implementation SLLocationViewController
 
-//Manager lokalizacji
 CLLocationManager *locationMgr;
 SystemSoundID closeSoundID;
 SystemSoundID furtherSoundID;
@@ -31,8 +29,7 @@ NSDate *lastSound;
 }
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    AudioServicesDisposeSystemSoundID(closeSoundID);
-    AudioServicesDisposeSystemSoundID(furtherSoundID);
+    [self disposeMedia];
 
 }
 
@@ -41,32 +38,44 @@ NSDate *lastSound;
     NSLog(@"enter viewDidLoad");
     [super viewDidLoad];
     _viewMap.delegate = self;
+
+    [self initLocationManager];
+    [self initMedia];
+    NSLog(@"end viewDidLoad");
+}
+
+- (void) initLocationManager {
+    NSLog(@"enter initLocationManager start");
     if([SLData getCurrentLocation] == nil){
-        NSLog(@"enter viewDidLoad start");
         locationMgr =[[CLLocationManager alloc] init];
         locationMgr.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
         locationMgr.distanceFilter = 10;
         locationMgr.delegate = self;
         [locationMgr requestAlwaysAuthorization];
         [locationMgr startUpdatingLocation];
-         NSLog(@"enter viewDidLoad started");
+        NSLog(@"end initLocationManager started");
     }else{
-        NSLog(@"enter viewDidLoad skip ");
+        NSLog(@"end initLocationManager skip ");
     }
-    
-    NSString* path = [[NSBundle mainBundle]
-                      pathForResource:@"sonar" ofType:@"wav"];
-    NSURL* url = [NSURL fileURLWithPath:path];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &closeSoundID);
-    
-    path = [[NSBundle mainBundle]
-                      pathForResource:@"error" ofType:@"wav"];
-    url = [NSURL fileURLWithPath:path];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &furtherSoundID);
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void) initMedia {
+    [self initSound:@"multimedia/audio/sonar" sound: &closeSoundID];
+    [self initSound:@"multimedia/audio/error" sound: &furtherSoundID];
+}
+
+- (void) disposeMedia {
+    AudioServicesDisposeSystemSoundID(closeSoundID);
+    AudioServicesDisposeSystemSoundID(furtherSoundID);
+}
+
+- (void)initSound:(NSString *) pathToFile sound: (SystemSoundID *) soundID {
+    NSString* path = [[NSBundle mainBundle] pathForResource:pathToFile ofType:@"wav"];
+    NSURL* url = [NSURL fileURLWithPath:path];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, soundID);
+}
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
@@ -110,7 +119,7 @@ NSDate *lastSound;
         if([SLData getImage] != nil){
             img = [SLData getImage];
         }else{
-            img = [UIImage imageNamed:@"target2.jpg"];
+            img = [UIImage imageNamed:@"multimedia/pics/target.jpg"];
         }
         UIImageView *houseIconView = [[UIImageView alloc] initWithImage:img];
         [houseIconView setFrame:CGRectMake(0, 0, 30, 30)];
@@ -269,7 +278,7 @@ NSDate *lastSound;
     CLLocation* location = [locations lastObject];
     NSDate* eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 15.0 && ([SLData getCurrentLocation]==nil || [location distanceFromLocation:[SLData getCurrentLocation]] >10)) {
+    if (fabs(howRecent) < 15.0 && ([SLData getCurrentLocation]==nil || [location distanceFromLocation:[SLData getCurrentLocation]] >10)) {
         [self logLocation:location logString:@"Current location "];
         [SLData setCurrentLocation:location];
         _viewMap.showsUserLocation = YES;
