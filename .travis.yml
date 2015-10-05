@@ -1,2 +1,3 @@
 language: objective-c
-script:  xctool -workspace 'Share Location' -scheme 'Share Loaction' build test
+xcode_project: Share Location.xcodeproj'
+xcode_schema: Share Location
