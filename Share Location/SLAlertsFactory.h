@@ -7,4 +7,5 @@
 + (UIAlertController *) createAlertWithMsg:(NSString *) message
                                 withTitle:(NSString *) title
                                 withConfirmBtnTitle:(NSString *) confirmButon;
++ (UIAlertController *) createExitAlert;
 @end

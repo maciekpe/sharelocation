@@ -308,51 +308,6 @@
 }
 
 /*
- UIAlertController *alert= [UIAlertController
- alertControllerWithTitle:@"Enter Folder Name"
- message:@"Keep it short and sweet"
- preferredStyle:UIAlertControllerStyleAlert];
- 
- UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
- handler:^(UIAlertAction * action){
- //Do Some action here
- UITextField *textField = alert.textFields[0];
- NSLog(@"text was %@", textField.text);
- 
- }];
- UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
- handler:^(UIAlertAction * action) {
- 
- NSLog(@"cancel btn");
- 
- [alert dismissViewControllerAnimated:YES completion:nil];
- 
- }];
- 
- [alert addAction:ok];
- [alert addAction:cancel];
- 
- [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
- textField.placeholder = @"folder name";
- textField.keyboardType = UIKeyboardTypeDefault;
- }];
- 
- 
- */
-
--(UIAlertController *) createErrorAlert:(NSString *) message{
-    UIAlertController *alert= [UIAlertController
-                               alertControllerWithTitle:@"Error"
-                               message:message
-                               preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                               handler:nil];
-    [alert addAction:ok];
-    return alert;
-}
-
-
-/*
  Wysyłka za pomocą SMS.
  */
 - (void)sendViaSms{

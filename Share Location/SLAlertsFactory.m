@@ -33,4 +33,34 @@
     return alert;
 }
 
++(UIAlertController *) createExitAlert {
+    UIAlertController *alert= [UIAlertController
+                               alertControllerWithTitle:@"Confirmation"
+                               message:@"Do you want to exit?"
+                               preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                            //home button press programmatically
+                            UIApplication *app = [UIApplication sharedApplication];
+                            [app performSelector:@selector(suspend)];
+                            [NSThread sleepForTimeInterval:2.0];
+                            exit(0);
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    return alert;
+}
+
 @end
+
+
