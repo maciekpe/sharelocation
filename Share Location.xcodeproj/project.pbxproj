@@ -32,6 +32,7 @@
 		3AD3F7BE18E64013000691D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F7BD18E64013000691D0 /* MapKit.framework */; };
 		3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */; };
 		3AE550EB193DF88900837DBC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE550EA193DF88900837DBC /* AudioToolbox.framework */; };
+		FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		3AD3F7BF18E647B9000691D0 /* SLMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLMapAnnotation.h; sourceTree = "<group>"; };
 		3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLMapAnnotation.m; sourceTree = "<group>"; };
 		3AE550EA193DF88900837DBC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAlertsFactory.m; sourceTree = "<group>"; };
+		FD213BAB1BC4076C00D58369 /* SLAlertsFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLAlertsFactory.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,7 @@
 		3A04AB511BC330D30012ACB9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				FD213BA81BC4070900D58369 /* views */,
 				3AD3F79418E624BF000691D0 /* SLAppDelegate.h */,
 				3AD3F79518E624BF000691D0 /* SLAppDelegate.m */,
 				3A04AB531BC3311D0012ACB9 /* model */,
@@ -230,6 +234,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FD213BA81BC4070900D58369 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */,
+				FD213BAB1BC4076C00D58369 /* SLAlertsFactory.h */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -344,6 +357,7 @@
 				3AD3F79218E624BF000691D0 /* main.m in Sources */,
 				3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */,
 				3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */,
+				FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */,
 				3AD3F79618E624BF000691D0 /* SLAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

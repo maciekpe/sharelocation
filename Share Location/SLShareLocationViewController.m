@@ -4,6 +4,7 @@
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import "SLData.h"
+#import "SLAlertsFactory.h"
 
 @interface SLShareLocationViewController ()<MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,ABPeoplePickerNavigationControllerDelegate,UIAlertViewDelegate, UITextFieldDelegate>
 
@@ -34,7 +35,7 @@
     NSLog(@"enter viewDidLoad start share");
     [super viewDidLoad];
     [self processViewData];
-    //UIAlertController *alert = [self createErrorAlert:@"test komunikatu"];
+    //UIAlertController *alert = [SLAlertsFactory createErrorAlert:@"test komunikatu"];
     //[self presentViewController:alert animated:YES completion:nil];
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -105,9 +106,8 @@
  Otwiera alert o braki preferencji.
  */
 -(void)showPrefsAlert{
-    UIAlertView *av = [[UIAlertView alloc]initWithTitle:@"Information" message:@"According to security issues please provide manualy your's identification data . Please press \"Pref\" button." delegate:nil cancelButtonTitle:@"Contiune" otherButtonTitles:nil];
-    av.alertViewStyle = UIAlertViewStyleDefault;
-    [av show];
+    UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:@"According to security issues please provide manualy your's identification data . Please press \"Pref\" button." withTitle:@"Information" withConfirmBtnTitle:@"Contiune"];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 /*
@@ -358,8 +358,9 @@
 - (void)sendViaSms{
     
     if(![MFMessageComposeViewController canSendText]) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [warningAlert show];
+        
+        UIAlertController *alert = [SLAlertsFactory createErrorAlert:@"Your device doesn't support SMS!"];
+        [self presentViewController:alert animated:YES completion:nil];
         return;
     }
     MFMessageComposeViewController *smsComposer = [[MFMessageComposeViewController alloc] init];
@@ -374,8 +375,8 @@
  */
 - (void)sendViaEmail{
     if(![MFMailComposeViewController canSendMail]) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support E-mail!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [warningAlert show];
+        UIAlertController *alert = [SLAlertsFactory createErrorAlert:@"Your device doesn't support E-mail!"];
+        [self presentViewController:alert animated:YES completion:nil];
         return;
     }
     MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
