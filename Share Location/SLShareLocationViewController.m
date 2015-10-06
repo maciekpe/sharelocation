@@ -35,22 +35,18 @@
     NSLog(@"enter viewDidLoad start share");
     [super viewDidLoad];
     [self processViewData];
-    //UIAlertController *alert = [SLAlertsFactory createErrorAlert:@"test komunikatu"];
-    //[self presentViewController:alert animated:YES completion:nil];
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    //_messageDataField.layer.borderColor = [UIColor whiteColor].CGColor;
-    //_messageDataField.layer.borderWidth = 1;
-    //_messageDataField.translatesAutoresizingMaskIntoConstraints = NO;
+    _messageDataField2.layer.borderColor = [UIColor whiteColor].CGColor;
+    _messageDataField2.layer.borderWidth = 1;
+    _messageDataField2.translatesAutoresizingMaskIntoConstraints = NO;
     _messageDataField2.attributedText = [self composeHtmlAttributedMessage];
-    //_messageDataField.layer.cornerRadius=5.0f;
+    _messageDataField2.layer.cornerRadius=5.0f;
     if(_mainView != nil){
         _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"multimedia/pics/see_ipad.png"]];
     }
     if(_scrollView != nil){
         _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"multimedia/pics/see_iphone.png"]];
     }
-    
     
     if([self getUserIdentification] == nil){
         [self showPrefsAlert];
@@ -64,33 +60,25 @@
     [self showPrefs];
 }
 
-
-/*
- Obsluga przyciskow z alertu preferencji
- */
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    UITextField * alertTextField = [alertView textFieldAtIndex:0];
-    if(buttonIndex == 1){
-        [self processAddressBookOpenAction:NO];
-    }else{
-        [[NSUserDefaults standardUserDefaults] setObject:alertTextField.text forKey:@"SL_UID"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
-/*
- Otwiera alert z perferencjami.
- */
--(void)showPrefs{
-    UIAlertView *av = [[UIAlertView alloc]initWithTitle:@"Identification" message:@"According to security issues please provide manualy your's identification data 'email,phone number' or 'email' or 'phone number'" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Address book",nil];
-    av.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField* textField = [av textFieldAtIndex:0];
-    
-    if([self getUserIdentification] != nil){
-        textField.text = [self getUserIdentification];
-    }
-    [av textFieldAtIndex:0].delegate = self;
-    [av show];
+-(void) showPrefs{
+    UIAlertController* alert=[SLAlertsFactory createEmptyAlert:@"According to security issues please provide manualy your's identification data 'email,phone number' or 'email' or 'phone number'" withTitle:@"Identification"];
+    UIAlertAction* save = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   UITextField *textField = alert.textFields[0];
+                                                   [[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:@"SL_UID"];
+                                                   [[NSUserDefaults standardUserDefaults] synchronize];
+                                                   [alert dismissViewControllerAnimated:YES completion:nil];
+                                               }];
+    UIAlertAction* addressBook = [UIAlertAction actionWithTitle:@"Address book" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [self processAddressBookOpenAction:NO];
+                                                   }];
+    [alert addAction:save];
+    [alert addAction:addressBook];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = [self getUserIdentification];
+    }];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 /*

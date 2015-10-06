@@ -61,6 +61,12 @@
     return alert;
 }
 
++ (UIAlertController *) createEmptyAlert:(NSString *) message withTitle:(NSString *) title {
+    UIAlertController *alert= [UIAlertController
+                               alertControllerWithTitle:title
+                               message:message
+                               preferredStyle:UIAlertControllerStyleAlert];
+    return alert;
+}
+
 @end
-
-

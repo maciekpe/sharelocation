@@ -8,4 +8,7 @@
                                 withTitle:(NSString *) title
                                 withConfirmBtnTitle:(NSString *) confirmButon;
 + (UIAlertController *) createExitAlert;
++ (UIAlertController *) createEmptyAlert:(NSString *) message withTitle:(NSString *) title;
+
+
 @end
