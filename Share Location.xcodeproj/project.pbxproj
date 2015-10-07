@@ -11,6 +11,7 @@
 		3A08001A193C712D0035E148 /* Main_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A080018193C712D0035E148 /* Main_ipad.storyboard */; };
 		3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A560D571BC1D5D900E8B578 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 		3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */; };
+		3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A68EC071BC5C1E0001A5F31 /* ContactsService.m */; settings = {ASSET_TAGS = (); }; };
 		3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */; };
 		3AA30A8618E755EC00FAD973 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8518E755EC00FAD973 /* MessageUI.framework */; };
 		3AA30A8818E755FC00FAD973 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8718E755FC00FAD973 /* CoreLocation.framework */; };
@@ -51,6 +52,8 @@
 		3A560D571BC1D5D900E8B578 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		3A5C21A7192F7C110046BC60 /* SLPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPinAnnotationView.h; sourceTree = "<group>"; };
 		3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPinAnnotationView.m; sourceTree = "<group>"; };
+		3A68EC071BC5C1E0001A5F31 /* ContactsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsService.m; sourceTree = "<group>"; };
+		3A68EC091BC5C204001A5F31 /* ContactsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactsService.h; sourceTree = "<group>"; };
 		3AA30A8218E7525F00FAD973 /* SLShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLShareLocationViewController.h; sourceTree = "<group>"; };
 		3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLShareLocationViewController.m; sourceTree = "<group>"; };
 		3AA30A8518E755EC00FAD973 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -116,6 +119,7 @@
 		3A04AB511BC330D30012ACB9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3A68EC061BC5C1BC001A5F31 /* services */,
 				FD213BA81BC4070900D58369 /* views */,
 				3AD3F79418E624BF000691D0 /* SLAppDelegate.h */,
 				3AD3F79518E624BF000691D0 /* SLAppDelegate.m */,
@@ -154,6 +158,15 @@
 			children = (
 			);
 			name = iPad;
+			sourceTree = "<group>";
+		};
+		3A68EC061BC5C1BC001A5F31 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				3A68EC071BC5C1E0001A5F31 /* ContactsService.m */,
+				3A68EC091BC5C204001A5F31 /* ContactsService.h */,
+			);
+			name = services;
 			sourceTree = "<group>";
 		};
 		3AD3F77918E624BF000691D0 = {
@@ -354,6 +367,7 @@
 				3AA30A8B18E7567900FAD973 /* SLData.m in Sources */,
 				3AD3F7BC18E63E8B000691D0 /* SLLocationViewController.m in Sources */,
 				3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */,
+				3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */,
 				3AD3F79218E624BF000691D0 /* main.m in Sources */,
 				3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */,
 				3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */,
