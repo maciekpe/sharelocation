@@ -5,8 +5,9 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "SLData.h"
 #import "SLAlertsFactory.h"
+#import <ContactsUI/ContactsUI.h>
 
-@interface SLShareLocationViewController ()<MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,ABPeoplePickerNavigationControllerDelegate,UIAlertViewDelegate, UITextFieldDelegate>
+@interface SLShareLocationViewController ()<MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate, CNContactPickerDelegate ,UIAlertViewDelegate, UITextFieldDelegate>
 
 // suwak typu wiadomosci
 @property (weak, nonatomic) IBOutlet UISwitch *switchItem;
@@ -71,6 +72,7 @@
                                                }];
     UIAlertAction* addressBook = [UIAlertAction actionWithTitle:@"Address book" style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
+                                                       [alert dismissViewControllerAnimated:YES completion:nil];
                                                        [self processAddressBookOpenAction:NO];
                                                    }];
     [alert addAction:save];
@@ -98,22 +100,9 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-/*
- Otwiera ksiazke adresowa we wskazamym trybie zapisu danych.
- */
--(void)processAddressBookOpenAction:(Boolean) aIsForRecipient{
-    if(aIsForRecipient){
-        self.isAddressBookForRecipient = YES;
-    }else{
-        self.isAddressBookForRecipient = NO;
-    }
-    ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
-    [self presentViewController:picker animated:YES completion:nil];
-}
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -121,15 +110,10 @@
     return self;
 }
 
-
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-//##################### 
 
 /*
  akcja dodania kontaktu z książki adresowej.
@@ -139,43 +123,42 @@
 }
 
 /*
- obsługa anulowania wyboru kontaktu
+ Otwiera ksiazke adresowa we wskazamym trybie zapisu danych.
  */
-- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    CFRetain((__bridge CFTypeRef)(peoplePicker));
+-(void)processAddressBookOpenAction:(Boolean) aIsForRecipient{
+    if(aIsForRecipient){
+        self.isAddressBookForRecipient = YES;
+    }else{
+        self.isAddressBookForRecipient = NO;
+    }
+    CNContactPickerViewController *picker =[[CNContactPickerViewController alloc] init];
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
-/*
- obsługa wybrania kontaktu
- */
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
-      shouldContinueAfterSelectingPerson:(ABRecordRef)person {
-    [self processPersonData:person];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    CFRetain((__bridge CFTypeRef)(peoplePicker));
-    return NO;
+- (void)contactPickerDidCancel:(CNContactPickerViewController *)picker {
+    [picker dismissViewControllerAnimated:true completion: nil];
 }
-/*
- pokazanie danych osoby w polach tekstowych - przekopiowanie ze struktury
- */
-- (void)processPersonData:(ABRecordRef)person {
-    ABMultiValueRef phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty);
+
+- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContact:(CNContact *)contact {
+    NSLog(@"wejscie");
+    [self processPersonData:contact];
+    [picker dismissViewControllerAnimated:true completion: nil];
+
+}
+
+- (void)processPersonData:(CNContact *)contact {
     NSString* phoneNumer = @"";
-    if (ABMultiValueGetCount(phoneNumbers) > 0) {
-        phoneNumer = (__bridge_transfer NSString*)
-        ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+    if ([contact.phoneNumbers count]  > 0) {
+        CNPhoneNumber* cnPhoneNumber= [contact.phoneNumbers objectAtIndex:0].value;
+        phoneNumer = cnPhoneNumber.stringValue;
+        NSLog(@" numer %@", phoneNumer);
     }
-    CFRelease(phoneNumbers);
     NSString* email = @"";
-    ABMultiValueRef emailAddress = ABRecordCopyValue(person, kABPersonEmailProperty);
-    if (ABMultiValueGetCount(emailAddress) > 0) {
-        email = (__bridge_transfer NSString*)
-        
-        ABMultiValueCopyValueAtIndex(emailAddress, 0);
-        
+    if ([contact.phoneNumbers count]  > 0) {
+        email= [contact.emailAddresses objectAtIndex:0].value;
+        NSLog(@" email %@", email);
     }
-    CFRelease(emailAddress);
     if(self.isAddressBookForRecipient){
         BOOL isEmail = [_switchItem isOn];
         if(isEmail){
@@ -188,7 +171,7 @@
         if(email != nil){
             email = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             if (![email isEqualToString:@""]){
-                    aUid = [@"" stringByAppendingString:email];
+                aUid = [@"" stringByAppendingString:email];
             }
         }
         if(phoneNumer != nil){
@@ -197,7 +180,7 @@
             if (aUid != nil && ![phoneNumer isEqualToString:@""]){
                 aUid = [aUid stringByAppendingString:@","];
                 aUid = [aUid stringByAppendingString:phoneNumer];
-
+                
             }else{
                 aUid = [aUid stringByAppendingString:phoneNumer];
             }
@@ -208,20 +191,9 @@
         [self showPrefs];
     }
     self.isAddressBookForRecipient = YES;
-
 }
 
-/*
- obsługa wybrania kontaktu
- */
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
-      shouldContinueAfterSelectingPerson:(ABRecordRef)person
-                                property:(ABPropertyID)property
-                              identifier:(ABMultiValueIdentifier)identifier{
-    return NO;
-}
-
-//#####################
+//###########################
 
 /*
  Obsługa wyjścia klawiatury na przycisku.

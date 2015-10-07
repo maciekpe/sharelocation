@@ -288,7 +288,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SL;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = outbox;
 				TargetAttributes = {
 					3AD3F78118E624BF000691D0 = {
@@ -436,6 +436,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: maciej.peruga@gmail.com (H39VY299VJ)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -545,6 +546,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Share LocationTests/Share LocationTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.mpe.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -563,6 +565,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Share Location/Share Location-Prefix.pch";
 				INFOPLIST_FILE = "Share LocationTests/Share LocationTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.mpe.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
