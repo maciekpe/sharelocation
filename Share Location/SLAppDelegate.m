@@ -84,7 +84,7 @@ extern NSString* CTSettingCopyMyPhoneNumber();
             [SLData setImage: [ContactsService getMateImage:filteredContacts]];
             NSLog(@"Setting end");
     }else{
-            NSLog(@"no contacts");
+            NSLog(@"no contactss");
     }
     
 
