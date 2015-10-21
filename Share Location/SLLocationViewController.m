@@ -7,6 +7,7 @@
 #import "SLData.h"
 #import <CoreLocation/CoreLocation.h>
 #import <AudioToolbox/AudioToolbox.h>
+@import Contacts;
 
 @interface SLLocationViewController ()<UIApplicationDelegate, UIAlertViewDelegate, CLLocationManagerDelegate,MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *composit;
@@ -42,6 +43,7 @@ NSDate *lastSound;
 
     [self initLocationManager];
     [self initMedia];
+    [self initContacts];
     NSLog(@"end viewDidLoad");
 }
 
@@ -57,6 +59,17 @@ NSDate *lastSound;
         NSLog(@"end initLocationManager started");
     }else{
         NSLog(@"end initLocationManager skip ");
+    }
+}
+
+- (void) initContacts {
+    //dobrobic obsluge zmiany statusu
+    NSLog(@"enter initContacts start");
+    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+    NSLog(@"status initContacts %ld", (long) status);
+    if (status == CNAuthorizationStatusDenied || status == CNAuthorizationStatusDenied) {
+        UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:@"This app previously was refused permissions to contacts; Please go to settings and grant permission to this app so it can add the desired contact." withTitle:@"Information" withConfirmBtnTitle:@"OK"];
+        [self presentViewController:alert animated:TRUE completion:nil];
     }
 }
 

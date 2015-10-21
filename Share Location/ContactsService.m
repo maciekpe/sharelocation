@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "ContactsService.h"
 #import <AddressBook/AddressBook.h>
+#import <Contacts/Contacts.h>
 @implementation ContactsService
 
 + (instancetype) getInstance {
@@ -10,7 +11,31 @@
         service = [[self alloc] init];
     });
     return service;
+}
+
+
++ (NSString *) getMateNameStringNEW:(NSArray<CNContact*> *)filteredContacts{
+    NSString * result = nil;
+    if(filteredContacts != nil && filteredContacts.count > 0){
+        CNContact* contact = [filteredContacts objectAtIndex:0];
+        
+        NSString *firstName = contact.givenName;
+        NSString *lastName = contact.familyName;
+        result = nil;
+        if(firstName !=nil){
+            result = [@"" stringByAppendingString:firstName];
+        }
+        if(lastName != nil){
+            if(result == nil){
+                result = [@"" stringByAppendingString:lastName];
+            }else{
+                result = [result stringByAppendingString:@" "];
+                result = [result stringByAppendingString:lastName];
+            }
+        }
     }
+    return result;
+}
 
 + (NSString *) getMateNameString:(NSArray *)filteredContacts{
     NSString * result = nil;
@@ -99,6 +124,33 @@
     return filteredContacts;
 }
 
++  (NSArray<CNContact*> *) contactsContainingEmailNEW:(NSString *)email {
+    if(email == nil){
+        return nil;
+    }
+    email = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSMutableArray<CNContact*>* result  = [[NSMutableArray alloc] init];
+    CNContactStore* addressBook = [[CNContactStore alloc]init];
+    NSError* contactError;
+    [addressBook containersMatchingPredicate:[CNContainer predicateForContainersWithIdentifiers: @[addressBook.defaultContainerIdentifier]] error:&contactError];
+    NSArray * keysToFetch =@[CNContactEmailAddressesKey, CNContactPhoneNumbersKey, CNContactFamilyNameKey, CNContactGivenNameKey];
+    CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:keysToFetch];
+    [addressBook enumerateContactsWithFetchRequest:request error:&contactError usingBlock:^(CNContact * __nonnull contact, BOOL * __nonnull stop){
+        NSArray * addresses = (NSArray*)[contact.emailAddresses valueForKey:@"value"];
+        if (addresses.count > 0) {
+            for (NSString* address in addresses) {
+                NSLog(@"address: %@", address);
+                NSString* addressEmail = [address stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                if ([addressEmail rangeOfString:email].location != NSNotFound) {
+                    [result addObject: contact];
+                }
+            }
+        }
+    }];
+    NSLog(@"contactsContainingEmailNEW search result size: %lu", (unsigned long)[result count]);
+    return result;
+}
+
 
 + (NSArray *)contactsContainingPhoneNumber:(NSString *)phoneNumber {
     if(phoneNumber == nil){
@@ -145,6 +197,38 @@
     CFRelease(addressBook);
     
     return filteredContacts;
+}
+
++  (NSArray<CNContact*> *) contactsContainingPhoneNumberNEW:(NSString *)phoneNumber {
+    if(phoneNumber == nil){
+        return nil;
+    }
+    // Remove non numeric characters from the phone number
+    phoneNumber = [[phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
+    phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    NSMutableArray<CNContact*>* result  = [[NSMutableArray alloc] init];
+    CNContactStore* addressBook = [[CNContactStore alloc]init];
+    NSError* contactError;
+    [addressBook containersMatchingPredicate:[CNContainer predicateForContainersWithIdentifiers: @[addressBook.defaultContainerIdentifier]] error:&contactError];
+    NSArray * keysToFetch =@[CNContactEmailAddressesKey, CNContactPhoneNumbersKey, CNContactFamilyNameKey, CNContactGivenNameKey];
+    CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:keysToFetch];
+    [addressBook enumerateContactsWithFetchRequest:request error:&contactError usingBlock:^(CNContact * __nonnull contact, BOOL * __nonnull stop){
+        NSArray * phoneNumbers = (NSArray*)[contact.phoneNumbers valueForKey:@"value"];
+        if (phoneNumbers.count > 0) {
+            for (CNPhoneNumber* cnPhoneNumber in phoneNumbers) {
+                NSString *contactPhoneNumber = [[cnPhoneNumber stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                contactPhoneNumber = [[contactPhoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
+                NSLog(@"contactPhoneNumber: %@", contactPhoneNumber);
+                if ([contactPhoneNumber rangeOfString:phoneNumber].location != NSNotFound) {
+                    [result addObject: contact];
+                    break;
+                }
+            }
+        }
+    }];
+    NSLog(@"contactsContainingPhoneNumberNEW search result size: %lu", (unsigned long)[result count]);
+    return result;
 }
 
 @end

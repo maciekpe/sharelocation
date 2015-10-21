@@ -96,7 +96,7 @@
  Otwiera alert o braki preferencji.
  */
 -(void)showPrefsAlert{
-    UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:@"According to security issues please provide manualy your's identification data . Please press \"Pref\" button." withTitle:@"Information" withConfirmBtnTitle:@"Contiune"];
+    UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:@"Due to security issues please provide manualy your's identification data . Please press \"Pref\" button." withTitle:@"Information" withConfirmBtnTitle:@"Contiune"];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
