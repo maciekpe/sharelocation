@@ -118,8 +118,8 @@ extern NSString* CTSettingCopyMyPhoneNumber();
     // Override point for customization after application launch.
     NSLog(@"application start");
     sleep(2);
-    [ContactsService contactsContainingEmailNEW:@"kate-bell@mac.com"];
-    [ContactsService contactsContainingPhoneNumberNEW:@"5555648583"];
+    [ContactsService contactsContainingEmail:@"kate-bell@mac.com"];
+    [ContactsService contactsContainingPhoneNumber:@"5555648583"];
     //for debug 37.33170303 longitude=-122.03024001
     //37.7873589 longitude=-122.408227
     

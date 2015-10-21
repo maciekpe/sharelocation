@@ -3,11 +3,8 @@
 
 @interface ContactsService : NSObject
 + (ContactsService*) getInstance;
-+ (NSString *) getMateNameString:(NSArray *)filteredContacts;
++ (NSString *) getMateNameString:(NSArray<CNContact*> *)filteredContacts;
 + (NSArray *) contactsContainingEmail:(NSString *)email;
 + (NSArray *) contactsContainingPhoneNumber:(NSString *)phoneNumber;
-+ (UIImage *) getMateImage:(NSArray *)filteredContacts;
-
-+  (NSArray<CNContact*> *) contactsContainingEmailNEW:(NSString *)email;
-+  (NSArray<CNContact*> *) contactsContainingPhoneNumberNEW:(NSString *)phoneNumber;
++ (UIImage *) getMateImage:(NSArray<CNContact*> *)filteredContacts;
 @end
