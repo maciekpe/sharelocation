@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Share Location.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FD8F60721BD8CEE7000966B3"
+               BuildableName = "Share LocationUITests.xctest"
+               BlueprintName = "Share LocationUITests"
+               ReferencedContainer = "container:Share Location.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -35,16 +49,6 @@
                BlueprintIdentifier = "3AD3F7A218E624BF000691D0"
                BuildableName = "Share LocationTests.xctest"
                BlueprintName = "Share LocationTests"
-               ReferencedContainer = "container:Share Location.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FD8F60721BD8CEE7000966B3"
-               BuildableName = "Share LocationUITests.xctest"
-               BlueprintName = "Share LocationUITests"
                ReferencedContainer = "container:Share Location.xcodeproj">
             </BuildableReference>
          </TestableReference>

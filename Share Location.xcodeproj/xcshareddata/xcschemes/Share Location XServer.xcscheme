@@ -52,6 +52,16 @@
                ReferencedContainer = "container:Share Location.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FD8F60721BD8CEE7000966B3"
+               BuildableName = "Share LocationUITests.xctest"
+               BlueprintName = "Share LocationUITests"
+               ReferencedContainer = "container:Share Location.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
