@@ -149,13 +149,13 @@
 }
 
 - (void)processPersonData:(CNContact *)contact {
-    NSString* phoneNumer = @"";
+    NSString* phoneNumer = EMPTY_STR;
     if ([contact.phoneNumbers count]  > 0) {
         CNPhoneNumber* cnPhoneNumber= [contact.phoneNumbers objectAtIndex:0].value;
         phoneNumer = cnPhoneNumber.stringValue;
         NSLog(@" numer %@", phoneNumer);
     }
-    NSString* email = @"";
+    NSString* email = EMPTY_STR;
     if ([contact.phoneNumbers count]  > 0) {
         email= [contact.emailAddresses objectAtIndex:0].value;
         NSLog(@" email %@", email);
@@ -171,15 +171,15 @@
         NSString *aUid = nil;
         if(email != nil){
             email = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            if (![email isEqualToString:@""]){
-                aUid = [@"" stringByAppendingString:email];
+            if (![email isEqualToString:EMPTY_STR]){
+                aUid = [EMPTY_STR stringByAppendingString:email];
             }
         }
         if(phoneNumer != nil){
-            phoneNumer = [[phoneNumer componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
+            phoneNumer = [[phoneNumer componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:EMPTY_STR];
             phoneNumer = [phoneNumer stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            if (aUid != nil && ![phoneNumer isEqualToString:@""]){
-                aUid = [aUid stringByAppendingString:@","];
+            if (aUid != nil && ![phoneNumer isEqualToString:EMPTY_STR]){
+                aUid = [aUid stringByAppendingString:SEMICOLON_SEPARATOR];
                 aUid = [aUid stringByAppendingString:phoneNumer];
                 
             }else{
@@ -253,7 +253,7 @@
 - (void)processViewData{
     [_userDataField resignFirstResponder];
     [_messageDataField2 resignFirstResponder];
-    _userDataField.text = @"";
+    _userDataField.text = EMPTY_STR;
     BOOL isEmail = [_switchItem isOn];
     if(isEmail){
         _userDataLabel.text = LABEL_ADDRESS;
@@ -297,7 +297,7 @@
     }
     MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
     mailComposer.mailComposeDelegate = self;
-    [mailComposer setSubject:@"Loaction"];
+    [mailComposer setSubject:LABEL_LOCATION];
     [mailComposer setMessageBody: [self composeHtmlStringMessage] isHTML:YES];
     [mailComposer setToRecipients:@[_userDataField.text]];
     [self presentViewController:mailComposer animated:YES completion:nil];
@@ -312,7 +312,7 @@
     NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
     NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
     mapQuery = [mapQuery stringByAppendingString: [latitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: @","];
+    mapQuery = [mapQuery stringByAppendingString: SEMICOLON_SEPARATOR];
     mapQuery = [mapQuery stringByAppendingString: [longtitude stringValue] ];
     mapQuery = [mapQuery stringByAppendingString: @"\">location link</a></em>"];
     messageBody = [messageBody stringByAppendingString: mapQuery];
@@ -339,7 +339,7 @@
     NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
     NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
     mapQuery = [mapQuery stringByAppendingString: [latitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: @","];
+    mapQuery = [mapQuery stringByAppendingString: SEMICOLON_SEPARATOR];
     mapQuery = [mapQuery stringByAppendingString: [longtitude stringValue] ];
     mapQuery = [mapQuery stringByAppendingString: @"\">location link</a></em><br/>"];
     mapQuery = [mapQuery stringByAppendingString: @"<a href=\""];
@@ -358,7 +358,7 @@
     NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
     NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
     mapQuery = [mapQuery stringByAppendingString: [latitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: @","];
+    mapQuery = [mapQuery stringByAppendingString: SEMICOLON_SEPARATOR];
     mapQuery = [mapQuery stringByAppendingString: [longtitude stringValue] ];
     mapQuery = [mapQuery stringByAppendingString: @"\n correlation link " ];
     mapQuery = [mapQuery stringByAppendingString: [self composeiOSShareLocation] ];
@@ -378,7 +378,7 @@
         NSString* userIdentification = [userIdentificationString stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceCharacterSet]];
         if(userIdentification != nil ){
-            NSArray* queryElements = [userIdentification componentsSeparatedByString: @","];
+            NSArray* queryElements = [userIdentification componentsSeparatedByString: SEMICOLON_SEPARATOR];
             if(queryElements.count == 2){
                 url = [url stringByAppendingString: @"&tokens=" ];
                 NSString* tokenString = [queryElements objectAtIndex: 0];

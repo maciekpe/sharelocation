@@ -25,4 +25,6 @@ extern NSString * const LABEL_PH_PHONE_NUMBER;
 extern NSString * const LABEL_SMS_NOT_SUPPROTED;
 extern NSString * const LABEL_EMAIL_NOT_SUPPROTED;
 extern NSString * const LABEL_LOCATION;
+extern NSString * const EMPTY_STR;
+extern NSString * const SEMICOLON_SEPARATOR;
 #endif /* Consts_h */

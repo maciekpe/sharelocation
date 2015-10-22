@@ -24,4 +24,6 @@ NSString * const LABEL_PH_PHONE_NUMBER = @"phone number here";
 NSString * const LABEL_SMS_NOT_SUPPROTED = @"Your device doesn't support SMS!";
 NSString * const LABEL_EMAIL_NOT_SUPPROTED = @"Your device doesn't support E-mail!";
 NSString * const LABEL_LOCATION = @"Loaction";
+NSString * const EMPTY_STR = @"";
+NSString * const SEMICOLON_SEPARATOR = @",";
 
