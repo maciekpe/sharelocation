@@ -1,4 +1,5 @@
 #import "SLPinAnnotationView.h"
+#import "Consts.h"
 
 @implementation SLPinAnnotationView
 
@@ -27,7 +28,7 @@
 
 -(void) drawRect:(CGRect)rect
 {
-    UIImage *image = [UIImage imageNamed:@"multimedia/pics/person.png"];
+    UIImage *image = [UIImage imageNamed:PIC_PERSON_PATH];
     [image drawInRect:CGRectMake(0, 0, 35, 35)];
 }
 

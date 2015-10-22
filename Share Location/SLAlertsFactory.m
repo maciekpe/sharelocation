@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "SLAlertsFactory.h"
+#import "Consts.h"
 @implementation SLAlertsFactory
 
 + (instancetype) getInstance {
@@ -13,10 +14,10 @@
 
 +(UIAlertController *) createErrorAlert:(NSString *) message{
     UIAlertController *alert= [UIAlertController
-                               alertControllerWithTitle:@"Error"
+                               alertControllerWithTitle:LABEL_ERROR
                                message:message
                                preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:LABEL_OK style:UIAlertActionStyleDefault
                                                handler:nil];
     [alert addAction:ok];
     return alert;
@@ -35,10 +36,10 @@
 
 +(UIAlertController *) createExitAlert {
     UIAlertController *alert= [UIAlertController
-                               alertControllerWithTitle:@"Confirmation"
-                               message:@"Do you want to exit?"
+                               alertControllerWithTitle:LABEL_CONFIRMATION
+                               message:LABEL_EXIT_QUESTION
                                preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK"
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:LABEL_OK
                          style:UIAlertActionStyleDefault
                          handler:^(UIAlertAction * action)
                          {
@@ -49,7 +50,7 @@
                             exit(0);
                          }];
     UIAlertAction* cancel = [UIAlertAction
-                             actionWithTitle:@"Cancel"
+                             actionWithTitle:LABEL_CANCEL
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {

@@ -6,6 +6,7 @@
 #import "SLData.h"
 #import "SLAlertsFactory.h"
 #import <ContactsUI/ContactsUI.h>
+#import "Consts.h"
 
 @interface SLShareLocationViewController ()<MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate, CNContactPickerDelegate ,UIAlertViewDelegate, UITextFieldDelegate>
 
@@ -43,10 +44,10 @@
     _messageDataField2.attributedText = [self composeHtmlAttributedMessage];
     _messageDataField2.layer.cornerRadius=5.0f;
     if(_mainView != nil){
-        _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"multimedia/pics/see_ipad.png"]];
+        _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPAD_PATH]];
     }
     if(_scrollView != nil){
-        _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: @"multimedia/pics/see_iphone.png"]];
+        _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPHONE_PATH]];
     }
     
     if([self getUserIdentification] == nil){
@@ -62,15 +63,15 @@
 }
 
 -(void) showPrefs{
-    UIAlertController* alert=[SLAlertsFactory createEmptyAlert:@"According to security issues please provide manualy your's identification data 'email,phone number' or 'email' or 'phone number'" withTitle:@"Identification"];
-    UIAlertAction* save = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault
+    UIAlertController* alert=[SLAlertsFactory createEmptyAlert:LABEL_ADD_USER_DATA_INFO withTitle:LABEL_IDENTIFICATION];
+    UIAlertAction* save = [UIAlertAction actionWithTitle:LABEL_SAVE style:UIAlertActionStyleDefault
                                                handler:^(UIAlertAction * action) {
                                                    UITextField *textField = alert.textFields[0];
-                                                   [[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:@"SL_UID"];
+                                                   [[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:SL_UID];
                                                    [[NSUserDefaults standardUserDefaults] synchronize];
                                                    [alert dismissViewControllerAnimated:YES completion:nil];
                                                }];
-    UIAlertAction* addressBook = [UIAlertAction actionWithTitle:@"Address book" style:UIAlertActionStyleDefault
+    UIAlertAction* addressBook = [UIAlertAction actionWithTitle:LABEL_ADDRESS_BOOK style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action) {
                                                        [alert dismissViewControllerAnimated:YES completion:nil];
                                                        [self processAddressBookOpenAction:NO];
@@ -88,7 +89,7 @@
  */
 -(NSString *) getUserIdentification{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userIdentification = [defaults stringForKey:@"SL_UID"];
+    NSString *userIdentification = [defaults stringForKey:SL_UID];
     return userIdentification;
 }
 
@@ -96,7 +97,7 @@
  Otwiera alert o braki preferencji.
  */
 -(void)showPrefsAlert{
-    UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:@"Due to security issues please provide manualy your's identification data . Please press \"Pref\" button." withTitle:@"Information" withConfirmBtnTitle:@"Contiune"];
+    UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:LABEL_ADD_USER_DATA_INFO_2 withTitle:LABEL_INFORMATION withConfirmBtnTitle:LABEL_CONTINUE];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -186,7 +187,7 @@
             }
         }
         
-        [[NSUserDefaults standardUserDefaults] setObject:aUid forKey:@"SL_UID"];
+        [[NSUserDefaults standardUserDefaults] setObject:aUid forKey:SL_UID];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self showPrefs];
     }
@@ -255,13 +256,13 @@
     _userDataField.text = @"";
     BOOL isEmail = [_switchItem isOn];
     if(isEmail){
-        _userDataLabel.text = @"Email address:";
-        _userDataField.placeholder = @"address here";
+        _userDataLabel.text = LABEL_ADDRESS;
+        _userDataField.placeholder = LABEL_PH_ADDRESS;
         [_userDataField setKeyboardType:UIKeyboardTypeEmailAddress];
         NSLog(@"Email");
     }else{
-        _userDataLabel.text = @"Phone numer:";
-        _userDataField.placeholder = @"phone number here";
+        _userDataLabel.text = LABEL_PHONE_NUMBER;
+        _userDataField.placeholder = LABEL_PH_PHONE_NUMBER;
         [_userDataField setKeyboardType:UIKeyboardTypePhonePad];
         NSLog(@"Phone");
     }
@@ -274,7 +275,7 @@
     
     if(![MFMessageComposeViewController canSendText]) {
         
-        UIAlertController *alert = [SLAlertsFactory createErrorAlert:@"Your device doesn't support SMS!"];
+        UIAlertController *alert = [SLAlertsFactory createErrorAlert:LABEL_SMS_NOT_SUPPROTED];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
@@ -290,7 +291,7 @@
  */
 - (void)sendViaEmail{
     if(![MFMailComposeViewController canSendMail]) {
-        UIAlertController *alert = [SLAlertsFactory createErrorAlert:@"Your device doesn't support E-mail!"];
+        UIAlertController *alert = [SLAlertsFactory createErrorAlert:LABEL_EMAIL_NOT_SUPPROTED];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }

@@ -12,6 +12,7 @@
 		3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A560D571BC1D5D900E8B578 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 		3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */; };
 		3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A68EC071BC5C1E0001A5F31 /* ContactsService.m */; settings = {ASSET_TAGS = (); }; };
+		3A92AD291BD94A7B008165D0 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; settings = {ASSET_TAGS = (); }; };
 		3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */; };
 		3AA30A8618E755EC00FAD973 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8518E755EC00FAD973 /* MessageUI.framework */; };
 		3AA30A8818E755FC00FAD973 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8718E755FC00FAD973 /* CoreLocation.framework */; };
@@ -62,6 +63,8 @@
 		3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPinAnnotationView.m; sourceTree = "<group>"; };
 		3A68EC071BC5C1E0001A5F31 /* ContactsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsService.m; sourceTree = "<group>"; };
 		3A68EC091BC5C204001A5F31 /* ContactsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactsService.h; sourceTree = "<group>"; };
+		3A92AD271BD94A59008165D0 /* Consts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
+		3A92AD281BD94A7B008165D0 /* Consts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Consts.m; sourceTree = "<group>"; };
 		3AA30A8218E7525F00FAD973 /* SLShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLShareLocationViewController.h; sourceTree = "<group>"; };
 		3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLShareLocationViewController.m; sourceTree = "<group>"; };
 		3AA30A8518E755EC00FAD973 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -141,6 +144,8 @@
 				FD213BA81BC4070900D58369 /* views */,
 				3AD3F79418E624BF000691D0 /* SLAppDelegate.h */,
 				3AD3F79518E624BF000691D0 /* SLAppDelegate.m */,
+				3A92AD281BD94A7B008165D0 /* Consts.m */,
+				3A92AD271BD94A59008165D0 /* Consts.h */,
 				3A04AB531BC3311D0012ACB9 /* model */,
 				3A04AB521BC330E40012ACB9 /* controllers */,
 			);
@@ -431,6 +436,7 @@
 				3AD3F79218E624BF000691D0 /* main.m in Sources */,
 				3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */,
 				3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */,
+				3A92AD291BD94A7B008165D0 /* Consts.m in Sources */,
 				FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */,
 				3AD3F79618E624BF000691D0 /* SLAppDelegate.m in Sources */,
 			);
@@ -731,6 +737,7 @@
 				FD8F607B1BD8CEE7000966B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
