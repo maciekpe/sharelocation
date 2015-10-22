@@ -36,6 +36,9 @@
     // Use recording to get started writing UI tests.
     
     XCUIApplication *app = [[XCUIApplication alloc] init];
+    NSLog(@"XXX log: '%@'", app.navigationBars.element.identifier );
+    XCTAssertEqualObjects(app.navigationBars.element.identifier, @"Location");
+    //XCTAssertEqual([app title], @"Location", @"Location not found");
     [app.toolbars.buttons[@"Stop"] tap];
     [app.alerts[@"Confirmation"].collectionViews.buttons[@"OK"] tap];
     // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -43,11 +46,12 @@
 
 - (void)testExitChancel {
     // Use recording to get started writing UI tests.
-    
     XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCTAssertEqualObjects(app.navigationBars.element.identifier, @"Location");
     [app.toolbars.buttons[@"Stop"] tap];
+    XCTAssertEqual(app.alerts[@"Confirmation"].exists, TRUE, @"found Confirmation alert");
     [app.alerts[@"Confirmation"].collectionViews.buttons[@"Cancel"] tap];
-
+    XCTAssertTrue([app exists], @"App do not exit");
 
 }
 

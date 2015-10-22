@@ -9,7 +9,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 @import Contacts;
 
-@interface SLLocationViewController ()<UIApplicationDelegate, UIAlertViewDelegate, CLLocationManagerDelegate,MKMapViewDelegate>
+@interface SLLocationViewController ()<UIApplicationDelegate, UIAlertViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *composit;
 @property (weak, nonatomic) IBOutlet MKMapView *viewMap;
 @end
