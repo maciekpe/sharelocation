@@ -36,7 +36,7 @@
 - (void)testLocationWindowExitAlterWithActionOk {
     // Use recording to get started writing UI tests.
     XCUIApplication *app = [[XCUIApplication alloc] init];
-    [self goFromLocationWindowToExitAlert: app];
+    [self goFromLocationWindowToExitAlert:app];
     [app.alerts[LABEL_CONFIRMATION].collectionViews.buttons[LABEL_OK] tap];
     // Use XCTAssert and related functions to verify your tests produce the correct results.
 }
