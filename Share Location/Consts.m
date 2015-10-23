@@ -30,4 +30,5 @@ NSString * const LABEL_LOCATION = @"Location";
 NSString * const EMPTY_STR = @"";
 NSString * const SEMICOLON_SEPARATOR = @",";
 NSString * const LABEL_COMPOSE = @"Compose";
+NSString * const LABEL_PREF = @"Pref";
 

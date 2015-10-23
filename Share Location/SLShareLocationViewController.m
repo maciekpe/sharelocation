@@ -50,10 +50,17 @@
         _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPHONE_PATH]];
     }
     
-    if([self getUserIdentification] == nil){
+    if([self isUserIdentificationEmpty]){
         [self showPrefsAlert];
     }
 }
+
+- (BOOL) isUserIdentificationEmpty {
+    NSString *userUdentification = [self getUserIdentification];
+    userUdentification = [userUdentification stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+    return [userUdentification length] == 0;
+}
+
 
 /*
  Obsluga przycisku preferencji
@@ -79,7 +86,8 @@
     [alert addAction:save];
     [alert addAction:addressBook];
     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = [self getUserIdentification];
+        textField.text = [self getUserIdentification];
+        textField.placeholder = @"identification";
     }];
     [self presentViewController:alert animated:YES completion:nil];
 }
@@ -373,8 +381,8 @@
     url = [url stringByAppendingString: [latitude stringValue] ];
     url = [url stringByAppendingString: @"&longitude=" ];
     url = [url stringByAppendingString: [longtitude stringValue] ];
-    NSString* userIdentificationString = [self getUserIdentification];
-    if(userIdentificationString != nil){
+    if(![self isUserIdentificationEmpty]){
+        NSString* userIdentificationString = [self getUserIdentification];
         NSString* userIdentification = [userIdentificationString stringByTrimmingCharactersInSet:
                                         [NSCharacterSet whitespaceCharacterSet]];
         if(userIdentification != nil ){

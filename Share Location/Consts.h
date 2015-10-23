@@ -31,4 +31,5 @@ extern NSString * const EMPTY_STR;
 extern NSString * const SEMICOLON_SEPARATOR;
 extern NSString * const LABEL_COMPOSE;
 extern NSString * const LABEL_MESSAGE;
+extern NSString * const LABEL_PREF;
 #endif /* Consts_h */
