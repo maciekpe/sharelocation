@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Consts.h"
 
 @interface Share_LocationUITests : XCTestCase
 
@@ -32,27 +33,40 @@
     [super tearDown];
 }
 
-- (void)testExitOk {
+- (void)testLocationWindowExitAlterWithActionOk {
     // Use recording to get started writing UI tests.
-    
     XCUIApplication *app = [[XCUIApplication alloc] init];
-    NSLog(@"XXX log: '%@'", app.navigationBars.element.identifier );
-    XCTAssertEqualObjects(app.navigationBars.element.identifier, @"Location");
-    //XCTAssertEqual([app title], @"Location", @"Location not found");
-    [app.toolbars.buttons[@"Stop"] tap];
-    [app.alerts[@"Confirmation"].collectionViews.buttons[@"OK"] tap];
+    [self goFromLocationWindowToExitAlert: app];
+    [app.alerts[LABEL_CONFIRMATION].collectionViews.buttons[LABEL_OK] tap];
     // Use XCTAssert and related functions to verify your tests produce the correct results.
 }
 
-- (void)testExitChancel {
+- (void)testLocationWindowExitAlterWithActionChancel {
     // Use recording to get started writing UI tests.
     XCUIApplication *app = [[XCUIApplication alloc] init];
-    XCTAssertEqualObjects(app.navigationBars.element.identifier, @"Location");
-    [app.toolbars.buttons[@"Stop"] tap];
-    XCTAssertEqual(app.alerts[@"Confirmation"].exists, TRUE, @"found Confirmation alert");
-    [app.alerts[@"Confirmation"].collectionViews.buttons[@"Cancel"] tap];
-    XCTAssertTrue([app exists], @"App do not exit");
+    [self goFromLocationWindowToExitAlert: app];
+    [app.alerts[LABEL_CONFIRMATION].collectionViews.buttons[LABEL_CANCEL] tap];
+    XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_LOCATION);
+}
 
+- (void)testShareLocationWindow {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [self goFromLocationWindowToMessageWindow: app];
+}
+
+- (void)goFromLocationWindowToExitAlert:(XCUIApplication *) app {
+    XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_LOCATION);
+    [app.toolbars.buttons[LABEL_STOP] tap];
+    XCTAssertEqual(app.alerts[LABEL_CONFIRMATION].exists, TRUE, @"Confirmation alert not found");
+}
+
+- (void)goFromLocationWindowToMessageWindow:(XCUIApplication *) app {
+    XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_LOCATION);
+    [app.toolbars.buttons[LABEL_COMPOSE] tap];
+    if(app.alerts[LABEL_INFORMATION].exists){
+        [app.alerts[LABEL_INFORMATION].collectionViews.buttons[LABEL_CONTINUE] tap];
+    }
+    XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_MESSAGE, @"Message window not found");
 }
 
 @end

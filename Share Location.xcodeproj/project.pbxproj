@@ -3,16 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A04AB4F1BC328280012ACB9 /* multimedia in Resources */ = {isa = PBXBuildFile; fileRef = 3A04AB4E1BC328280012ACB9 /* multimedia */; settings = {ASSET_TAGS = (); }; };
+		3A04AB4F1BC328280012ACB9 /* multimedia in Resources */ = {isa = PBXBuildFile; fileRef = 3A04AB4E1BC328280012ACB9 /* multimedia */; };
 		3A08001A193C712D0035E148 /* Main_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A080018193C712D0035E148 /* Main_ipad.storyboard */; };
-		3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A560D571BC1D5D900E8B578 /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
+		3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A560D571BC1D5D900E8B578 /* Media.xcassets */; };
 		3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */; };
-		3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A68EC071BC5C1E0001A5F31 /* ContactsService.m */; settings = {ASSET_TAGS = (); }; };
-		3A92AD291BD94A7B008165D0 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; settings = {ASSET_TAGS = (); }; };
+		3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A68EC071BC5C1E0001A5F31 /* ContactsService.m */; };
+		3A92AD291BD94A7B008165D0 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; };
 		3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */; };
 		3AA30A8618E755EC00FAD973 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8518E755EC00FAD973 /* MessageUI.framework */; };
 		3AA30A8818E755FC00FAD973 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8718E755FC00FAD973 /* CoreLocation.framework */; };
@@ -34,8 +34,9 @@
 		3AD3F7BE18E64013000691D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F7BD18E64013000691D0 /* MapKit.framework */; };
 		3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */; };
 		3AE550EB193DF88900837DBC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE550EA193DF88900837DBC /* AudioToolbox.framework */; };
-		FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */; settings = {ASSET_TAGS = (); }; };
+		FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */; };
 		FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */; };
+		FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		FD8F60731BD8CEE7000966B3 /* Share LocationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Share LocationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Share_LocationUITests.m; sourceTree = "<group>"; };
 		FD8F60771BD8CEE7000966B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDF361761BDA4F94003B5A94 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +288,7 @@
 			children = (
 				FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */,
 				FD8F60771BD8CEE7000966B3 /* Info.plist */,
+				FDF361761BDA4F94003B5A94 /* PrefixHeader.pch */,
 			);
 			path = "Share LocationUITests";
 			sourceTree = "<group>";
@@ -354,7 +357,7 @@
 			attributes = {
 				CLASSPREFIX = SL;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = outbox;
+				ORGANIZATIONNAME = MPE;
 				TargetAttributes = {
 					3AD3F78118E624BF000691D0 = {
 						DevelopmentTeam = 5SL4ZE7KUS;
@@ -375,7 +378,7 @@
 				};
 			};
 			buildConfigurationList = 3AD3F77D18E624BF000691D0 /* Build configuration list for PBXProject "Share Location" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -455,6 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */,
+				FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
