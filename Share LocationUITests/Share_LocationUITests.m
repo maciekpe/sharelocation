@@ -26,7 +26,7 @@
     [[[XCUIApplication alloc] init] launch];
     
     // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    //DEBUGER po cel.value ; p print(cell.debugDescription)
+    //DEBUG po cel.value ; p print(cell.debugDescription)
 }
 
 - (void)tearDown {
@@ -118,6 +118,20 @@
     XCTAssertEqual(element.exists, TRUE, @"messageTextArea not found");
     XCTAssertEqualObjects(element.value, value);
     
+}
+
+- (void)testStory8_ShareLocationWindowShouldPresentLocationMessage {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIElement *element = app.staticTexts[@"Your's current location"];
+    sleep(5);
+    XCTAssertEqual(element.exists, TRUE, @"message not found");
+}
+
+- (void)testStory9_ShareLocationWindowShouldPresentLocationPoint {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIElement *element = app.otherElements[@"PopoverDismissRegion"];
+    sleep(5);
+    XCTAssertEqual(element.exists, TRUE, @"point not found");
 }
 
 - (void)atShareLocationWindowClearIdentification:(XCUIApplication *) app {
