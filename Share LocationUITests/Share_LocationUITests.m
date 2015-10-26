@@ -33,13 +33,6 @@
     [super tearDown];
 }
 
-/*
- 
- 
- [app.alerts[@"Allow \U201cShare Location\U201d to access your location even when you are not using the app?"].collectionViews.buttons[@"Allow"] tap];
- [app.toolbars.buttons[@"Compose"] tap];
- */
-
 - (void)testStory1_LocationWindowExitAlterWithActionOk {
     // Use recording to get started writing UI tests.
     XCUIApplication *app = [[XCUIApplication alloc] init];
@@ -56,7 +49,7 @@
     XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_LOCATION);
 }
 
-- (void)testStory3_ShareLocationWindowActionsOnSwitchShouldGenerateUserDataChenges {
+- (void)testStory3_ShareLocationWindowActionsOnSwitchShouldGenerateUserDataChanges {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     [self goFromLocationWindowToMessageWindow: app];
     
@@ -79,7 +72,7 @@
     XCTAssertEqual(elementsQuery.textFields[LABEL_PH_ADDRESS].exists, TRUE, @"Address placeholder not found");
 }
 
-- (void)testStory4_ShareLocationWindowPrefsAlertShouldAppearOptinally {
+- (void)testStory4_ShareLocationWindowPrefsAlertShouldAppearOptionally {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     //clear identification
     [self goFromLocationWindowToMessageWindow: app];
@@ -91,6 +84,40 @@
     [self atShareLocationWindowAtAlertPrefsSetIdentification: app withValue:@"any"];
     [self goFromShareLocationWindowToLocationWindow: app];
     [self goFromLocationWindowToMessageWindow: app withRequiredPrefs: FALSE];
+}
+
+- (void)testStory5_ShareLocationWindowShouldAllowChooseEmailContactFromAdressBook {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [self goFromLocationWindowToMessageWindow: app withRequiredPrefs: FALSE];
+    XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
+    [elementsQuery.buttons[@"addressBookBtn"] tap];
+    [app.tables.staticTexts[@"John Appleseed"] tap];
+    XCTAssertEqual(elementsQuery.textFields[@"John-Appleseed@mac.com" ].exists, TRUE, @"John-Appleseed@mac.com not found");
+}
+
+- (void)testStory5_ShareLocationWindowShouldAllowChoosePhoneNumberContactFromAdressBook {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [self goFromLocationWindowToMessageWindow: app withRequiredPrefs: FALSE];
+    XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
+    XCUIElement *modeSwitch = elementsQuery.switches[@"modeSwitch"];
+    [modeSwitch tap];
+    [elementsQuery.buttons[@"addressBookBtn"] tap];
+    [app.tables.staticTexts[@"John Appleseed"] tap];
+    XCTAssertEqual(elementsQuery.textFields[@"888-555-5512" ].exists, TRUE, @"888-555-512 not found");
+}
+
+- (void)testStory6 {
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIElementQuery *toolbarsQuery = app.toolbars;
+    [toolbarsQuery.buttons[@"Compose"] tap];
+    
+    XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
+    [elementsQuery.textFields[@"userDataField"] tap];
+    [elementsQuery.buttons[@"addressBookBtn"] tap];
+    [app.tables.staticTexts[@"John Appleseed"] tap];
+    [toolbarsQuery.buttons[@"Send"] tap];
+    
 }
 
 - (void)atShareLocationWindowClearIdentification:(XCUIApplication *) app {
