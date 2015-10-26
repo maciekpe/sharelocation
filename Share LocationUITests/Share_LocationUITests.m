@@ -26,6 +26,7 @@
     [[[XCUIApplication alloc] init] launch];
     
     // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+    //DEBUGER po cel.value ; p print(cell.debugDescription)
 }
 
 - (void)tearDown {
@@ -56,6 +57,7 @@
     XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
     
     XCUIElement *modeSwitch = elementsQuery.switches[@"modeSwitch"];
+    XCTAssertEqualObjects(modeSwitch.value, @"1");
     XCUIElement *userdatafieldTextField = elementsQuery.textFields[@"userDataField"];
     
     XCTAssertEqual(elementsQuery.staticTexts[LABEL_ADDRESS].exists, TRUE, @"Address label not found");
@@ -63,11 +65,13 @@
     [userdatafieldTextField tap];
     [userdatafieldTextField typeText:@"test@email.com"];
     [modeSwitch tap];
+    XCTAssertEqualObjects(modeSwitch.value, @"0");
     XCTAssertEqual(elementsQuery.staticTexts[LABEL_PHONE_NUMBER].exists, TRUE, @"Phone label not found");
     XCTAssertEqual(elementsQuery.textFields[LABEL_PH_PHONE_NUMBER].exists, TRUE, @"Phone placeholder not found");
     [userdatafieldTextField tap];
     [userdatafieldTextField typeText:@"600111222"];
     [modeSwitch tap];
+    XCTAssertEqualObjects(modeSwitch.value, @"1");
     XCTAssertEqual(elementsQuery.staticTexts[LABEL_ADDRESS].exists, TRUE, @"Address label not found");
     XCTAssertEqual(elementsQuery.textFields[LABEL_PH_ADDRESS].exists, TRUE, @"Address placeholder not found");
 }
@@ -95,7 +99,7 @@
     XCTAssertEqual(elementsQuery.textFields[@"John-Appleseed@mac.com" ].exists, TRUE, @"John-Appleseed@mac.com not found");
 }
 
-- (void)testStory5_ShareLocationWindowShouldAllowChoosePhoneNumberContactFromAdressBook {
+- (void)testStory6_ShareLocationWindowShouldAllowChoosePhoneNumberContactFromAdressBook {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     [self goFromLocationWindowToMessageWindow: app withRequiredPrefs: FALSE];
     XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
@@ -106,17 +110,13 @@
     XCTAssertEqual(elementsQuery.textFields[@"888-555-5512" ].exists, TRUE, @"888-555-512 not found");
 }
 
-- (void)testStory6 {
-    
+- (void)testStory7_ShareLocationWindowShouldPresentUserMessage {
+    NSString *value = @"Hi,\nHere I am !!!\nPlease click this location link";
     XCUIApplication *app = [[XCUIApplication alloc] init];
-    XCUIElementQuery *toolbarsQuery = app.toolbars;
-    [toolbarsQuery.buttons[@"Compose"] tap];
-    
-    XCUIElementQuery *elementsQuery = app.scrollViews.otherElements;
-    [elementsQuery.textFields[@"userDataField"] tap];
-    [elementsQuery.buttons[@"addressBookBtn"] tap];
-    [app.tables.staticTexts[@"John Appleseed"] tap];
-    [toolbarsQuery.buttons[@"Send"] tap];
+    [self goFromLocationWindowToMessageWindow: app withRequiredPrefs: FALSE];
+    XCUIElement *element = app.scrollViews.otherElements.textViews[@"messageTextArea"];
+    XCTAssertEqual(element.exists, TRUE, @"messageTextArea not found");
+    XCTAssertEqualObjects(element.value, value);
     
 }
 
