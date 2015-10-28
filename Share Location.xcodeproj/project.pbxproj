@@ -34,6 +34,7 @@
 		3AD3F7BE18E64013000691D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F7BD18E64013000691D0 /* MapKit.framework */; };
 		3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */; };
 		3AE550EB193DF88900837DBC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE550EA193DF88900837DBC /* AudioToolbox.framework */; };
+		9786F516837B43BC16273124 /* libPods-Share LocationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C0EF39F189265ADF346376 /* libPods-Share LocationTests.a */; };
 		FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */; };
 		FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */; };
 		FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E6A308DBDA37BEB64191640 /* Pods-Share LocationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Share LocationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Share LocationTests/Pods-Share LocationTests.release.xcconfig"; sourceTree = "<group>"; };
 		3A04AB4E1BC328280012ACB9 /* multimedia */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multimedia; sourceTree = "<group>"; };
 		3A080019193C712D0035E148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Share Location/Base.lproj/Main_ipad.storyboard"; sourceTree = "<group>"; };
 		3A560D571BC1D5D900E8B578 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -95,6 +97,8 @@
 		3AD3F7BF18E647B9000691D0 /* SLMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLMapAnnotation.h; sourceTree = "<group>"; };
 		3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLMapAnnotation.m; sourceTree = "<group>"; };
 		3AE550EA193DF88900837DBC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		4904B422CCF0BB5AEA5F332F /* Pods-Share LocationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Share LocationTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Share LocationTests/Pods-Share LocationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F4C0EF39F189265ADF346376 /* libPods-Share LocationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Share LocationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAlertsFactory.m; sourceTree = "<group>"; };
 		FD213BAB1BC4076C00D58369 /* SLAlertsFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLAlertsFactory.h; sourceTree = "<group>"; };
 		FD8F60731BD8CEE7000966B3 /* Share LocationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Share LocationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +130,7 @@
 				3AD3F7A518E624BF000691D0 /* XCTest.framework in Frameworks */,
 				3AD3F7A718E624BF000691D0 /* UIKit.framework in Frameworks */,
 				3AD3F7A618E624BF000691D0 /* Foundation.framework in Frameworks */,
+				9786F516837B43BC16273124 /* libPods-Share LocationTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +207,7 @@
 				FD8F60741BD8CEE7000966B3 /* Share LocationUITests */,
 				3AD3F78418E624BF000691D0 /* Frameworks */,
 				3AD3F78318E624BF000691D0 /* Products */,
+				D641ACDCCD250382B8909CEB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -227,6 +233,7 @@
 				3AD3F78718E624BF000691D0 /* CoreGraphics.framework */,
 				3AD3F78918E624BF000691D0 /* UIKit.framework */,
 				3AD3F7A418E624BF000691D0 /* XCTest.framework */,
+				F4C0EF39F189265ADF346376 /* libPods-Share LocationTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,6 +281,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D641ACDCCD250382B8909CEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4904B422CCF0BB5AEA5F332F /* Pods-Share LocationTests.debug.xcconfig */,
+				0E6A308DBDA37BEB64191640 /* Pods-Share LocationTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FD213BA81BC4070900D58369 /* views */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,9 +333,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3AD3F7B718E624BF000691D0 /* Build configuration list for PBXNativeTarget "Share LocationTests" */;
 			buildPhases = (
+				E50C972369CCE8536B630CA4 /* Check Pods Manifest.lock */,
 				3AD3F79F18E624BF000691D0 /* Sources */,
 				3AD3F7A018E624BF000691D0 /* Frameworks */,
 				3AD3F7A118E624BF000691D0 /* Resources */,
+				C7EB210A3E95749033FCFA08 /* Embed Pods Frameworks */,
+				73FAF16CAD4ACC8110169B49 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -426,6 +445,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		73FAF16CAD4ACC8110169B49 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Share LocationTests/Pods-Share LocationTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7EB210A3E95749033FCFA08 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Share LocationTests/Pods-Share LocationTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E50C972369CCE8536B630CA4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3AD3F77E18E624BF000691D0 /* Sources */ = {
@@ -629,6 +696,7 @@
 		};
 		3AD3F7B818E624BF000691D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4904B422CCF0BB5AEA5F332F /* Pods-Share LocationTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Share Location.app/Share Location";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -652,6 +720,7 @@
 		};
 		3AD3F7B918E624BF000691D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E6A308DBDA37BEB64191640 /* Pods-Share LocationTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Share Location.app/Share Location";
 				FRAMEWORK_SEARCH_PATHS = (

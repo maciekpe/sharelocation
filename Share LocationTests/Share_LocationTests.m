@@ -1,4 +1,8 @@
 #import <XCTest/XCTest.h>
+#define HC_SHORTHAND
+#import <OCHamcrest/OCHamcrest.h>
+#define MOCKITO_SHORTHAND
+#import <OCMockito/OCMockito.h>
 
 @interface Share_LocationTests : XCTestCase
 
@@ -21,6 +25,15 @@
 - (void)testExample
 {
     //XCTAssertEqualObjects(@"dupa", @"/search?q=%24%26%3F%40");
+    NSMutableArray *mockArray = mock([NSMutableArray class]);
+    
+    // using mock object
+    [mockArray addObject:@"one"];
+    [mockArray removeAllObjects];
+    
+    // verification
+    [verify(mockArray) addObject:@"one"];
+    [verify(mockArray) removeAllObjects];
 }
 
 @end
