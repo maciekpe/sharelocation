@@ -67,21 +67,25 @@ extern NSString* CTSettingCopyMyPhoneNumber();
 
     NSLog(@"token1: %@", token_1_Value);
     NSLog(@"token2: %@", token_2_Value);
-    NSArray *filteredContacts = [ContactsService contactsContainingEmail:token_1_Value];
+    
+    CNContactStore *contactStore = [[CNContactStore alloc]init];
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    
+    NSArray *filteredContacts = [contactsService contactsContainingEmail:token_1_Value];
     if(filteredContacts == nil || filteredContacts.count == 0){
-        filteredContacts = [ContactsService contactsContainingPhoneNumber:token_2_Value];
+        filteredContacts = [contactsService contactsContainingPhoneNumber:token_2_Value];
         if(filteredContacts == nil || filteredContacts.count == 0){
-            filteredContacts = [ContactsService contactsContainingEmail:token_2_Value];
+            filteredContacts = [contactsService contactsContainingEmail:token_2_Value];
             if(filteredContacts == nil || filteredContacts.count == 0){
-                filteredContacts = [ContactsService contactsContainingPhoneNumber:token_1_Value];
+                filteredContacts = [contactsService contactsContainingPhoneNumber:token_1_Value];
             }
         }
     }
     
     if(filteredContacts != nil && filteredContacts.count > 0){
             NSLog(@"Setting contacts");
-            [SLData setNameString: [ContactsService getMateNameString:filteredContacts]];
-            [SLData setImage: [ContactsService getMateImage:filteredContacts]];
+            [SLData setNameString: [contactsService getMateNameString:filteredContacts]];
+            [SLData setImage: [contactsService getMateImage:filteredContacts]];
             NSLog(@"Setting end");
     }else{
             NSLog(@"no contactss");

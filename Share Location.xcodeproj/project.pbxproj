@@ -15,6 +15,7 @@
 		3A777C741BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C751BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C761BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
+		3A777C791BE2C6580078D7A3 /* ContactsServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A777C781BE2C6580078D7A3 /* ContactsServiceUT.m */; };
 		3A92AD291BD94A7B008165D0 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; };
 		3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA30A8318E7525F00FAD973 /* SLShareLocationViewController.m */; };
 		3AA30A8618E755EC00FAD973 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA30A8518E755EC00FAD973 /* MessageUI.framework */; };
@@ -70,6 +71,7 @@
 		3A68EC071BC5C1E0001A5F31 /* ContactsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsService.m; sourceTree = "<group>"; };
 		3A68EC091BC5C204001A5F31 /* ContactsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactsService.h; sourceTree = "<group>"; };
 		3A777C731BE2A1470078D7A3 /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
+		3A777C781BE2C6580078D7A3 /* ContactsServiceUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsServiceUT.m; sourceTree = "<group>"; };
 		3A92AD271BD94A59008165D0 /* Consts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
 		3A92AD281BD94A7B008165D0 /* Consts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Consts.m; sourceTree = "<group>"; };
 		3AA30A8218E7525F00FAD973 /* SLShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLShareLocationViewController.h; sourceTree = "<group>"; };
@@ -203,6 +205,14 @@
 			name = services;
 			sourceTree = "<group>";
 		};
+		3A777C771BE2C61F0078D7A3 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				3A777C781BE2C6580078D7A3 /* ContactsServiceUT.m */,
+			);
+			name = services;
+			sourceTree = "<group>";
+		};
 		3AD3F77918E624BF000691D0 = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +281,7 @@
 		3AD3F7AA18E624BF000691D0 /* Share LocationTests */ = {
 			isa = PBXGroup;
 			children = (
+				3A777C771BE2C61F0078D7A3 /* services */,
 				3AD3F7B018E624BF000691D0 /* Share_LocationTests.m */,
 				3AD3F7AB18E624BF000691D0 /* Supporting Files */,
 			);
@@ -525,6 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AD3F7B118E624BF000691D0 /* Share_LocationTests.m in Sources */,
+				3A777C791BE2C6580078D7A3 /* ContactsServiceUT.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
