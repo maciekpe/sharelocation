@@ -37,6 +37,10 @@
                BlueprintName = "Share LocationTests"
                ReferencedContainer = "container:Share Location.xcodeproj">
             </BuildableReference>
+            <LocationScenarioReference
+               identifier = "../Location.gpx"
+               referenceType = "0">
+            </LocationScenarioReference>
          </TestableReference>
          <TestableReference
             skipped = "NO">
@@ -47,6 +51,10 @@
                BlueprintName = "Share LocationUITests"
                ReferencedContainer = "container:Share Location.xcodeproj">
             </BuildableReference>
+            <LocationScenarioReference
+               identifier = "../Location.gpx"
+               referenceType = "0">
+            </LocationScenarioReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
@@ -72,7 +80,8 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "pl.mpe.Share-Location">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3AD3F78118E624BF000691D0"
@@ -84,8 +93,8 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "San Francisco, CA, USA"
-         referenceType = "1">
+         identifier = "../Location.gpx"
+         referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
