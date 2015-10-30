@@ -47,4 +47,23 @@
     assertThat(result, nilValue());
 }
 
+- (void)testThat_GetMateImage {
+    //given
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    NSMutableArray<CNContact*>* filleredContacts  = mock([NSMutableArray class]);
+    CNContact *contact = mock([ CNContact class]);
+    NSString *myString = @"Test string.";
+    const char *utfString = [myString UTF8String];
+    NSData *data = [NSData dataWithBytes: utfString length: strlen(utfString)];
+    [given([contact imageDataAvailable]) willReturnBool:TRUE];
+    [given([contact imageData]) willReturn:data];
+    [given([filleredContacts count]) willReturnUnsignedInt:1];
+    [given([filleredContacts objectAtIndex:0]) willReturn:contact];
+    //when
+    UIImage *result = [contactsService getMateImage:filleredContacts];
+    //then
+    //assertThat(result,notNilValue());
+}
+
 @end

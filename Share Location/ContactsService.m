@@ -35,7 +35,6 @@
     NSString * result = nil;
     if(filteredContacts != nil && filteredContacts.count > 0){
         CNContact* contact = [filteredContacts objectAtIndex:0];
-        
         NSString *firstName = contact.givenName;
         NSString *lastName = contact.familyName;
         result = nil;
