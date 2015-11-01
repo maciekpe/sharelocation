@@ -27,6 +27,7 @@
             @throw myException;
         }
         _contactStore = store;
+        _keysToFetch = @[CNContactEmailAddressesKey, CNContactPhoneNumbersKey, CNContactFamilyNameKey, CNContactGivenNameKey];
     }
     return self;
 }
@@ -35,18 +36,18 @@
     NSString * result = nil;
     if(filteredContacts != nil && filteredContacts.count > 0){
         CNContact* contact = [filteredContacts objectAtIndex:0];
-        NSString *firstName = contact.givenName;
-        NSString *lastName = contact.familyName;
+        NSString *givenName = contact.givenName;
+        NSString *familyName = contact.familyName;
         result = nil;
-        if(firstName !=nil){
-            result = [@"" stringByAppendingString:firstName];
+        if(givenName !=nil){
+            result = [@"" stringByAppendingString:givenName];
         }
-        if(lastName != nil){
+        if(familyName != nil){
             if(result == nil){
-                result = [@"" stringByAppendingString:lastName];
+                result = [@"" stringByAppendingString:familyName];
             }else{
                 result = [result stringByAppendingString:@" "];
-                result = [result stringByAppendingString:lastName];
+                result = [result stringByAppendingString:familyName];
             }
         }
     }
@@ -69,26 +70,17 @@
     if(email == nil){
         return nil;
     }
-    email = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    email = [self normalizeEmailAddress: email];
     NSMutableArray<CNContact*>* result  = [[NSMutableArray alloc] init];
-    //CNContactStore* addressBook = [[CNContactStore alloc]init];
     NSError* contactError;
     [self.contactStore containersMatchingPredicate:[CNContainer predicateForContainersWithIdentifiers: @[self.contactStore.defaultContainerIdentifier]] error:&contactError];
-    NSArray * keysToFetch =@[CNContactEmailAddressesKey, CNContactPhoneNumbersKey, CNContactFamilyNameKey, CNContactGivenNameKey];
-    CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:keysToFetch];
+    CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:self.keysToFetch];
     [self.contactStore enumerateContactsWithFetchRequest:request error:&contactError usingBlock:^(CNContact * __nonnull contact, BOOL * __nonnull stop){
-        NSArray * addresses = (NSArray*)[contact.emailAddresses valueForKey:@"value"];
-        if (addresses.count > 0) {
-            for (NSString* address in addresses) {
-                NSLog(@"address: %@", address);
-                NSString* addressEmail = [address stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                if ([addressEmail rangeOfString:email].location != NSNotFound) {
-                    [result addObject: contact];
-                }
-            }
+        if([self isContact:contact withEmailAddress:email]){
+            [result addObject: contact];
         }
     }];
-    NSLog(@"contactsContainingEmailNEW search result size: %lu", (unsigned long)[result count]);
+    NSLog(@"contactsContainingEmail search result size: %lu", (unsigned long)[result count]);
     return result;
 }
 
@@ -96,31 +88,74 @@
     if(phoneNumber == nil){
         return nil;
     }
+    phoneNumber = [self normalizePhoneNumber:phoneNumber];
+    NSMutableArray<CNContact*>* result  = [[NSMutableArray alloc] init];
+    NSError* contactError;
+    [self.contactStore containersMatchingPredicate:[CNContainer predicateForContainersWithIdentifiers: @[self.contactStore.defaultContainerIdentifier]] error:&contactError];
+    CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:self.keysToFetch];
+    [self.contactStore enumerateContactsWithFetchRequest:request error:&contactError usingBlock:^(CNContact * __nonnull contact, BOOL * __nonnull stop){
+        if([self isContact:contact withPhoneNumber:phoneNumber]){
+            [result addObject: contact];
+        }
+    }];
+    NSLog(@"contactsContainingPhoneNumber search result size: %lu", (unsigned long)[result count]);
+    return result;
+}
+
+- (BOOL) isContact:(CNContact *)contact withPhoneNumber: (NSString *)phoneNumber {
+    NSArray * phoneNumbers = (NSArray*)[contact.phoneNumbers valueForKey:@"value"];
+    if (phoneNumbers.count > 0) {
+        for (CNPhoneNumber* cnPhoneNumber in phoneNumbers) {
+            NSString *contactPhoneNumber = [cnPhoneNumber stringValue];
+            NSLog(@"contactPhoneNumber: %@", contactPhoneNumber);
+            contactPhoneNumber = [self normalizePhoneNumber:contactPhoneNumber];
+            if ([contactPhoneNumber rangeOfString:phoneNumber].location != NSNotFound) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+- (BOOL) isContact:(CNContact *)contact withEmailAddress: (NSString *)emailAdress {
+    NSArray * emialAddresses = (NSArray*)[contact.emailAddresses valueForKey:@"value"];
+    if (emialAddresses.count > 0) {
+        for (NSString* contactEmailAddress in emialAddresses) {
+            NSLog(@"address: %@", contactEmailAddress);
+            NSString * normalizedContactEmailAddress = [self normalizeEmailAddress:contactEmailAddress];
+            if ([normalizedContactEmailAddress rangeOfString:emailAdress].location != NSNotFound) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+- (NSString *) normalizePhoneNumber: (NSString *) phoneNumber {
+    if(phoneNumber == nil){
+        NSException* myException = [NSException
+                                    exceptionWithName:@"phoneNumber"
+                                    reason:@"phoneNumber is nil"
+                                    userInfo:nil];
+        @throw myException;
+    }
     // Remove non numeric characters from the phone number
     phoneNumber = [[phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
     phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    NSMutableArray<CNContact*>* result  = [[NSMutableArray alloc] init];
-    //CNContactStore* addressBook = [[CNContactStore alloc]init];
-    NSError* contactError;
-    [self.contactStore containersMatchingPredicate:[CNContainer predicateForContainersWithIdentifiers: @[self.contactStore.defaultContainerIdentifier]] error:&contactError];
-    NSArray * keysToFetch =@[CNContactEmailAddressesKey, CNContactPhoneNumbersKey, CNContactFamilyNameKey, CNContactGivenNameKey];
-    CNContactFetchRequest * request = [[CNContactFetchRequest alloc]initWithKeysToFetch:keysToFetch];
-    [self.contactStore enumerateContactsWithFetchRequest:request error:&contactError usingBlock:^(CNContact * __nonnull contact, BOOL * __nonnull stop){
-        NSArray * phoneNumbers = (NSArray*)[contact.phoneNumbers valueForKey:@"value"];
-        if (phoneNumbers.count > 0) {
-            for (CNPhoneNumber* cnPhoneNumber in phoneNumbers) {
-                NSString *contactPhoneNumber = [[cnPhoneNumber stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                contactPhoneNumber = [[contactPhoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
-                NSLog(@"contactPhoneNumber: %@", contactPhoneNumber);
-                if ([contactPhoneNumber rangeOfString:phoneNumber].location != NSNotFound) {
-                    [result addObject: contact];
-                    break;
-                }
-            }
-        }
-    }];
-    NSLog(@"contactsContainingPhoneNumberNEW search result size: %lu", (unsigned long)[result count]);
-    return result;
+    return phoneNumber;
 }
+
+- (NSString *) normalizeEmailAddress: (NSString *) emailAddress {
+    if(emailAddress == nil){
+        NSException* myException = [NSException
+                                    exceptionWithName:@"emailAddress"
+                                    reason:@"emailAddress is nil"
+                                    userInfo:nil];
+        @throw myException;
+    }
+    emailAddress = [emailAddress stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return emailAddress;
+}
+
+
 @end
