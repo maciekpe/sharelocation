@@ -150,7 +150,104 @@
     assertThat(result,equalTo(@"familyName"));
 }
 
+- (void)testThat_normalizePhoneNumberTrimWhiteSpaces {
+    //given
+    NSString* phoneNumber = @" 600 111 222    ";
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    
+    //when
+    NSString *result = [contactsService normalizePhoneNumber:phoneNumber];
+    
+    //then
+    assertThat(result,equalTo(@"600111222"));
+}
 
+- (void)testThat_normalizePhoneNumberRemoveNonNumericChars {
+    //given
+    NSString* phoneNumber = @" (+48) 600 111 222    ";
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    
+    //when
+    NSString *result = [contactsService normalizePhoneNumber:phoneNumber];
+    
+    //then
+    assertThat(result,equalTo(@"48600111222"));
+}
+
+- (void)testThat_ThrowsExceptionWhenNilPassedToNormalizePhoneNumber {
+    //given
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    
+    //expect
+    XCTAssertThrows([contactsService normalizePhoneNumber:nil],@"Expect exception for nil phone number");
+}
+
+- (void)testThat_normalizeEmailAddressTrimWhiteSpaces {
+    //given
+    NSString* emailAddress = @" test@wp.pl  ";
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    
+    //when
+    NSString *result = [contactsService normalizeEmailAddress:emailAddress];
+    
+    //then
+    assertThat(result,equalTo(@"test@wp.pl"));
+}
+
+- (void)testThat_ThrowsExceptionWhenNilPassedToNormalizeEmailAddress {
+    //given
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    
+    //expect
+    XCTAssertThrows([contactsService normalizeEmailAddress:nil],@"Expect exception for nil email address");
+}
+
+- (void)testThat_IsContactWithEmailAddress {
+    //given
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    CNContact *contact = mock([ CNContact class]);
+    NSMutableArray<CNLabeledValue<NSString*>*> *addresses  = [[NSMutableArray alloc] init];
+    CNLabeledValue<NSString*>* labeledvalueTrue = [[CNLabeledValue alloc] initWithLabel:@"addressTrue" value:@"true@wp.pl   "];
+    CNLabeledValue<NSString*>* labeledvalueFalse = [[CNLabeledValue alloc] initWithLabel:@"addressFalse" value:@" false@wp.pl"];
+    [addresses addObject:labeledvalueTrue];
+    [addresses addObject:labeledvalueFalse];
+    
+    [given([contact emailAddresses]) willReturn:addresses];
+    
+    //when
+    BOOL result = [contactsService isContact:contact withEmailAddress:@"  true@wp.pl"];
+    
+    //then
+    assertThatBool(result, isTrue());
+}
+
+- (void)testThat_IsContactWithPhoneNumber {
+    //given
+    CNContactStore *contactStore = mock([CNContactStore class]);
+    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
+    CNContact *contact = mock([ CNContact class]);
+    NSMutableArray<CNLabeledValue<CNPhoneNumber*>*> *phoneNumbers  = [[NSMutableArray alloc] init];
+    CNPhoneNumber *phoneNumberTrue = [[CNPhoneNumber alloc] initWithStringValue:@"(+48) 600 111 222     "];
+    CNLabeledValue<CNPhoneNumber*>* labeledvalueTrue = [[CNLabeledValue alloc] initWithLabel:@"phoneNumberTrue" value:phoneNumberTrue];
+    CNPhoneNumber *phoneNumberFalse = [[CNPhoneNumber alloc] initWithStringValue:@" (+48) 666666666    "];
+    CNLabeledValue<CNPhoneNumber*>* labeledvalueFalse = [[CNLabeledValue alloc] initWithLabel:@"phoneNumberFalse" value:phoneNumberFalse];
+    [phoneNumbers addObject:labeledvalueTrue];
+    [phoneNumbers addObject:labeledvalueFalse];
+    
+    [given([contact phoneNumbers]) willReturn:phoneNumbers];
+    
+    //when
+    BOOL result = [contactsService isContact:contact withPhoneNumber:@"  (+48) 600 111 222   "];
+    
+    //then
+    assertThatBool(result, isTrue());
+}
 
 - (NSData*) getPictureData {
     UIImage *img = [UIImage imageNamed:PIC_PERSON_PATH];

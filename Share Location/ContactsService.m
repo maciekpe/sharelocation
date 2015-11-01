@@ -103,6 +103,7 @@
 }
 
 - (BOOL) isContact:(CNContact *)contact withPhoneNumber: (NSString *)phoneNumber {
+    phoneNumber = [self normalizePhoneNumber:phoneNumber];
     NSArray * phoneNumbers = (NSArray*)[contact.phoneNumbers valueForKey:@"value"];
     if (phoneNumbers.count > 0) {
         for (CNPhoneNumber* cnPhoneNumber in phoneNumbers) {
@@ -118,6 +119,7 @@
 }
 
 - (BOOL) isContact:(CNContact *)contact withEmailAddress: (NSString *)emailAdress {
+    emailAdress = [self normalizeEmailAddress:emailAdress];
     NSArray * emialAddresses = (NSArray*)[contact.emailAddresses valueForKey:@"value"];
     if (emialAddresses.count > 0) {
         for (NSString* contactEmailAddress in emialAddresses) {
