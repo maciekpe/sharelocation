@@ -12,8 +12,13 @@
 
 @implementation ContactsServiceUT
 
+CNContactStore *contactStore ;
+ContactsService *contactsService ;
+
 - (void)setUp {
     [super setUp];
+    contactStore = mock([CNContactStore class]);
+    contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -23,10 +28,6 @@
 }
 
 - (void)testThat_GetMateImageReturnNilWhenArgumentIsNil {
-    //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
-    
     //when
     UIImage *result = [contactsService getMateImage:nil];
     
@@ -41,8 +42,6 @@
 
 - (void)testThat_GetMateImageReturnNilWhenArgumentIsEmptyArray {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     NSMutableArray<CNContact*>* filleredContacts  = [[NSMutableArray alloc] init];
     
     //when
@@ -54,8 +53,6 @@
 
 - (void)testThat_GetMateImage {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     NSMutableArray<CNContact*>* filleredContacts  = mock([NSMutableArray class]);
     CNContact *contact = mock([ CNContact class]);
     NSData *inputData = [self getPictureData];
@@ -74,10 +71,6 @@
 }
 
 - (void)testThat_GetMateNameStringReturnNilWhenArgumentIsNil {
-    //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
-    
     //when
     NSString *result = [contactsService getMateNameString:nil];
     
@@ -87,8 +80,6 @@
 
 - (void)testThat_GetMateNameStringReturnNilWhenArgumentIsEmptyArray {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     NSMutableArray<CNContact*>* filleredContacts  = [[NSMutableArray alloc] init];
     
     //when
@@ -100,8 +91,6 @@
 
 - (void)testThat_GetMateNameStringFull {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     NSMutableArray<CNContact*>* filleredContacts  = mock([NSMutableArray class]);
     CNContact *contact = mock([ CNContact class]);
     [given([contact givenName]) willReturn:@"givenName"];
@@ -118,8 +107,6 @@
 
 - (void)testThat_GetMateNameStringOnlyGivenName {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     NSMutableArray<CNContact*>* filleredContacts  = mock([NSMutableArray class]);
     CNContact *contact = mock([ CNContact class]);
     [given([contact givenName]) willReturn:@"givenName"];
@@ -135,8 +122,6 @@
 
 - (void)testThat_GetMateNameStringOnlyFamilyName {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     NSMutableArray<CNContact*>* filleredContacts  = mock([NSMutableArray class]);
     CNContact *contact = mock([ CNContact class]);
     [given([contact givenName]) willReturn:@"familyName"];
@@ -153,8 +138,6 @@
 - (void)testThat_normalizePhoneNumberTrimWhiteSpaces {
     //given
     NSString* phoneNumber = @" 600 111 222    ";
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     
     //when
     NSString *result = [contactsService normalizePhoneNumber:phoneNumber];
@@ -166,8 +149,6 @@
 - (void)testThat_normalizePhoneNumberRemoveNonNumericChars {
     //given
     NSString* phoneNumber = @" (+48) 600 111 222    ";
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     
     //when
     NSString *result = [contactsService normalizePhoneNumber:phoneNumber];
@@ -177,10 +158,6 @@
 }
 
 - (void)testThat_ThrowsExceptionWhenNilPassedToNormalizePhoneNumber {
-    //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
-    
     //expect
     XCTAssertThrows([contactsService normalizePhoneNumber:nil],@"Expect exception for nil phone number");
 }
@@ -188,8 +165,6 @@
 - (void)testThat_normalizeEmailAddressTrimWhiteSpaces {
     //given
     NSString* emailAddress = @" test@wp.pl  ";
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     
     //when
     NSString *result = [contactsService normalizeEmailAddress:emailAddress];
@@ -199,18 +174,12 @@
 }
 
 - (void)testThat_ThrowsExceptionWhenNilPassedToNormalizeEmailAddress {
-    //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
-    
     //expect
     XCTAssertThrows([contactsService normalizeEmailAddress:nil],@"Expect exception for nil email address");
 }
 
 - (void)testThat_IsContactWithEmailAddress {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     CNContact *contact = mock([ CNContact class]);
     NSMutableArray<CNLabeledValue<NSString*>*> *addresses  = [[NSMutableArray alloc] init];
     CNLabeledValue<NSString*>* labeledvalueTrue = [[CNLabeledValue alloc] initWithLabel:@"addressTrue" value:@"true@wp.pl   "];
@@ -229,8 +198,6 @@
 
 - (void)testThat_IsContactWithPhoneNumber {
     //given
-    CNContactStore *contactStore = mock([CNContactStore class]);
-    ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     CNContact *contact = mock([ CNContact class]);
     NSMutableArray<CNLabeledValue<CNPhoneNumber*>*> *phoneNumbers  = [[NSMutableArray alloc] init];
     CNPhoneNumber *phoneNumberTrue = [[CNPhoneNumber alloc] initWithStringValue:@"(+48) 600 111 222     "];
