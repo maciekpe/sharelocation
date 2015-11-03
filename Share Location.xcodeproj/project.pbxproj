@@ -12,6 +12,8 @@
 		3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A560D571BC1D5D900E8B578 /* Media.xcassets */; };
 		3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */; };
 		3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A68EC071BC5C1E0001A5F31 /* ContactsService.m */; };
+		3A6EA1B31BE9369A00C61E1C /* LinkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6EA1B21BE9369A00C61E1C /* LinkService.m */; };
+		3A6EA1B61BE93D3100C61E1C /* LinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6EA1B51BE93D3100C61E1C /* LinkData.m */; };
 		3A777C741BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C751BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C761BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
@@ -70,6 +72,10 @@
 		3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPinAnnotationView.m; sourceTree = "<group>"; };
 		3A68EC071BC5C1E0001A5F31 /* ContactsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsService.m; sourceTree = "<group>"; };
 		3A68EC091BC5C204001A5F31 /* ContactsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactsService.h; sourceTree = "<group>"; };
+		3A6EA1B11BE9369A00C61E1C /* LinkService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkService.h; sourceTree = "<group>"; };
+		3A6EA1B21BE9369A00C61E1C /* LinkService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkService.m; sourceTree = "<group>"; };
+		3A6EA1B41BE93D3100C61E1C /* LinkData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkData.h; sourceTree = "<group>"; };
+		3A6EA1B51BE93D3100C61E1C /* LinkData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkData.m; sourceTree = "<group>"; };
 		3A777C731BE2A1470078D7A3 /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		3A777C781BE2C6580078D7A3 /* ContactsServiceUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsServiceUT.m; sourceTree = "<group>"; };
 		3A92AD271BD94A59008165D0 /* Consts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
@@ -179,6 +185,8 @@
 		3A04AB531BC3311D0012ACB9 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				3A6EA1B41BE93D3100C61E1C /* LinkData.h */,
+				3A6EA1B51BE93D3100C61E1C /* LinkData.m */,
 				3AD3F7BF18E647B9000691D0 /* SLMapAnnotation.h */,
 				3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */,
 				3AA30A8918E7567900FAD973 /* SLData.h */,
@@ -199,6 +207,8 @@
 		3A68EC061BC5C1BC001A5F31 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				3A6EA1B11BE9369A00C61E1C /* LinkService.h */,
+				3A6EA1B21BE9369A00C61E1C /* LinkService.m */,
 				3A68EC071BC5C1E0001A5F31 /* ContactsService.m */,
 				3A68EC091BC5C204001A5F31 /* ContactsService.h */,
 			);
@@ -523,10 +533,12 @@
 				3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */,
 				3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */,
 				3AD3F79218E624BF000691D0 /* main.m in Sources */,
+				3A6EA1B61BE93D3100C61E1C /* LinkData.m in Sources */,
 				3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */,
 				3AA30A8418E7525F00FAD973 /* SLShareLocationViewController.m in Sources */,
 				3A92AD291BD94A7B008165D0 /* Consts.m in Sources */,
 				FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */,
+				3A6EA1B31BE9369A00C61E1C /* LinkService.m in Sources */,
 				3AD3F79618E624BF000691D0 /* SLAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

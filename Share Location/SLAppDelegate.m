@@ -5,6 +5,8 @@
 #import <AddressBook/AddressBook.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "ContactsService.h"
+#import "LinkData.h"
+#import "LinkService.h"
 
 @implementation SLAppDelegate
 
@@ -17,70 +19,15 @@ extern NSString* CTSettingCopyMyPhoneNumber();
     NSLog(@"URL scheme:%@", [url scheme]);
     NSLog(@"URL query: %@", [url query]);
     //URL query: token=123abct&registered=1
-    NSString* latitudeValue = @"0";
-    NSString* longitudeValue = @"0";
-    NSString* token_1_Value = nil;
-    NSString* token_2_Value = nil;
-    
-    NSArray* queryElements = [[url query] componentsSeparatedByString: @"&"];
-    if(queryElements.count == 2){
-        NSString* latitudeString = [queryElements objectAtIndex: 0];
-        NSArray* latitudeElements = [latitudeString componentsSeparatedByString: @"="];
-        if(latitudeElements.count == 2){
-            latitudeValue = [latitudeElements objectAtIndex: 1];
-        }
-        
-        NSString* longitudeString = [queryElements objectAtIndex: 1];
-        NSArray* longitudeElements = [longitudeString componentsSeparatedByString: @"="];
-        if(longitudeElements.count == 2){
-            longitudeValue = [longitudeElements objectAtIndex: 1];
-        }
-        
-    }
-    
-    if(queryElements.count == 3){
-        NSString* latitudeString = [queryElements objectAtIndex: 0];
-        NSArray* latitudeElements = [latitudeString componentsSeparatedByString: @"="];
-        if(latitudeElements.count == 2){
-            latitudeValue = [latitudeElements objectAtIndex: 1];
-        }
-        
-        NSString* longitudeString = [queryElements objectAtIndex: 1];
-        NSArray* longitudeElements = [longitudeString componentsSeparatedByString: @"="];
-        if(longitudeElements.count == 2){
-            longitudeValue = [longitudeElements objectAtIndex: 1];
-        }
-        NSString* tokenString = [queryElements objectAtIndex: 2];
-        NSArray* tokenElements = [tokenString componentsSeparatedByString: @"="];
-        if(tokenElements.count == 2){
-            NSString *token = [tokenElements objectAtIndex: 1];
-            NSArray* tokenSubElements = [tokenString componentsSeparatedByString: @"#"];
-            if(tokenSubElements.count == 2){
-                token_1_Value = [tokenSubElements objectAtIndex: 0];
-                token_2_Value = [tokenSubElements objectAtIndex: 1];
-            }
-            if(tokenSubElements.count == 1){
-                token_1_Value = token;
-            }
-        }
-    }
+    LinkService* linkService = [LinkService getInstance];
+    LinkData* linkData = [linkService decomposeLinkDataFromUrl:url];
 
-    NSLog(@"token1: %@", token_1_Value);
-    NSLog(@"token2: %@", token_2_Value);
+    NSLog(@"primaryContactToken: %@", [linkData primaryContactToken]);
+    NSLog(@"secondaryContactToken: %@", [linkData secondaryContactToken]);
     
     CNContactStore *contactStore = [[CNContactStore alloc]init];
     ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
-    
-    NSArray *filteredContacts = [contactsService contactsContainingEmail:token_1_Value];
-    if(filteredContacts == nil || filteredContacts.count == 0){
-        filteredContacts = [contactsService contactsContainingPhoneNumber:token_2_Value];
-        if(filteredContacts == nil || filteredContacts.count == 0){
-            filteredContacts = [contactsService contactsContainingEmail:token_2_Value];
-            if(filteredContacts == nil || filteredContacts.count == 0){
-                filteredContacts = [contactsService contactsContainingPhoneNumber:token_1_Value];
-            }
-        }
-    }
+    NSArray *filteredContacts = [contactsService contactsByLinkData:linkData];
     
     if(filteredContacts != nil && filteredContacts.count > 0){
             NSLog(@"Setting contacts");
@@ -88,29 +35,11 @@ extern NSString* CTSettingCopyMyPhoneNumber();
             [SLData setImage: [contactsService getMateImage:filteredContacts]];
             NSLog(@"Setting end");
     }else{
-            NSLog(@"no contactss");
+            NSLog(@"no contacts");
     }
     
-
-    
-    CLLocation *locationMate = [[CLLocation alloc] initWithLatitude:[latitudeValue floatValue] longitude:[longitudeValue floatValue]];
+    CLLocation *locationMate = [[CLLocation alloc] initWithLatitude:[[linkData latitudeValue] floatValue] longitude:[[linkData longitudeValue] floatValue]];
     [SLData setMateLocation: locationMate];
-
-    
-    
-    
-    /*
-    NSString* data = latitudeValue; 
-    data = [data stringByAppendingString: @" " ];
-    data = [data stringByAppendingString: longitudeValue];
-    
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Mate location"
-                                                    message:data
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"OK", nil];
-    [alert show];
-    */
     return YES;
 }
 

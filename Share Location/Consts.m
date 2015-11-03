@@ -31,4 +31,8 @@ NSString * const EMPTY_STR = @"";
 NSString * const SEMICOLON_SEPARATOR = @",";
 NSString * const LABEL_COMPOSE = @"Compose";
 NSString * const LABEL_PREF = @"Pref";
+NSString * const URL_LONG_PARAM = @"longitude";
+NSString * const URL_LATI_PARAM = @"latitude";
+NSString * const URL_TOKENS_PARAM = @"tokens";
+
 

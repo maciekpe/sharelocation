@@ -32,6 +32,19 @@
     return self;
 }
 
+- (NSArray *) contactsByLinkData:(LinkData *)linkData {
+    NSMutableArray<CNContact*>* result  = [[NSMutableArray alloc] init];
+    if([linkData primaryContactToken] != nil){
+        [result addObjectsFromArray:[self contactsContainingEmail: [linkData primaryContactToken]]];
+        [result addObjectsFromArray:[self contactsContainingPhoneNumber: [linkData primaryContactToken]]];
+    }
+    if([linkData secondaryContactToken] != nil){
+        [result addObjectsFromArray:[self contactsContainingEmail: [linkData secondaryContactToken]]];
+        [result addObjectsFromArray:[self contactsContainingPhoneNumber: [linkData secondaryContactToken]]];
+    }
+    return result;
+}
+
 - (NSString *) getMateNameString:(NSArray<CNContact*> *)filteredContacts{
     NSString * result = nil;
     if(filteredContacts != nil && filteredContacts.count > 0){

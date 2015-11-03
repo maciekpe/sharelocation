@@ -1,11 +1,13 @@
 #import <Foundation/Foundation.h>
 #import <Contacts/Contacts.h>
+#import "LinkData.h"
 
 @interface ContactsService : NSObject
 - (instancetype) initWithContactStore:(CNContactStore *) store;
 - (NSString *) getMateNameString:(NSArray<CNContact*> *)filteredContacts;
 - (NSArray *) contactsContainingEmail:(NSString *)email;
 - (NSArray *) contactsContainingPhoneNumber:(NSString *)phoneNumber;
+- (NSArray *) contactsByLinkData:(LinkData *)linkData;
 - (UIImage *) getMateImage:(NSArray<CNContact*> *)filteredContacts;
 - (BOOL) isContact:(CNContact *)contact withPhoneNumber: (NSString *)phoneNumber;
 - (BOOL) isContact:(CNContact *)contact withEmailAddress: (NSString *)emailAdress;

@@ -32,4 +32,7 @@ extern NSString * const SEMICOLON_SEPARATOR;
 extern NSString * const LABEL_COMPOSE;
 extern NSString * const LABEL_MESSAGE;
 extern NSString * const LABEL_PREF;
+extern NSString * const URL_LONG_PARAM;
+extern NSString * const URL_LATI_PARAM;
+extern NSString * const URL_TOKENS_PARAM;
 #endif /* Consts_h */
