@@ -43,7 +43,7 @@
 }
 
 - (NSArray *) decomposeTokenSegment :(NSString *) tokenSegment {
-    NSArray* tokens = [tokenSegment componentsSeparatedByString: @"#"];
+    NSArray* tokens = [tokenSegment componentsSeparatedByString: @","];
     return tokens;
 }
 

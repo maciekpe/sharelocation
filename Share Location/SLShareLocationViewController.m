@@ -393,7 +393,7 @@
                 tokenString = [tokenString stringByTrimmingCharactersInSet:
                                [NSCharacterSet whitespaceCharacterSet]];
                 url = [url stringByAppendingString:tokenString];
-                url = [url stringByAppendingString:@"#"];
+                url = [url stringByAppendingString:@","];
                 tokenString = [queryElements objectAtIndex: 1];
                 tokenString = [tokenString stringByTrimmingCharactersInSet:
                                [NSCharacterSet whitespaceCharacterSet]];

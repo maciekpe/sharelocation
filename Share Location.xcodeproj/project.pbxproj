@@ -43,6 +43,7 @@
 		9786F516837B43BC16273124 /* libPods-Share LocationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C0EF39F189265ADF346376 /* libPods-Share LocationTests.a */; };
 		FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */; };
 		FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */; };
+		FDB11A0C1BEA52F5007705CA /* LinkServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB11A0B1BEA52F5007705CA /* LinkServiceUT.m */; };
 		FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +117,7 @@
 		FD8F60731BD8CEE7000966B3 /* Share LocationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Share LocationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Share_LocationUITests.m; sourceTree = "<group>"; };
 		FD8F60771BD8CEE7000966B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDB11A0B1BEA52F5007705CA /* LinkServiceUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkServiceUT.m; sourceTree = "<group>"; };
 		FDF361761BDA4F94003B5A94 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,6 +220,7 @@
 		3A777C771BE2C61F0078D7A3 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				FDB11A0B1BEA52F5007705CA /* LinkServiceUT.m */,
 				3A777C781BE2C6580078D7A3 /* ContactsServiceUT.m */,
 			);
 			name = services;
@@ -549,6 +552,7 @@
 			files = (
 				3AD3F7B118E624BF000691D0 /* Share_LocationTests.m in Sources */,
 				3A777C791BE2C6580078D7A3 /* ContactsServiceUT.m in Sources */,
+				FDB11A0C1BEA52F5007705CA /* LinkServiceUT.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
