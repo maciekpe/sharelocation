@@ -1,11 +1,3 @@
-//
-//  Share_LocationUITests.m
-//  Share LocationUITests
-//
-//  Created by mpe-station on 22.10.2015.
-//  Copyright © 2015 outbox. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import "Consts.h"
 

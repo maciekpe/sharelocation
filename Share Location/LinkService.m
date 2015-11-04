@@ -21,6 +21,14 @@
     NSString* tokenSegment = [parameterDictionary objectForKey:URL_TOKENS_PARAM];
     NSString* primaryContactToken;
     NSString* secondaryContactToken;
+    if(latitudeValue == nil || longitudeValue == nil){
+        NSException* myException = [NSException
+                                    exceptionWithName:@"decomposeLinkDataFromUrl"
+                                    reason:@"required param is nil"
+                                    userInfo:nil];
+        @throw myException;
+    }
+    
     if(tokenSegment != nil){
         NSArray* tokens = [self decomposeTokenSegment:tokenSegment];
         primaryContactToken = [tokens objectAtIndex:0];

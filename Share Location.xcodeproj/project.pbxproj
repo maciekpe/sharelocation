@@ -35,7 +35,6 @@
 		3AD3F7A618E624BF000691D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F78518E624BF000691D0 /* Foundation.framework */; };
 		3AD3F7A718E624BF000691D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F78918E624BF000691D0 /* UIKit.framework */; };
 		3AD3F7AF18E624BF000691D0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AD3F7AD18E624BF000691D0 /* InfoPlist.strings */; };
-		3AD3F7B118E624BF000691D0 /* Share_LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7B018E624BF000691D0 /* Share_LocationTests.m */; };
 		3AD3F7BC18E63E8B000691D0 /* SLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7BB18E63E8B000691D0 /* SLLocationViewController.m */; };
 		3AD3F7BE18E64013000691D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F7BD18E64013000691D0 /* MapKit.framework */; };
 		3AD3F7C118E647B9000691D0 /* SLMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3F7C018E647B9000691D0 /* SLMapAnnotation.m */; };
@@ -103,7 +102,6 @@
 		3AD3F7A418E624BF000691D0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		3AD3F7AC18E624BF000691D0 /* Share LocationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Share LocationTests-Info.plist"; sourceTree = "<group>"; };
 		3AD3F7AE18E624BF000691D0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3AD3F7B018E624BF000691D0 /* Share_LocationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Share_LocationTests.m; sourceTree = "<group>"; };
 		3AD3F7BA18E63E8B000691D0 /* SLLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLLocationViewController.h; sourceTree = "<group>"; };
 		3AD3F7BB18E63E8B000691D0 /* SLLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLLocationViewController.m; sourceTree = "<group>"; };
 		3AD3F7BD18E64013000691D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -295,7 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				3A777C771BE2C61F0078D7A3 /* services */,
-				3AD3F7B018E624BF000691D0 /* Share_LocationTests.m */,
 				3AD3F7AB18E624BF000691D0 /* Supporting Files */,
 			);
 			path = "Share LocationTests";
@@ -550,7 +547,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AD3F7B118E624BF000691D0 /* Share_LocationTests.m in Sources */,
 				3A777C791BE2C6580078D7A3 /* ContactsServiceUT.m in Sources */,
 				FDB11A0C1BEA52F5007705CA /* LinkServiceUT.m in Sources */,
 			);
