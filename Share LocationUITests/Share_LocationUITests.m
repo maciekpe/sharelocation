@@ -1,5 +1,6 @@
 #import <XCTest/XCTest.h>
 #import "Consts.h"
+#import "SLData.h"
 
 @interface Share_LocationUITests : XCTestCase
 
@@ -18,7 +19,14 @@
     // In UI tests it is usually best to stop immediately when a failure occurs.
     self.continueAfterFailure = NO;
     // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-    [[[XCUIApplication alloc] init] launch];
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    /*
+     NSDictionary<NSString* , NSString*>* envs =@{@"url":@"iOSShareLocation://?latitude=53.275034&longitude=20.795628&tokens=500111222,test@test.pl"};
+    [app setLaunchEnvironment:envs];
+     */
+    [app launch];
+    
     
     // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
 }
@@ -117,14 +125,14 @@
 - (void)testStory8_ShareLocationWindowShouldPresentLocationMessage {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     XCUIElement *element = app.staticTexts[@"Your's current location"];
-    sleep(5);
+    sleep(2);
     XCTAssertEqual(element.exists, TRUE, @"message not found");
 }
 
 - (void)testStory9_ShareLocationWindowShouldPresentLocationPoint {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     XCUIElement *element = app.otherElements[@"PopoverDismissRegion"];
-    sleep(5);
+    sleep(10);
     XCTAssertEqual(element.exists, TRUE, @"point not found");
 }
 

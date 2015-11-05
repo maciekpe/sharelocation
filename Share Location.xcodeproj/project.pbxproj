@@ -17,6 +17,7 @@
 		3A76746D1BEBD9750056A3BA /* MessageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A76746C1BEBD9750056A3BA /* MessageService.m */; };
 		3A76746F1BEBDFDA0056A3BA /* MessageServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A76746E1BEBDFDA0056A3BA /* MessageServiceUT.m */; };
 		3A7674711BEBF3A70056A3BA /* IdentificationServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7674701BEBF3A70056A3BA /* IdentificationServiceUT.m */; };
+		3A7674721BEC05970056A3BA /* SLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA30A8A18E7567900FAD973 /* SLData.m */; };
 		3A777C741BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C751BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C761BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
@@ -576,6 +577,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A7674721BEC05970056A3BA /* SLData.m in Sources */,
 				FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */,
 				FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */,
 			);
