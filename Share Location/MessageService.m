@@ -6,7 +6,7 @@
 @implementation MessageService
 
 //brakuje buildera dla message
-//usunac SLData
+//dodac STR do const
 
 - (instancetype) initWithLinkService:(LinkService*) linkService {
     self = [super init];

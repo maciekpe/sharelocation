@@ -20,9 +20,6 @@
     return self;
 }
 
-/*
- Pobiera UID identyfikacji uzytkownika jesl istnieje.
- */
 -(NSString *) getUserIdentification {
     NSString *userIdentification = [self.userDefaults stringForKey:SL_UID];
     return userIdentification;
