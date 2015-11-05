@@ -4,6 +4,7 @@
 #import <Contacts/Contacts.h>
 @implementation ContactsService
 
+//brakuje unita dla contactsByLinkData
 
 /*
 + (instancetype) getInstance {

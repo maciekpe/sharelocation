@@ -36,12 +36,16 @@
 {
     NSLog(@"enter viewDidLoad start share");
     [super viewDidLoad];
+    _identificationService = [[IdentificationService alloc] initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
+    _linkService = [[LinkService alloc] initWithIdentificationService:_identificationService];
+    _messageService = [[MessageService alloc] initWithLinkService:_linkService];
+    
     [self processViewData];
     self.view.backgroundColor = [UIColor whiteColor];
     _messageDataField2.layer.borderColor = [UIColor whiteColor].CGColor;
     _messageDataField2.layer.borderWidth = 1;
     _messageDataField2.translatesAutoresizingMaskIntoConstraints = NO;
-    _messageDataField2.attributedText = [self composeHtmlAttributedMessage];
+    _messageDataField2.attributedText = [self.messageService composeHtmlAttributedMessage];
     _messageDataField2.layer.cornerRadius=5.0f;
     if(_mainView != nil){
         _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPAD_PATH]];
@@ -50,15 +54,9 @@
         _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPHONE_PATH]];
     }
     
-    if([self isUserIdentificationEmpty]){
+    if([self.identificationService isUserIdentificationEmpty]){
         [self showPrefsAlert];
     }
-}
-
-- (BOOL) isUserIdentificationEmpty {
-    NSString *userUdentification = [self getUserIdentification];
-    userUdentification = [userUdentification stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-    return [userUdentification length] == 0;
 }
 
 
@@ -86,19 +84,10 @@
     [alert addAction:save];
     [alert addAction:addressBook];
     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.text = [self getUserIdentification];
+        textField.text = [self.identificationService getUserIdentification];
         textField.placeholder = @"identification";
     }];
     [self presentViewController:alert animated:YES completion:nil];
-}
-
-/*
- Pobiera UID identyfikacji uzytkownika jesl istnieje.
- */
--(NSString *) getUserIdentification{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userIdentification = [defaults stringForKey:SL_UID];
-    return userIdentification;
 }
 
 /*
@@ -289,7 +278,7 @@
     }
     MFMessageComposeViewController *smsComposer = [[MFMessageComposeViewController alloc] init];
     smsComposer.messageComposeDelegate = self;
-    [smsComposer setBody:  [self composeStringMessage]];
+    [smsComposer setBody:  [self.messageService composeStringMessage]];
     [smsComposer setRecipients:@[_userDataField.text]];
     [self presentViewController:smsComposer animated:YES completion:nil];
 }
@@ -306,111 +295,9 @@
     MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
     mailComposer.mailComposeDelegate = self;
     [mailComposer setSubject:LABEL_LOCATION];
-    [mailComposer setMessageBody: [self composeHtmlStringMessage] isHTML:YES];
+    [mailComposer setMessageBody: [self.messageService composeHtmlStringMessage] isHTML:YES];
     [mailComposer setToRecipients:@[_userDataField.text]];
     [self presentViewController:mailComposer animated:YES completion:nil];
-}
-
-/*
- Tworzy wiadomość jako HTML.
- */
--(NSAttributedString *) composeHtmlAttributedMessage{
-    NSString *messageBody = @"<em>Hi,</em><br/><em>Here I am !!!</em><br/><em>Please click this ";
-    NSString *mapQuery = @"<a href=\"https://maps.google.com/maps?q=";
-    NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
-    NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
-    mapQuery = [mapQuery stringByAppendingString: [latitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: SEMICOLON_SEPARATOR];
-    mapQuery = [mapQuery stringByAppendingString: [longtitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: @"\">location link</a></em>"];
-    messageBody = [messageBody stringByAppendingString: mapQuery];
-    //NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[messageBody dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-    NSStringEncoding encoding = NSUnicodeStringEncoding;
-    NSData *data = [messageBody dataUsingEncoding:encoding];
-    NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                              NSCharacterEncodingDocumentAttribute: @(encoding)};
-    
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:data
-                                                                options:options
-                                                     documentAttributes:nil
-                                                                  error:nil];
-    
-    return attributedString;
-}
-/*
- Tworzy wiadomość jako HTML string.
- iOSShareLocation
- */
--(NSString *) composeHtmlStringMessage{
-    NSString *messageBody = @"<em>Hi,</em><br/><em>Here I am !!!</em><br/><em>Please click this ";
-    NSString *mapQuery = @"<a href=\"https://maps.google.com/maps?q=";
-    NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
-    NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
-    mapQuery = [mapQuery stringByAppendingString: [latitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: SEMICOLON_SEPARATOR];
-    mapQuery = [mapQuery stringByAppendingString: [longtitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: @"\">location link</a></em><br/>"];
-    mapQuery = [mapQuery stringByAppendingString: @"<a href=\""];
-    mapQuery = [mapQuery stringByAppendingString: [self composeiOSShareLocation] ];
-    mapQuery = [mapQuery stringByAppendingString: @"\">correlation link</a></em>\n"];
-    messageBody = [messageBody stringByAppendingString: mapQuery];
-    return messageBody;
-}
-
-/*
- Tworzy wiadomość jako string.
- */
--(NSString *) composeStringMessage{
-    NSString *messageBody = @"Hi,\nHere I am !!!\n Please click this link ";
-    NSString *mapQuery = @"https://maps.google.com/maps?q=";
-    NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
-    NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
-    mapQuery = [mapQuery stringByAppendingString: [latitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: SEMICOLON_SEPARATOR];
-    mapQuery = [mapQuery stringByAppendingString: [longtitude stringValue] ];
-    mapQuery = [mapQuery stringByAppendingString: @"\n correlation link " ];
-    mapQuery = [mapQuery stringByAppendingString: [self composeiOSShareLocation] ];
-    messageBody = [messageBody stringByAppendingString: mapQuery];
-    return messageBody;
-}
-
--(NSString *) composeiOSShareLocation{
-    NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
-    NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
-    NSString *url = @"iOSShareLocation://?latitude=";
-    url = [url stringByAppendingString: [latitude stringValue] ];
-    url = [url stringByAppendingString: @"&longitude=" ];
-    url = [url stringByAppendingString: [longtitude stringValue] ];
-    if(![self isUserIdentificationEmpty]){
-        NSString* userIdentificationString = [self getUserIdentification];
-        NSString* userIdentification = [userIdentificationString stringByTrimmingCharactersInSet:
-                                        [NSCharacterSet whitespaceCharacterSet]];
-        if(userIdentification != nil ){
-            NSArray* queryElements = [userIdentification componentsSeparatedByString: SEMICOLON_SEPARATOR];
-            if(queryElements.count == 2){
-                url = [url stringByAppendingString: @"&tokens=" ];
-                NSString* tokenString = [queryElements objectAtIndex: 0];
-                tokenString = [tokenString stringByTrimmingCharactersInSet:
-                               [NSCharacterSet whitespaceCharacterSet]];
-                url = [url stringByAppendingString:tokenString];
-                url = [url stringByAppendingString:@","];
-                tokenString = [queryElements objectAtIndex: 1];
-                tokenString = [tokenString stringByTrimmingCharactersInSet:
-                               [NSCharacterSet whitespaceCharacterSet]];
-                url = [url stringByAppendingString:tokenString];
-            }
-            if(queryElements.count == 1){
-                url = [url stringByAppendingString: @"&tokens=" ];
-                NSString* tokenString = [queryElements objectAtIndex: 0];
-                tokenString = [tokenString stringByTrimmingCharactersInSet:
-                               [NSCharacterSet whitespaceCharacterSet]];
-                url = [url stringByAppendingString:tokenString];
-            }
-        }
-    }
-    NSLog(@"url %@", url);
-    //NSLog(@"esc url %@", [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
-    return url;
 }
 
 /*

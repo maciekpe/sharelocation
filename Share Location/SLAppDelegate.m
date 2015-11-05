@@ -18,7 +18,6 @@ extern NSString* CTSettingCopyMyPhoneNumber();
     NSLog(@"Calling Application Bundle ID: %@", sourceApplication);
     NSLog(@"URL scheme:%@", [url scheme]);
     NSLog(@"URL query: %@", [url query]);
-    //URL query: token=123abct&registered=1
     
     IdentificationService* identificationService = [[IdentificationService alloc] initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
     LinkService* linkService = [[LinkService alloc] initWithIdentificationService:identificationService];
