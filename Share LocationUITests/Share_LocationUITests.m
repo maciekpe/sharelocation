@@ -7,6 +7,9 @@
 
 @implementation Share_LocationUITests
 
+//dodac dodanie kontakty i usuniecie przed i po tescie.
+//DEBUG po cel.value ; p print(cell.debugDescription)
+
 - (void)setUp {
     [super setUp];
     
@@ -18,7 +21,6 @@
     [[[XCUIApplication alloc] init] launch];
     
     // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    //DEBUG po cel.value ; p print(cell.debugDescription)
 }
 
 - (void)tearDown {

@@ -12,6 +12,9 @@
 
 @implementation ContactsServiceUT
 
+//brakuje testu na szukanie po LinkData
+//brakuej testu na mockach CNContactStore
+
 CNContactStore *contactStore ;
 ContactsService *contactsService ;
 
