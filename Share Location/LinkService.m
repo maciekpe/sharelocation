@@ -1,7 +1,7 @@
 #import "LinkService.h"
 #import "ContactsService.h"
-#import "SLData.h"
 #import "Consts.h"
+#import <MapKit/MapKit.h>
 
 @implementation LinkService
 //usunac odwolania do string utils jak powstana
@@ -20,16 +20,6 @@
     }
     return self;
 }
-
-
- + (instancetype) getInstance {
-     static LinkService *service = nil;
-     static dispatch_once_t onceToken;
-     dispatch_once(&onceToken, ^{
-         service = [[self alloc] init];
-     });
-     return service;
- }
 
 - (LinkData *) decomposeLinkDataFromUrl :(NSURL *)url {
     NSDictionary* parameterDictionary = [self prepareParametersDictionary:url];
@@ -53,7 +43,10 @@
             secondaryContactToken = [tokens objectAtIndex:1];
         }
     }
-    LinkData* result = [[LinkData alloc] initWithLatitude:latitudeValue withLongitude:longitudeValue withPrimaryContactToken:primaryContactToken withSecondaryContactToken:secondaryContactToken];
+    LinkData* result = [[LinkData alloc] initWithLatitude:latitudeValue
+                                            withLongitude:longitudeValue
+                                            withPrimaryContactToken:primaryContactToken
+                                            withSecondaryContactToken:secondaryContactToken];
     return result;
 }
 
@@ -82,9 +75,9 @@
     return @{[parameters objectAtIndex:0] : [parameters objectAtIndex:1]};
 }
 
--(NSString *) composeLink {
-    NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
-    NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
+-(NSString *) composeLinkWithLocation:(CLLocation*) location {
+    NSNumber *longtitude = [NSNumber numberWithDouble:location.coordinate.longitude];
+    NSNumber *latitude = [NSNumber numberWithDouble:location.coordinate.latitude];
     NSString *url = @"iOSShareLocation://?latitude=";
     url = [url stringByAppendingString: [latitude stringValue] ];
     url = [url stringByAppendingString: @"&longitude=" ];

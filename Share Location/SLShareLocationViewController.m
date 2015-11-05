@@ -45,7 +45,7 @@
     _messageDataField2.layer.borderColor = [UIColor whiteColor].CGColor;
     _messageDataField2.layer.borderWidth = 1;
     _messageDataField2.translatesAutoresizingMaskIntoConstraints = NO;
-    _messageDataField2.attributedText = [self.messageService composeHtmlAttributedMessage];
+    _messageDataField2.attributedText = [self.messageService composeHtmlAttributedMessageWithLocation:[SLData getCurrentLocation]];
     _messageDataField2.layer.cornerRadius=5.0f;
     if(_mainView != nil){
         _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPAD_PATH]];
@@ -278,7 +278,7 @@
     }
     MFMessageComposeViewController *smsComposer = [[MFMessageComposeViewController alloc] init];
     smsComposer.messageComposeDelegate = self;
-    [smsComposer setBody:  [self.messageService composeStringMessage]];
+    [smsComposer setBody:  [self.messageService composeStringMessageWithLocation:[SLData getCurrentLocation]]];
     [smsComposer setRecipients:@[_userDataField.text]];
     [self presentViewController:smsComposer animated:YES completion:nil];
 }
@@ -295,7 +295,7 @@
     MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
     mailComposer.mailComposeDelegate = self;
     [mailComposer setSubject:LABEL_LOCATION];
-    [mailComposer setMessageBody: [self.messageService composeHtmlStringMessage] isHTML:YES];
+    [mailComposer setMessageBody: [self.messageService composeHtmlStringMessageWithLocation:[SLData getCurrentLocation]] isHTML:YES];
     [mailComposer setToRecipients:@[_userDataField.text]];
     [self presentViewController:mailComposer animated:YES completion:nil];
 }

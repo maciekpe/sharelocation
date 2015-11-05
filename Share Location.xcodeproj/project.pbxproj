@@ -15,6 +15,7 @@
 		3A6EA1B31BE9369A00C61E1C /* LinkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6EA1B21BE9369A00C61E1C /* LinkService.m */; };
 		3A6EA1B61BE93D3100C61E1C /* LinkData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A6EA1B51BE93D3100C61E1C /* LinkData.m */; };
 		3A76746D1BEBD9750056A3BA /* MessageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A76746C1BEBD9750056A3BA /* MessageService.m */; };
+		3A76746F1BEBDFDA0056A3BA /* MessageServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A76746E1BEBDFDA0056A3BA /* MessageServiceUT.m */; };
 		3A777C741BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C751BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
 		3A777C761BE2A1470078D7A3 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3A777C731BE2A1470078D7A3 /* Location.gpx */; };
@@ -80,6 +81,7 @@
 		3A6EA1B51BE93D3100C61E1C /* LinkData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkData.m; sourceTree = "<group>"; };
 		3A76746B1BEBD9750056A3BA /* MessageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageService.h; sourceTree = "<group>"; };
 		3A76746C1BEBD9750056A3BA /* MessageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageService.m; sourceTree = "<group>"; };
+		3A76746E1BEBDFDA0056A3BA /* MessageServiceUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageServiceUT.m; sourceTree = "<group>"; };
 		3A777C731BE2A1470078D7A3 /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Location.gpx; sourceTree = "<group>"; };
 		3A777C781BE2C6580078D7A3 /* ContactsServiceUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsServiceUT.m; sourceTree = "<group>"; };
 		3A92AD271BD94A59008165D0 /* Consts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Consts.h; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 		3A777C771BE2C61F0078D7A3 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				3A76746E1BEBDFDA0056A3BA /* MessageServiceUT.m */,
 				FDB11A0B1BEA52F5007705CA /* LinkServiceUT.m */,
 				3A777C781BE2C6580078D7A3 /* ContactsServiceUT.m */,
 			);
@@ -559,6 +562,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A76746F1BEBDFDA0056A3BA /* MessageServiceUT.m in Sources */,
 				3A777C791BE2C6580078D7A3 /* ContactsServiceUT.m in Sources */,
 				FDB11A0C1BEA52F5007705CA /* LinkServiceUT.m in Sources */,
 			);
