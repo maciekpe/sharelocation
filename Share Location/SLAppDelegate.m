@@ -19,7 +19,9 @@ extern NSString* CTSettingCopyMyPhoneNumber();
     NSLog(@"URL scheme:%@", [url scheme]);
     NSLog(@"URL query: %@", [url query]);
     //URL query: token=123abct&registered=1
-    LinkService* linkService = [LinkService getInstance];
+    
+    IdentificationService* identificationService = [[IdentificationService alloc] initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
+    LinkService* linkService = [[LinkService alloc] initWithIdentificationService:identificationService];
     LinkData* linkData = [linkService decomposeLinkDataFromUrl:url];
 
     NSLog(@"primaryContactToken: %@", [linkData primaryContactToken]);

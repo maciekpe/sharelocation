@@ -16,7 +16,9 @@ LinkService *linkService ;
 
 - (void)setUp {
     [super setUp];
-    linkService = [LinkService getInstance];
+    
+    IdentificationService* identificationService = mock([IdentificationService class]);
+    linkService = [[LinkService alloc] initWithIdentificationService:identificationService];
 }
 
 - (void)tearDown {

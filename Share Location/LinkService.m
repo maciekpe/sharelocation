@@ -4,6 +4,23 @@
 #import "Consts.h"
 
 @implementation LinkService
+//usunac odwolania do string utils jak powstana
+
+- (instancetype) initWithIdentificationService:(IdentificationService *) identificationService {
+    self = [super init];
+    if (self) {
+        if(identificationService == nil){
+            NSException* myException = [NSException
+                                        exceptionWithName:@"IdentificationService"
+                                        reason:@"CNContactStore is nil"
+                                        userInfo:nil];
+            @throw myException;
+        }
+        _identificationService = identificationService;
+    }
+    return self;
+}
+
 
  + (instancetype) getInstance {
      static LinkService *service = nil;
@@ -63,5 +80,45 @@
 - (NSDictionary *) decomposeParameter :(NSString *) parameterSegment {
     NSArray* parameters = [parameterSegment componentsSeparatedByString: @"="];
     return @{[parameters objectAtIndex:0] : [parameters objectAtIndex:1]};
+}
+
+-(NSString *) composeLink {
+    NSNumber *longtitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.longitude];
+    NSNumber *latitude = [NSNumber numberWithDouble:[SLData getCurrentLocation].coordinate.latitude];
+    NSString *url = @"iOSShareLocation://?latitude=";
+    url = [url stringByAppendingString: [latitude stringValue] ];
+    url = [url stringByAppendingString: @"&longitude=" ];
+    url = [url stringByAppendingString: [longtitude stringValue] ];
+    
+    if(![self.identificationService isUserIdentificationEmpty]){
+        NSString* userIdentificationString = [self.identificationService getUserIdentification];
+        NSString* userIdentification = [userIdentificationString stringByTrimmingCharactersInSet:
+                                        [NSCharacterSet whitespaceCharacterSet]];
+        if(userIdentification != nil ){
+            NSArray* queryElements = [userIdentification componentsSeparatedByString: SEMICOLON_SEPARATOR];
+            if(queryElements.count == 2){
+                url = [url stringByAppendingString: @"&tokens=" ];
+                NSString* tokenString = [queryElements objectAtIndex: 0];
+                tokenString = [tokenString stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceCharacterSet]];
+                url = [url stringByAppendingString:tokenString];
+                url = [url stringByAppendingString:@","];
+                tokenString = [queryElements objectAtIndex: 1];
+                tokenString = [tokenString stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceCharacterSet]];
+                url = [url stringByAppendingString:tokenString];
+            }
+            if(queryElements.count == 1){
+                url = [url stringByAppendingString: @"&tokens=" ];
+                NSString* tokenString = [queryElements objectAtIndex: 0];
+                tokenString = [tokenString stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceCharacterSet]];
+                url = [url stringByAppendingString:tokenString];
+            }
+        }
+    }
+    NSLog(@"url %@", url);
+    //NSLog(@"esc url %@", [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+    return url;
 }
 @end

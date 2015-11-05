@@ -4,6 +4,7 @@
 
 - (instancetype) initWithUserDefaults:(NSUserDefaults *) userDefaults;
 -(NSString *) getUserIdentification;
+- (BOOL) isUserIdentificationEmpty;
 @property (nonatomic, strong, readonly) NSUserDefaults *userDefaults;
 
 @end

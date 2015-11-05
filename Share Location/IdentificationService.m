@@ -23,9 +23,15 @@
 /*
  Pobiera UID identyfikacji uzytkownika jesl istnieje.
  */
--(NSString *) getUserIdentification{
+-(NSString *) getUserIdentification {
     NSString *userIdentification = [self.userDefaults stringForKey:SL_UID];
     return userIdentification;
+}
+
+- (BOOL) isUserIdentificationEmpty {
+    NSString *userUdentification = [self getUserIdentification];
+    userUdentification = [userUdentification stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+    return [userUdentification length] == 0;
 }
 
 @end
