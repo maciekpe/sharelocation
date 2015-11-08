@@ -160,7 +160,6 @@
                                     userInfo:nil];
         @throw myException;
     }
-    // Remove non numeric characters from the phone number
     phoneNumber = [[phoneNumber componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
     phoneNumber = [phoneNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return phoneNumber;

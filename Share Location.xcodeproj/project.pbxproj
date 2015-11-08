@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3A04AB4F1BC328280012ACB9 /* multimedia in Resources */ = {isa = PBXBuildFile; fileRef = 3A04AB4E1BC328280012ACB9 /* multimedia */; };
 		3A08001A193C712D0035E148 /* Main_ipad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A080018193C712D0035E148 /* Main_ipad.storyboard */; };
+		3A2B1DDD1BEFA7E600E957A8 /* SoundService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B1DDC1BEFA7E600E957A8 /* SoundService.m */; };
+		3A2B1DE01BEFAAA200E957A8 /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B1DDF1BEFAAA200E957A8 /* LocationService.m */; };
+		3A2B1DE21BEFB34B00E957A8 /* GuidanceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B1DE11BEFB34B00E957A8 /* GuidanceUITests.m */; };
 		3A560D581BC1D5D900E8B578 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A560D571BC1D5D900E8B578 /* Media.xcassets */; };
 		3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */; };
 		3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A68EC071BC5C1E0001A5F31 /* ContactsService.m */; };
@@ -72,6 +75,11 @@
 		0E6A308DBDA37BEB64191640 /* Pods-Share LocationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Share LocationTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Share LocationTests/Pods-Share LocationTests.release.xcconfig"; sourceTree = "<group>"; };
 		3A04AB4E1BC328280012ACB9 /* multimedia */ = {isa = PBXFileReference; lastKnownFileType = folder; path = multimedia; sourceTree = "<group>"; };
 		3A080019193C712D0035E148 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Share Location/Base.lproj/Main_ipad.storyboard"; sourceTree = "<group>"; };
+		3A2B1DDB1BEFA7E600E957A8 /* SoundService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundService.h; sourceTree = "<group>"; };
+		3A2B1DDC1BEFA7E600E957A8 /* SoundService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundService.m; sourceTree = "<group>"; };
+		3A2B1DDE1BEFAAA200E957A8 /* LocationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationService.h; sourceTree = "<group>"; };
+		3A2B1DDF1BEFAAA200E957A8 /* LocationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
+		3A2B1DE11BEFB34B00E957A8 /* GuidanceUITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidanceUITests.m; sourceTree = "<group>"; };
 		3A560D571BC1D5D900E8B578 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		3A5C21A7192F7C110046BC60 /* SLPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPinAnnotationView.h; sourceTree = "<group>"; };
 		3A5C21A8192F7C110046BC60 /* SLPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPinAnnotationView.m; sourceTree = "<group>"; };
@@ -218,6 +226,10 @@
 		3A68EC061BC5C1BC001A5F31 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				3A2B1DDE1BEFAAA200E957A8 /* LocationService.h */,
+				3A2B1DDF1BEFAAA200E957A8 /* LocationService.m */,
+				3A2B1DDB1BEFA7E600E957A8 /* SoundService.h */,
+				3A2B1DDC1BEFA7E600E957A8 /* SoundService.m */,
 				3A76746B1BEBD9750056A3BA /* MessageService.h */,
 				3A76746C1BEBD9750056A3BA /* MessageService.m */,
 				FD937B8E1BEB8001004759D6 /* IdentificationService.h */,
@@ -345,6 +357,7 @@
 		FD8F60741BD8CEE7000966B3 /* Share LocationUITests */ = {
 			isa = PBXGroup;
 			children = (
+				3A2B1DE11BEFB34B00E957A8 /* GuidanceUITests.m */,
 				FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */,
 				FD8F60771BD8CEE7000966B3 /* Info.plist */,
 				FDF361761BDA4F94003B5A94 /* PrefixHeader.pch */,
@@ -549,7 +562,9 @@
 				3AA30A8B18E7567900FAD973 /* SLData.m in Sources */,
 				3AD3F7BC18E63E8B000691D0 /* SLLocationViewController.m in Sources */,
 				3A5C21A9192F7C110046BC60 /* SLPinAnnotationView.m in Sources */,
+				3A2B1DDD1BEFA7E600E957A8 /* SoundService.m in Sources */,
 				3A68EC081BC5C1E0001A5F31 /* ContactsService.m in Sources */,
+				3A2B1DE01BEFAAA200E957A8 /* LocationService.m in Sources */,
 				3A76746D1BEBD9750056A3BA /* MessageService.m in Sources */,
 				3AD3F79218E624BF000691D0 /* main.m in Sources */,
 				3A6EA1B61BE93D3100C61E1C /* LinkData.m in Sources */,
@@ -578,6 +593,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A7674721BEC05970056A3BA /* SLData.m in Sources */,
+				3A2B1DE21BEFB34B00E957A8 /* GuidanceUITests.m in Sources */,
 				FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */,
 				FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */,
 			);

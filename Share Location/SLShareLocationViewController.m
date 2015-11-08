@@ -36,13 +36,23 @@
 {
     NSLog(@"enter viewDidLoad start share");
     [super viewDidLoad];
+    [self initServices];
+    [self initView];
+    [self processViewData];
+    if([self.identificationService isUserIdentificationEmpty]){
+        [self showPrefsAlert];
+    }
+}
+
+- (void) initServices {
     _identificationService = [[IdentificationService alloc] initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
     _linkService = [[LinkService alloc] initWithIdentificationService:_identificationService];
     _messageService = [[MessageService alloc] initWithLinkService:_linkService];
     CNContactStore *contactStore = [[CNContactStore alloc]init];
     _contactsService = [[ContactsService alloc] initWithContactStore: contactStore];
-    
-    [self processViewData];
+}
+
+- (void) initView {
     self.view.backgroundColor = [UIColor whiteColor];
     _messageDataField2.layer.borderColor = [UIColor whiteColor].CGColor;
     _messageDataField2.layer.borderWidth = 1;
@@ -54,10 +64,6 @@
     }
     if(_scrollView != nil){
         _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPHONE_PATH]];
-    }
-    
-    if([self.identificationService isUserIdentificationEmpty]){
-        [self showPrefsAlert];
     }
 }
 
@@ -96,7 +102,9 @@
  Otwiera alert o braki preferencji.
  */
 -(void)showPrefsAlert{
-    UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:LABEL_ADD_USER_DATA_INFO_2 withTitle:LABEL_INFORMATION withConfirmBtnTitle:LABEL_CONTINUE];
+    UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:LABEL_ADD_USER_DATA_INFO_2
+                                                        withTitle:LABEL_INFORMATION
+                                                        withConfirmBtnTitle:LABEL_CONTINUE];
     [self presentViewController:alert animated:YES completion:nil];
 }
 

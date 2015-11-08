@@ -7,6 +7,7 @@
 #import "SLData.h"
 #import <CoreLocation/CoreLocation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "SoundService.h"
 @import Contacts;
 
 @interface SLLocationViewController ()<UIApplicationDelegate, UIAlertViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
@@ -17,22 +18,11 @@
 @implementation SLLocationViewController
 
 CLLocationManager *locationMgr;
-SystemSoundID closeSoundID;
-SystemSoundID furtherSoundID;
 NSDate *lastSound;
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self disposeMedia];
-
 }
 
 - (void)viewDidLoad
@@ -42,7 +32,6 @@ NSDate *lastSound;
     _viewMap.delegate = self;
 
     [self initLocationManager];
-    [self initMedia];
     [self initContacts];
     NSLog(@"end viewDidLoad");
 }
@@ -71,16 +60,6 @@ NSDate *lastSound;
         UIAlertController *alert = [SLAlertsFactory createAlertWithMsg:@"This app previously was refused permissions to contacts; Please go to settings and grant permission to this app so it can add the desired contact." withTitle:@"Information" withConfirmBtnTitle:@"OK"];
         [self presentViewController:alert animated:TRUE completion:nil];
     }
-}
-
-- (void) initMedia {
-    [self initSound:@"multimedia/audio/sonar" sound: &closeSoundID];
-    [self initSound:@"multimedia/audio/error" sound: &furtherSoundID];
-}
-
-- (void) disposeMedia {
-    AudioServicesDisposeSystemSoundID(closeSoundID);
-    AudioServicesDisposeSystemSoundID(furtherSoundID);
 }
 
 - (void)initSound:(NSString *) pathToFile sound: (SystemSoundID *) soundID {
@@ -247,14 +226,15 @@ NSDate *lastSound;
  */
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
     MKPolylineView *polylineView = [[MKPolylineView alloc] initWithPolyline:overlay];
+    SoundService* soundService = [SoundService getInstance];
     if([SLData isDistanceShorter]){
         if([self playProgressSound]){
-            AudioServicesPlaySystemSound(closeSoundID);
+            [soundService playCorrectDirectionSound];
         }
         polylineView.strokeColor = [UIColor greenColor];
     }else{
         if([self playProgressSound]){
-            AudioServicesPlaySystemSound(furtherSoundID);
+            [soundService playIncorrectDirectionSound];
         }
         polylineView.strokeColor = [UIColor redColor];
     }
