@@ -39,6 +39,8 @@
     _identificationService = [[IdentificationService alloc] initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
     _linkService = [[LinkService alloc] initWithIdentificationService:_identificationService];
     _messageService = [[MessageService alloc] initWithLinkService:_linkService];
+    CNContactStore *contactStore = [[CNContactStore alloc]init];
+    _contactsService = [[ContactsService alloc] initWithContactStore: contactStore];
     
     [self processViewData];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -139,53 +141,22 @@
 }
 
 - (void)contactPicker:(CNContactPickerViewController *)picker didSelectContact:(CNContact *)contact {
-    NSLog(@"wejscie");
     [self processPersonData:contact];
     [picker dismissViewControllerAnimated:true completion: nil];
 
 }
 
 - (void)processPersonData:(CNContact *)contact {
-    NSString* phoneNumer = EMPTY_STR;
-    if ([contact.phoneNumbers count]  > 0) {
-        CNPhoneNumber* cnPhoneNumber= [contact.phoneNumbers objectAtIndex:0].value;
-        phoneNumer = cnPhoneNumber.stringValue;
-        NSLog(@" numer %@", phoneNumer);
-    }
-    NSString* email = EMPTY_STR;
-    if ([contact.phoneNumbers count]  > 0) {
-        email= [contact.emailAddresses objectAtIndex:0].value;
-        NSLog(@" email %@", email);
-    }
     if(self.isAddressBookForRecipient){
         BOOL isEmail = [_switchItem isOn];
         if(isEmail){
-            _userDataField.text = email;
+            _userDataField.text = [_contactsService getMateEmailFromContact:contact];
         }else{
-            _userDataField.text = phoneNumer;
+            _userDataField.text = [_contactsService getMatePhoneFromContact:contact];
         }
     }else{
-        NSString *aUid = nil;
-        if(email != nil){
-            email = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            if (![email isEqualToString:EMPTY_STR]){
-                aUid = [EMPTY_STR stringByAppendingString:email];
-            }
-        }
-        if(phoneNumer != nil){
-            phoneNumer = [[phoneNumer componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:EMPTY_STR];
-            phoneNumer = [phoneNumer stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            if (aUid != nil && ![phoneNumer isEqualToString:EMPTY_STR]){
-                aUid = [aUid stringByAppendingString:SEMICOLON_SEPARATOR];
-                aUid = [aUid stringByAppendingString:phoneNumer];
-                
-            }else{
-                aUid = [aUid stringByAppendingString:phoneNumer];
-            }
-        }
-        
-        [[NSUserDefaults standardUserDefaults] setObject:aUid forKey:SL_UID];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        NSString *aUid = [_contactsService getMateUidFromContact:contact];
+        [_identificationService saveUserIdentification:aUid];
         [self showPrefs];
     }
     self.isAddressBookForRecipient = YES;

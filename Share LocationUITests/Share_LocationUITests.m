@@ -109,7 +109,7 @@
     [modeSwitch tap];
     [elementsQuery.buttons[@"addressBookBtn"] tap];
     [app.tables.staticTexts[@"John Appleseed"] tap];
-    XCTAssertEqual(elementsQuery.textFields[@"888-555-5512" ].exists, TRUE, @"888-555-512 not found");
+    XCTAssertEqual(elementsQuery.textFields[@"8885555512" ].exists, TRUE, @"888555512 not found");
 }
 
 - (void)testStory7_ShareLocationWindowShouldPresentUserMessage {

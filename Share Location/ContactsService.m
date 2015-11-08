@@ -2,10 +2,15 @@
 #import "ContactsService.h"
 #import <AddressBook/AddressBook.h>
 #import <Contacts/Contacts.h>
+#import "Consts.h"
 @implementation ContactsService
 
 //brakuje unita dla contactsByLinkData
-
+/*
+ - (NSString *) getMateUidFromContact:(CNContact *)contact;
+ - (NSString *) getMatePhoneFromContact:(CNContact *)contact;
+ - (NSString *) getMateEmailFromContact:(CNContact *)contact;
+*/
 /*
 + (instancetype) getInstance {
     static ContactsService *service = nil;
@@ -171,5 +176,45 @@
     }
     emailAddress = [emailAddress stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return emailAddress;
+}
+
+- (NSString *) getMatePhoneFromContact:(CNContact *)contact {
+    NSString* phoneNumer = EMPTY_STR;
+    if ([contact.phoneNumbers count]  > 0) {
+        CNPhoneNumber* cnPhoneNumber= [contact.phoneNumbers objectAtIndex:0].value;
+        phoneNumer = cnPhoneNumber.stringValue;
+        NSLog(@" numer %@", phoneNumer);
+    }
+    return [self normalizePhoneNumber:phoneNumer];
+}
+
+- (NSString *) getMateEmailFromContact:(CNContact *)contact {
+    NSString* email = EMPTY_STR;
+    if ([contact.emailAddresses count]  > 0) {
+        email= [contact.emailAddresses objectAtIndex:0].value;
+        NSLog(@" email %@", email);
+    }
+    return [self normalizeEmailAddress:email];
+}
+
+- (NSString *) getMateUidFromContact:(CNContact *)contact {
+    NSString* phoneNumer = [self getMatePhoneFromContact:contact];
+    NSString* email = [self getMateEmailFromContact:contact];
+    NSString *uid = nil;
+    if(email != nil){
+        if (![email isEqualToString:EMPTY_STR]){
+            uid = [EMPTY_STR stringByAppendingString:email];
+        }
+    }
+    if(phoneNumer != nil){
+        if (uid != nil && ![phoneNumer isEqualToString:EMPTY_STR]){
+            uid = [uid stringByAppendingString:SEMICOLON_SEPARATOR];
+            uid = [uid stringByAppendingString:phoneNumer];
+            
+        }else{
+            uid = [uid stringByAppendingString:phoneNumer];
+        }
+    }
+    return uid;
 }
 @end

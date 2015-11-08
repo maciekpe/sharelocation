@@ -3,6 +3,8 @@
 
 @implementation IdentificationService
 
+//dodac test na save
+
 
 - (instancetype) initWithUserDefaults:(NSUserDefaults *) userDefaults
 {
@@ -29,6 +31,11 @@
     NSString *userUdentification = [self getUserIdentification];
     userUdentification = [userUdentification stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
     return [userUdentification length] == 0;
+}
+
+-(void) saveUserIdentification: (NSString *) uid {
+    [[NSUserDefaults standardUserDefaults] setObject:uid forKey:SL_UID];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

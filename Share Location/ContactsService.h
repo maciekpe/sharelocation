@@ -5,6 +5,9 @@
 @interface ContactsService : NSObject
 - (instancetype) initWithContactStore:(CNContactStore *) store;
 - (NSString *) getMateNameString:(NSArray<CNContact*> *)filteredContacts;
+- (NSString *) getMateUidFromContact:(CNContact *)contact;
+- (NSString *) getMatePhoneFromContact:(CNContact *)contact;
+- (NSString *) getMateEmailFromContact:(CNContact *)contact;
 - (NSArray *) contactsContainingEmail:(NSString *)email;
 - (NSArray *) contactsContainingPhoneNumber:(NSString *)phoneNumber;
 - (NSArray *) contactsByLinkData:(LinkData *)linkData;

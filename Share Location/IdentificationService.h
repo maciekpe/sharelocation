@@ -3,8 +3,9 @@
 @interface IdentificationService : NSObject
 
 - (instancetype) initWithUserDefaults:(NSUserDefaults *) userDefaults;
--(NSString *) getUserIdentification;
+- (NSString *) getUserIdentification;
 - (BOOL) isUserIdentificationEmpty;
+- (void) saveUserIdentification: (NSString *) uid;
 @property (nonatomic, strong, readonly) NSUserDefaults *userDefaults;
 
 @end
