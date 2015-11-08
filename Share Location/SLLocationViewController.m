@@ -61,41 +61,54 @@
 
 //##############################################
 
-/*
- Akcja powrotu do mapy.
- */
-- (IBAction)unwindToMap:(UIStoryboardSegue *)segue {}
 
-// po dodaniu anotacji
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+-(void)deleteMapAnnotations
 {
-    if(![annotation isKindOfClass:[SLMapAnnotation class]]){
-        return nil;
+    for (id<MKAnnotation> annotation in _viewMap.annotations){
+        [self.viewMap removeAnnotation:annotation];
     }
-    NSString *annotationIdentifier = @"annotationIdentifier";
-
-    MKPinAnnotationView *pinView = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-    if (!pinView)
-    {
-        pinView = [[SLPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        UIImage *img = nil;
-        if([SLData getImage] != nil){
-            img = [SLData getImage];
-        }else{
-            img = [UIImage imageNamed:@"multimedia/pics/target.jpg"];
-        }
-        UIImageView *houseIconView = [[UIImageView alloc] initWithImage:img];
-        [houseIconView setFrame:CGRectMake(0, 0, 30, 30)];
-        pinView.leftCalloutAccessoryView = houseIconView;
-    }
-    else
-    {
-        pinView.annotation = annotation;
-    }
-    return pinView;
-
 }
 
+
+-(void)deleteMapOverlays
+{
+    for (id<MKOverlay> overlay in _viewMap.overlays){
+        [self.viewMap removeOverlay:overlay];
+    }
+}
+
+
+
+/*
+ Obsługa update lokalizacji.
+ */
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    NSLog(@"didUpdateLocations ");
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (fabs(howRecent) < 15.0 && ([SLData getCurrentLocation]==nil || [location distanceFromLocation:[SLData getCurrentLocation]] >10)) {
+        [self.locationService logLocation:location logString:@"Current location "];
+        [SLData setCurrentLocation:location];
+        _viewMap.showsUserLocation = YES;
+        if([SLData getMateLocation] != nil){
+            CLLocationDistance distance = [location distanceFromLocation:[SLData getMateLocation]];
+            NSString *title = [self.locationService getDistanceString:distance];
+            
+            //
+            [self addPinFromCurrentLocation:[SLData getMateLocation] withTitle:title fromBaseLocation:location];
+            //
+            
+        }else{
+            CLLocationCoordinate2D zoomLocation = location.coordinate;
+            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 600, 600);
+            
+            [_viewMap setRegion:viewRegion animated:NO];
+            [_viewMap setCenterCoordinate:zoomLocation animated:YES];
+        }
+        NSLog(@"Location stored ");
+    }
+}
 
 /*
  Dodaje PINa do mapy.
@@ -131,47 +144,19 @@
         [[SLMapAnnotation alloc] initWithCoordinates:pinLocation
                                                title:title subTitle:userTitle];
         
+        //
         [_viewMap addAnnotation:annotation];
+        //
+        
         [_viewMap selectAnnotation:annotation animated:YES];
         CLLocationCoordinate2D coordinates[2];
         coordinates[0] = location.coordinate;
         coordinates[1] = baseLocation.coordinate;
         MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:2];
+        
+        //
         [_viewMap addOverlay:polyLine];
-        }
-}
-
-/*
- Obsluga chwilowego pokazania callouta wlasne aktualizacji.
- */
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    MKAnnotationView *aV;
-    for (aV in views) {
-        aV.canShowCallout = YES;
-        if (![aV.annotation isKindOfClass:[SLMapAnnotation class]]) {
-            ((MKUserLocation *)aV.annotation).title = @"Your's current location";
-            [aV setSelected:YES];
-            [self.viewMap selectAnnotation:aV.annotation animated:YES];
-        }else{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self.viewMap selectAnnotation:aV.annotation animated:YES];
-            });
-        }
-    }
-}
-
--(void)deleteMapAnnotations
-{
-    for (id<MKAnnotation> annotation in _viewMap.annotations){
-        [self.viewMap removeAnnotation:annotation];
-    }
-}
-
-
--(void)deleteMapOverlays
-{
-    for (id<MKOverlay> overlay in _viewMap.overlays){
-        [self.viewMap removeOverlay:overlay];
+        //
     }
 }
 
@@ -195,31 +180,62 @@
 }
 
 /*
- Obsługa update lokalizacji.
+ Akcja powrotu do mapy.
  */
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    NSLog(@"didUpdateLocations ");
-    CLLocation* location = [locations lastObject];
-    NSDate* eventDate = location.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (fabs(howRecent) < 15.0 && ([SLData getCurrentLocation]==nil || [location distanceFromLocation:[SLData getCurrentLocation]] >10)) {
-        [self.locationService logLocation:location logString:@"Current location "];
-        [SLData setCurrentLocation:location];
-        _viewMap.showsUserLocation = YES;
-        if([SLData getMateLocation] != nil){
-            CLLocationDistance distance = [location distanceFromLocation:[SLData getMateLocation]];
-            NSString *title = [self.locationService getDistanceString:distance];
-            [self addPinFromCurrentLocation:[SLData getMateLocation] withTitle:title fromBaseLocation:location];
+- (IBAction)unwindToMap:(UIStoryboardSegue *)segue {}
+
+// po dodaniu anotacji
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    if(![annotation isKindOfClass:[SLMapAnnotation class]]){
+        return nil;
+    }
+    NSString *annotationIdentifier = @"annotationIdentifier";
+    
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+    if (!pinView)
+    {
+        pinView = [[SLPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+        UIImage *img = nil;
+        if([SLData getImage] != nil){
+            img = [SLData getImage];
         }else{
-            CLLocationCoordinate2D zoomLocation = location.coordinate;
-            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 600, 600);
-            
-            [_viewMap setRegion:viewRegion animated:NO];
-            [_viewMap setCenterCoordinate:zoomLocation animated:YES];
+            img = [UIImage imageNamed:@"multimedia/pics/target.jpg"];
         }
-        NSLog(@"Location stored ");
+        UIImageView *houseIconView = [[UIImageView alloc] initWithImage:img];
+        [houseIconView setFrame:CGRectMake(0, 0, 30, 30)];
+        pinView.leftCalloutAccessoryView = houseIconView;
+    }
+    else
+    {
+        pinView.annotation = annotation;
+    }
+    return pinView;
+    
+}
+
+
+
+
+/*
+ Obsluga chwilowego pokazania callouta wlasne aktualizacji.
+ */
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    MKAnnotationView *aV;
+    for (aV in views) {
+        aV.canShowCallout = YES;
+        if (![aV.annotation isKindOfClass:[SLMapAnnotation class]]) {
+            ((MKUserLocation *)aV.annotation).title = @"Your's current location";
+            [aV setSelected:YES];
+            [self.viewMap selectAnnotation:aV.annotation animated:YES];
+        }else{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self.viewMap selectAnnotation:aV.annotation animated:YES];
+            });
+        }
     }
 }
+
 
 
 //###############################################
