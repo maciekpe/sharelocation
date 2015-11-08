@@ -13,6 +13,8 @@ static NSString *nameString;
 
 static UIImage *image;
 
+static NSDate *lastSound;
+
 //getter (statyczny)
 + (NSString*) getNameString {
     return nameString;
@@ -53,6 +55,14 @@ static UIImage *image;
 + (void) setCurrentLocation:(CLLocation *) location{
     prevoiusLocation = currentLocation;
     currentLocation = location;
+}
+
++ (NSDate*) getLastSound {
+    return lastSound;
+}
+//setter (statyczny) tokena
++ (void) setLastSound:(NSDate *) sound {
+    lastSound = sound;
 }
 
 //wylicza czy odleglosc od punktu docelowego jest mniejsza niz w poprzednim pomiarze

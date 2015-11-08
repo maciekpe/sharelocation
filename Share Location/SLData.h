@@ -29,5 +29,8 @@
 //wylicza czy dystans do celu jest mniejszy
 + (bool) isDistanceShorter;
 
++ (NSDate*) getLastSound;
+//setter (statyczny) tokena
++ (void) setLastSound:(NSDate *) sound;
 
 @end

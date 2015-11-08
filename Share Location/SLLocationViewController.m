@@ -17,10 +17,6 @@
 
 @implementation SLLocationViewController
 
-CLLocationManager *locationMgr;
-NSDate *lastSound;
-
-
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
 }
@@ -30,21 +26,18 @@ NSDate *lastSound;
     NSLog(@"enter viewDidLoad");
     [super viewDidLoad];
     _viewMap.delegate = self;
-
     [self initLocationManager];
     [self initContacts];
     NSLog(@"end viewDidLoad");
 }
 
 - (void) initLocationManager {
+    _locationService = [[LocationService alloc] init];
     NSLog(@"enter initLocationManager start");
     if([SLData getCurrentLocation] == nil){
-        locationMgr =[[CLLocationManager alloc] init];
-        locationMgr.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-        locationMgr.distanceFilter = 10;
-        locationMgr.delegate = self;
-        [locationMgr requestAlwaysAuthorization];
-        [locationMgr startUpdatingLocation];
+        _locationMgr = [self.locationService createLocationManager];
+        self.locationMgr.delegate = self;
+        [self.locationMgr startUpdatingLocation];
         NSLog(@"end initLocationManager started");
     }else{
         NSLog(@"end initLocationManager skip ");
@@ -62,12 +55,6 @@ NSDate *lastSound;
     }
 }
 
-- (void)initSound:(NSString *) pathToFile sound: (SystemSoundID *) soundID {
-    NSString* path = [[NSBundle mainBundle] pathForResource:pathToFile ofType:@"wav"];
-    NSURL* url = [NSURL fileURLWithPath:path];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, soundID);
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -79,24 +66,7 @@ NSDate *lastSound;
  */
 - (IBAction)unwindToMap:(UIStoryboardSegue *)segue {}
 
-/*
- Loguje lokacje.
- */
-- (void) logLocation: (CLLocation *) location logString:(NSString *) log {
-
-    NSString *logString = @"Location : ";
-    NSNumber *longtitude = [NSNumber numberWithDouble:location.coordinate.longitude];
-    NSNumber *latitude = [NSNumber numberWithDouble:location.coordinate.latitude];
-    logString = [logString stringByAppendingString: @" latitude=" ];
-    logString = [logString stringByAppendingString: [latitude stringValue] ];
-    logString = [logString stringByAppendingString: @" longitude=" ];
-    logString = [logString stringByAppendingString: [longtitude stringValue] ];
-    NSLog(@"%@",logString);
-}
-
-
-
-
+// po dodaniu anotacji
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     if(![annotation isKindOfClass:[SLMapAnnotation class]]){
@@ -168,23 +138,7 @@ NSDate *lastSound;
         coordinates[1] = baseLocation.coordinate;
         MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:2];
         [_viewMap addOverlay:polyLine];
-        
-        
-        
         }
-}
-
-/*
- Wylicza string okreslajacy odleglosc punktu na podstawie dystansu.
- */
-- (NSString *) getDistanceString:(CLLocationDistance) distance{
-    NSString *title = @"";
-    if(distance > 1000){
-        title = [title stringByAppendingString : [NSString stringWithFormat:@"%.2f kilometers", distance/1000]];
-    }else{
-        title = [title stringByAppendingString : [NSString stringWithFormat:@"%.0f meters", distance]];
-    }
-    return title;
 }
 
 /*
@@ -228,14 +182,10 @@ NSDate *lastSound;
     MKPolylineView *polylineView = [[MKPolylineView alloc] initWithPolyline:overlay];
     SoundService* soundService = [SoundService getInstance];
     if([SLData isDistanceShorter]){
-        if([self playProgressSound]){
-            [soundService playCorrectDirectionSound];
-        }
+        [soundService playCorrectDirectionSound];
         polylineView.strokeColor = [UIColor greenColor];
     }else{
-        if([self playProgressSound]){
-            [soundService playIncorrectDirectionSound];
-        }
+        [soundService playIncorrectDirectionSound];
         polylineView.strokeColor = [UIColor redColor];
     }
     polylineView.lineWidth = 4.0;
@@ -243,26 +193,6 @@ NSDate *lastSound;
     polylineView.lineDashPattern = array;
     return polylineView;
 }
-
-/*
- Okresla czy ma ma byc wykonana sygnalizacja dzwiekowa
- */
--(bool) playProgressSound{
-    NSDate *now = [NSDate date];
-    if(lastSound !=nil){
-            if( [now timeIntervalSinceDate:lastSound] > 5 ) {
-                lastSound = now;
-                return YES;
-            }else{
-                 return NO;
-            }
-    }else{
-        lastSound = now;
-        return YES;
-    }
-}
-
-
 
 /*
  Obsługa update lokalizacji.
@@ -273,12 +203,12 @@ NSDate *lastSound;
     NSDate* eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (fabs(howRecent) < 15.0 && ([SLData getCurrentLocation]==nil || [location distanceFromLocation:[SLData getCurrentLocation]] >10)) {
-        [self logLocation:location logString:@"Current location "];
+        [self.locationService logLocation:location logString:@"Current location "];
         [SLData setCurrentLocation:location];
         _viewMap.showsUserLocation = YES;
         if([SLData getMateLocation] != nil){
             CLLocationDistance distance = [location distanceFromLocation:[SLData getMateLocation]];
-            NSString *title = [self getDistanceString:distance];
+            NSString *title = [self.locationService getDistanceString:distance];
             [self addPinFromCurrentLocation:[SLData getMateLocation] withTitle:title fromBaseLocation:location];
         }else{
             CLLocationCoordinate2D zoomLocation = location.coordinate;
