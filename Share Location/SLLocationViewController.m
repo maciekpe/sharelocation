@@ -116,46 +116,32 @@
 -(void) addPinFromCurrentLocation:(CLLocation *) location withTitle:(NSString *) title fromBaseLocation: (CLLocation *) baseLocation{
     if(location != nil){
         
+        //
         [self deleteMapOverlays];
-        [self deleteMapAnnotations];
+        //
         
-        CLLocationCoordinate2D pinLocation = location.coordinate;
-        CLLocationDistance distance = [baseLocation distanceFromLocation:location];
-        double calculatedDistance = distance * 2.5;
-        NSLog(@" calculatedDistance %.0f", calculatedDistance);
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(baseLocation.coordinate, calculatedDistance, calculatedDistance);
+        //
+        [self deleteMapAnnotations];        
+        //
         
-        //obsluga zbyt duzego dystansu
-        MKCoordinateRegion adjustedRegion = [_viewMap regionThatFits:viewRegion];
-        if(isnan(adjustedRegion.span.latitudeDelta) || isnan(adjustedRegion.span.longitudeDelta)){
+        //
+        MKCoordinateRegion viewRegion = [self.locationService calculateRegionWithBase:location withRemote:baseLocation];
+        if([self.locationService isRegionNotAdjusted:[_viewMap regionThatFits:viewRegion]]){
             viewRegion.span.latitudeDelta = 90;
             viewRegion.span.longitudeDelta = 180;
         }
         [_viewMap setRegion:viewRegion animated:NO];
         [_viewMap setCenterCoordinate:baseLocation.coordinate animated:YES];
-        
-        NSMutableString *userTitle = [[NSMutableString alloc] init];
-        [userTitle appendString:title];
-        NSString *title = @"Destination";
-        if([SLData getNameString] != nil){
-            title = [SLData getNameString];
-        }
-        SLMapAnnotation *annotation =
-        [[SLMapAnnotation alloc] initWithCoordinates:pinLocation
-                                               title:title subTitle:userTitle];
+        //
         
         //
+        SLMapAnnotation *annotation = [self.locationService createMapAnnotationWith:location.coordinate withTitle:title];
         [_viewMap addAnnotation:annotation];
-        //
-        
         [_viewMap selectAnnotation:annotation animated:YES];
-        CLLocationCoordinate2D coordinates[2];
-        coordinates[0] = location.coordinate;
-        coordinates[1] = baseLocation.coordinate;
-        MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:2];
+        //
         
         //
-        [_viewMap addOverlay:polyLine];
+        [_viewMap addOverlay:[self.locationService createLineWithBase:location withRemote:baseLocation]];
         //
     }
 }

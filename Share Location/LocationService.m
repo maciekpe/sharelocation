@@ -1,5 +1,6 @@
 #import "LocationService.h"
 #import <MapKit/MapKit.h>
+#import "SLData.h"
 
 @implementation LocationService
 
@@ -9,6 +10,39 @@
     
     }
     return self;
+}
+
+- (MKCoordinateRegion) calculateRegionWithBase:(CLLocation *) basePoint withRemote: (CLLocation *) remotePoint {
+    CLLocationDistance distance = [remotePoint distanceFromLocation:basePoint];
+    double calculatedDistance = distance * 2.5;
+    NSLog(@" calculatedDistance %.0f", calculatedDistance);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(remotePoint.coordinate, calculatedDistance, calculatedDistance);
+    return viewRegion;
+}
+
+- (BOOL) isRegionNotAdjusted:(MKCoordinateRegion) adjustedRegion {
+    return (isnan(adjustedRegion.span.latitudeDelta) || isnan(adjustedRegion.span.longitudeDelta));
+}
+
+- (SLMapAnnotation*) createMapAnnotationWith: (CLLocationCoordinate2D) pinLocation withTitle:(NSString *) title {
+    NSMutableString *userTitle = [[NSMutableString alloc] init];
+    [userTitle appendString:title];
+    NSString *titleName = @"Destination";
+    if([SLData getNameString] != nil){
+        titleName = [SLData getNameString];
+    }
+    SLMapAnnotation *annotation =
+    [[SLMapAnnotation alloc] initWithCoordinates:pinLocation
+                                           title:titleName subTitle:userTitle];
+    return annotation;
+}
+
+- (MKPolyline*) createLineWithBase:(CLLocation *) basePoint withRemote: (CLLocation *) remotePoint {
+    CLLocationCoordinate2D coordinates[2];
+    coordinates[0] = basePoint.coordinate;
+    coordinates[1] = remotePoint.coordinate;
+    MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:2];
+    return polyLine;
 }
 
 - (CLLocationManager* ) createLocationManager {
