@@ -1,6 +1,7 @@
 #import "LocationService.h"
 #import <MapKit/MapKit.h>
 #import "SLData.h"
+#import "SLPinAnnotationView.h"
 
 @implementation LocationService
 
@@ -43,6 +44,20 @@
     coordinates[1] = remotePoint.coordinate;
     MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:2];
     return polyLine;
+}
+
+- (MKPinAnnotationView*) createAnnotationView: (MKPinAnnotationView*) annotationView forAnnotation:(id <MKAnnotation>)annotation {
+    MKPinAnnotationView* pinView = [[SLPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotationIdentifier"];
+    UIImage *img = nil;
+    if([SLData getImage] != nil){
+        img = [SLData getImage];
+    }else{
+        img = [UIImage imageNamed:@"multimedia/pics/target.jpg"];
+    }
+    UIImageView *houseIconView = [[UIImageView alloc] initWithImage:img];
+    [houseIconView setFrame:CGRectMake(0, 0, 30, 30)];
+    pinView.leftCalloutAccessoryView = houseIconView;
+    return pinView;
 }
 
 - (CLLocationManager* ) createLocationManager {

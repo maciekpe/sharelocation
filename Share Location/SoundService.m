@@ -15,6 +15,16 @@
      return service;
 }
 
+- (void) playDirectionSound {
+    if([self isSoundNeeded]){
+        if([SLData isDistanceShorter]){
+            [self playCorrectDirectionSound];
+        }else{
+            [self playIncorrectDirectionSound];
+        }
+    }
+}
+
 - (void) playCorrectDirectionSound {
     if([self isSoundNeeded]){
         __block SystemSoundID correctDirection;

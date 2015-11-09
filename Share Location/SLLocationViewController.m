@@ -143,6 +143,9 @@
         //
         [_viewMap addOverlay:[self.locationService createLineWithBase:location withRemote:baseLocation]];
         //
+        
+        SoundService* soundService = [SoundService getInstance];
+        [soundService playDirectionSound];
     }
 }
 
@@ -151,12 +154,9 @@
  */
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
     MKPolylineView *polylineView = [[MKPolylineView alloc] initWithPolyline:overlay];
-    SoundService* soundService = [SoundService getInstance];
     if([SLData isDistanceShorter]){
-        [soundService playCorrectDirectionSound];
         polylineView.strokeColor = [UIColor greenColor];
     }else{
-        [soundService playIncorrectDirectionSound];
         polylineView.strokeColor = [UIColor redColor];
     }
     polylineView.lineWidth = 4.0;
@@ -170,42 +170,20 @@
  */
 - (IBAction)unwindToMap:(UIStoryboardSegue *)segue {}
 
-// po dodaniu anotacji
+// modyfikacja wygladu anotacji
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
     if(![annotation isKindOfClass:[SLMapAnnotation class]]){
         return nil;
     }
-    NSString *annotationIdentifier = @"annotationIdentifier";
-    
-    MKPinAnnotationView *pinView = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-    if (!pinView)
-    {
-        pinView = [[SLPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        UIImage *img = nil;
-        if([SLData getImage] != nil){
-            img = [SLData getImage];
-        }else{
-            img = [UIImage imageNamed:@"multimedia/pics/target.jpg"];
-        }
-        UIImageView *houseIconView = [[UIImageView alloc] initWithImage:img];
-        [houseIconView setFrame:CGRectMake(0, 0, 30, 30)];
-        pinView.leftCalloutAccessoryView = houseIconView;
-    }
-    else
-    {
-        pinView.annotation = annotation;
-    }
-    return pinView;
-    
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier: @"annotationIdentifier"];
+    return [self.locationService createAnnotationView:pinView forAnnotation:annotation];
 }
 
 
 
 
-/*
- Obsluga chwilowego pokazania callouta wlasne aktualizacji.
- */
+// akcja po dodaniu anotacji do mapy
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     MKAnnotationView *aV;
     for (aV in views) {

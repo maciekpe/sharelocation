@@ -4,5 +4,6 @@
 + (SoundService*) getInstance ;
 - (void) playCorrectDirectionSound;
 - (void) playIncorrectDirectionSound;
--(BOOL) isSoundNeeded;
+- (BOOL) isSoundNeeded;
+- (void) playDirectionSound;
 @end
