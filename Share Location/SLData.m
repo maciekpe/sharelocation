@@ -73,4 +73,10 @@ static NSDate *lastSound;
     return ([mateLocation distanceFromLocation:currentLocation]) < ([mateLocation distanceFromLocation:prevoiusLocation]);
 }
 
++ (bool) isLocationChangeRevelant:(CLLocation*) location {
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    return (fabs(howRecent) < 15.0 && ([SLData getCurrentLocation]==nil || [location distanceFromLocation:[SLData getCurrentLocation]] >10));
+}
+
 @end

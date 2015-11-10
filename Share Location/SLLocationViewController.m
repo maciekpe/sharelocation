@@ -85,12 +85,10 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     NSLog(@"didUpdateLocations ");
     CLLocation* location = [locations lastObject];
-    NSDate* eventDate = location.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (fabs(howRecent) < 15.0 && ([SLData getCurrentLocation]==nil || [location distanceFromLocation:[SLData getCurrentLocation]] >10)) {
+    _viewMap.showsUserLocation = YES;
+    if ([SLData isLocationChangeRevelant:location]) {
         [self.locationService logLocation:location logString:@"Current location "];
         [SLData setCurrentLocation:location];
-        _viewMap.showsUserLocation = YES;
         if([SLData getMateLocation] != nil){
             CLLocationDistance distance = [location distanceFromLocation:[SLData getMateLocation]];
             NSString *title = [self.locationService getDistanceString:distance];

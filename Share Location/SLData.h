@@ -33,4 +33,6 @@
 //setter (statyczny) tokena
 + (void) setLastSound:(NSDate *) sound;
 
++ (bool) isLocationChangeRevelant:(CLLocation*) location;
+
 @end
