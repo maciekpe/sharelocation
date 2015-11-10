@@ -1,6 +1,7 @@
 #import "SoundService.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "SLData.h"
+#import "LocationService.h"
 
 @implementation SoundService
 
@@ -17,7 +18,7 @@
 
 - (void) playDirectionSound {
     if([self isSoundNeeded]){
-        if([SLData isDistanceShorter]){
+        if([[LocationService getInstance].locationData isDistanceShorter]){
             [self playCorrectDirectionSound];
         }else{
             [self playIncorrectDirectionSound];
@@ -58,15 +59,16 @@
 
 -(BOOL) isSoundNeeded { 
     NSDate *now = [NSDate date];
-    if([SLData getLastSound] !=nil){
-        if( [now timeIntervalSinceDate:[SLData getLastSound]] > 5 ) {
-            [SLData setLastSound:now];
+    SLData* locationData = [LocationService getInstance].locationData;
+    if(locationData.lastSound !=nil){
+        if( [now timeIntervalSinceDate:locationData.lastSound] > 5 ) {
+            [locationData setLastSound:now];
             return YES;
         }else{
             return NO;
         }
     }else{
-        [SLData setLastSound:now];
+        [locationData setLastSound:now];
         return YES;
     }
 }

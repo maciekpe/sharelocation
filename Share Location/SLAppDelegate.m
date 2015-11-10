@@ -7,6 +7,7 @@
 #import "ContactsService.h"
 #import "LinkData.h"
 #import "LinkService.h"
+#import "LocationService.h"
 
 @implementation SLAppDelegate
 
@@ -34,17 +35,18 @@ extern NSString* CTSettingCopyMyPhoneNumber();
     ContactsService *contactsService = [[ContactsService alloc] initWithContactStore:contactStore];
     NSArray *filteredContacts = [contactsService contactsByLinkData:linkData];
     
+    SLData* locationData = [LocationService getInstance].locationData;
     if(filteredContacts != nil && filteredContacts.count > 0){
         NSLog(@"Setting contacts");
-        [SLData setNameString: [contactsService getMateNameString:filteredContacts]];
-        [SLData setImage: [contactsService getMateImage:filteredContacts]];
+        [locationData setNameString: [contactsService getMateNameString:filteredContacts]];
+        [locationData setImage: [contactsService getMateImage:filteredContacts]];
         NSLog(@"Setting end");
     }else{
         NSLog(@"no contacts");
     }
     
     CLLocation *locationMate = [[CLLocation alloc] initWithLatitude:[[linkData latitudeValue] floatValue] longitude:[[linkData longitudeValue] floatValue]];
-    [SLData setMateLocation: locationMate];
+    [locationData setMateLocation: locationMate];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{}

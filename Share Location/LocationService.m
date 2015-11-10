@@ -8,22 +8,31 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-    
+        _locationData = [[SLData alloc] init];
     }
     return self;
 }
 
++ (instancetype) getInstance {
+    static LocationService *service = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        service = [[self alloc] init];
+    });
+    return service;
+}
+
 - (MKCoordinateRegion) calculateRegionForCurrentAndMateLocations {
     
-    CLLocationDistance distance = [[SLData getCurrentLocation] distanceFromLocation:[SLData getMateLocation]];
+    CLLocationDistance distance = [self.locationData.currentLocation distanceFromLocation:self.locationData.mateLocation];
     double calculatedDistance = distance * 2.5;
     NSLog(@" calculatedDistance %.0f", calculatedDistance);
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([SLData getCurrentLocation].coordinate, calculatedDistance, calculatedDistance);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.locationData.currentLocation.coordinate, calculatedDistance, calculatedDistance);
     return viewRegion;
 }
 
 - (MKCoordinateRegion) calculateRegionForCurrentLocation {
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([SLData getCurrentLocation].coordinate, 600, 600);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.locationData.currentLocation.coordinate, 600, 600);
     return viewRegion;
 }
 
@@ -33,25 +42,25 @@
 
 - (SLMapAnnotation*) createMapAnnotationForMate {
     
-    CLLocationDistance distance = [[SLData getMateLocation] distanceFromLocation:[SLData getCurrentLocation]];
+    CLLocationDistance distance = [self.locationData.currentLocation distanceFromLocation:self.locationData.mateLocation];
     NSString *title = [self getDistanceString:distance];
     
     NSMutableString *userTitle = [[NSMutableString alloc] init];
     [userTitle appendString:title];
     NSString *titleName = @"Destination";
-    if([SLData getNameString] != nil){
-        titleName = [SLData getNameString];
+    if(self.locationData.nameString != nil){
+        titleName = self.locationData.nameString;
     }
     SLMapAnnotation *annotation =
-    [[SLMapAnnotation alloc] initWithCoordinates:[SLData getMateLocation].coordinate
+    [[SLMapAnnotation alloc] initWithCoordinates:self.locationData.mateLocation.coordinate
                                            title:titleName subTitle:userTitle];
     return annotation;
 }
 
 - (MKPolyline*) createLineBetweenCurrentAndMateLocation {
     CLLocationCoordinate2D coordinates[2];
-    coordinates[0] = [SLData getMateLocation].coordinate;
-    coordinates[1] = [SLData getCurrentLocation].coordinate;
+    coordinates[0] = self.locationData.mateLocation.coordinate;
+    coordinates[1] = self.locationData.currentLocation.coordinate;
     MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:2];
     return polyLine;
 }
@@ -59,8 +68,8 @@
 - (MKPinAnnotationView*) createAnnotationView: (MKPinAnnotationView*) annotationView forAnnotation:(id <MKAnnotation>)annotation {
     MKPinAnnotationView* pinView = [[SLPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotationIdentifier"];
     UIImage *img = nil;
-    if([SLData getImage] != nil){
-        img = [SLData getImage];
+    if(self.locationData.image != nil){
+        img = self.locationData.image;
     }else{
         img = [UIImage imageNamed:@"multimedia/pics/target.jpg"];
     }
@@ -80,7 +89,7 @@
 
 - (MKOverlayRenderer*) createLineViewWith:(MKPolyline *)polyline {
     MKPolylineRenderer *polylineView = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
-    if([SLData isDistanceShorter]){
+    if(self.locationData.isDistanceShorter){
         polylineView.strokeColor = [UIColor greenColor];
     }else{
         polylineView.strokeColor = [UIColor redColor];

@@ -2,37 +2,13 @@
 #import <MapKit/MapKit.h>
 
 @interface SLData : NSObject
-
-//getter (statyczny) dla aktualnej lokalizacji
-+ (CLLocation*) getCurrentLocation ;
-//setter (statyczny) dla aktualnej lokalizacji
-+ (void) setCurrentLocation:(CLLocation *) location;
-
-//getter (statyczny) dla kolegi lokalizacji
-+ (CLLocation*) getMateLocation ;
-//setter (statyczny) dla kolegi lokalizacji
-+ (void) setMateLocation:(CLLocation *) location;
-
-//getter (statyczny)
-+ (NSString*) getNameString;
-//setter (statyczny) tokena
-+ (void) setNameString:(NSString *) name;
-
-//getter (statyczny) tokena
-+ (UIImage*) getImage;
-//setter (statyczny) tokena
-+ (void) setImage:(UIImage *) img;
-
-//getter (statyczny) dla poprzedniej lokalizacji
-+ (CLLocation*) getPrevoiusLocation;
-
-//wylicza czy dystans do celu jest mniejszy
-+ (bool) isDistanceShorter;
-
-+ (NSDate*) getLastSound;
-//setter (statyczny) tokena
-+ (void) setLastSound:(NSDate *) sound;
-
-+ (bool) isLocationChangeRevelant:(CLLocation*) location;
-
+@property (nonatomic, strong, readwrite) CLLocation *currentLocation;
+@property (nonatomic, strong, readwrite) CLLocation *prevoiusLocation;
+@property (nonatomic, strong, readwrite) CLLocation *mateLocation;
+@property (nonatomic, strong, readwrite) NSString *nameString;
+@property (nonatomic, strong, readwrite) UIImage *image;
+@property (nonatomic, strong, readwrite) NSDate *lastSound;
+- (void) setCurrentLocation:(CLLocation *) location;
+- (bool) isDistanceShorter;
+- (bool) isLocationChangeRevelant:(CLLocation*) location;
 @end

@@ -7,6 +7,7 @@
 #import "SLAlertsFactory.h"
 #import <ContactsUI/ContactsUI.h>
 #import "Consts.h"
+#import "LocationService.h"
 
 @interface SLShareLocationViewController ()<MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate, CNContactPickerDelegate ,UIAlertViewDelegate, UITextFieldDelegate>
 
@@ -50,6 +51,7 @@
     _messageService = [[MessageService alloc] initWithLinkService:_linkService];
     CNContactStore *contactStore = [[CNContactStore alloc]init];
     _contactsService = [[ContactsService alloc] initWithContactStore: contactStore];
+    _locationService = [LocationService getInstance];
 }
 
 - (void) initView {
@@ -57,7 +59,7 @@
     _messageDataField2.layer.borderColor = [UIColor whiteColor].CGColor;
     _messageDataField2.layer.borderWidth = 1;
     _messageDataField2.translatesAutoresizingMaskIntoConstraints = NO;
-    _messageDataField2.attributedText = [self.messageService composeHtmlAttributedMessageWithLocation:[SLData getCurrentLocation]];
+    _messageDataField2.attributedText = [self.messageService composeHtmlAttributedMessageWithLocation:self.locationService.locationData.currentLocation];
     _messageDataField2.layer.cornerRadius=5.0f;
     if(_mainView != nil){
         _mainView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed: PIC_BG_IPAD_PATH]];
@@ -257,7 +259,7 @@
     }
     MFMessageComposeViewController *smsComposer = [[MFMessageComposeViewController alloc] init];
     smsComposer.messageComposeDelegate = self;
-    [smsComposer setBody:  [self.messageService composeStringMessageWithLocation:[SLData getCurrentLocation]]];
+    [smsComposer setBody:  [self.messageService composeStringMessageWithLocation:self.locationService.locationData.currentLocation]];
     [smsComposer setRecipients:@[_userDataField.text]];
     [self presentViewController:smsComposer animated:YES completion:nil];
 }
@@ -274,7 +276,7 @@
     MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
     mailComposer.mailComposeDelegate = self;
     [mailComposer setSubject:LABEL_LOCATION];
-    [mailComposer setMessageBody: [self.messageService composeHtmlStringMessageWithLocation:[SLData getCurrentLocation]] isHTML:YES];
+    [mailComposer setMessageBody: [self.messageService composeHtmlStringMessageWithLocation:self.locationService.locationData.currentLocation] isHTML:YES];
     [mailComposer setToRecipients:@[_userDataField.text]];
     [self presentViewController:mailComposer animated:YES completion:nil];
 }

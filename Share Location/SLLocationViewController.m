@@ -32,9 +32,9 @@
 }
 
 - (void) initLocationManager {
-    _locationService = [[LocationService alloc] init];
+    _locationService = [LocationService getInstance];
     NSLog(@"enter initLocationManager start");
-    if([SLData getCurrentLocation] == nil){
+    if(self.locationService.locationData.currentLocation == nil){
         _locationMgr = [self.locationService createLocationManager];
         self.locationMgr.delegate = self;
         [self.locationMgr startUpdatingLocation];
@@ -76,11 +76,12 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     NSLog(@"didUpdateLocations ");
     CLLocation* location = [locations lastObject];
-    if ([SLData isLocationChangeRevelant:location]) {
+    SLData* locationData = self.locationService.locationData;
+    if ([locationData isLocationChangeRevelant:location]) {
         [self.locationService logLocation:location logString:@"Current location "];
-        [SLData setCurrentLocation:location];
+        [locationData setCurrentLocation:location];
         MKCoordinateRegion viewRegion;
-        if([SLData getMateLocation] != nil){
+        if(locationData.mateLocation != nil){
             viewRegion = [self createViewRegionWithMate];
             [self addPinAndLineFromMateToCurrentLocation];
             [[SoundService getInstance] playDirectionSound];
