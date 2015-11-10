@@ -13,11 +13,17 @@
     return self;
 }
 
-- (MKCoordinateRegion) calculateRegionWithBase:(CLLocation *) basePoint withRemote: (CLLocation *) remotePoint {
-    CLLocationDistance distance = [remotePoint distanceFromLocation:basePoint];
+- (MKCoordinateRegion) calculateRegionForCurrentAndMateLocations {
+    
+    CLLocationDistance distance = [[SLData getCurrentLocation] distanceFromLocation:[SLData getMateLocation]];
     double calculatedDistance = distance * 2.5;
     NSLog(@" calculatedDistance %.0f", calculatedDistance);
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(remotePoint.coordinate, calculatedDistance, calculatedDistance);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([SLData getCurrentLocation].coordinate, calculatedDistance, calculatedDistance);
+    return viewRegion;
+}
+
+- (MKCoordinateRegion) calculateRegionForCurrentLocation {
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance([SLData getCurrentLocation].coordinate, 600, 600);
     return viewRegion;
 }
 
@@ -25,7 +31,11 @@
     return (isnan(adjustedRegion.span.latitudeDelta) || isnan(adjustedRegion.span.longitudeDelta));
 }
 
-- (SLMapAnnotation*) createMapAnnotationWith: (CLLocationCoordinate2D) pinLocation withTitle:(NSString *) title {
+- (SLMapAnnotation*) createMapAnnotationForMate {
+    
+    CLLocationDistance distance = [[SLData getMateLocation] distanceFromLocation:[SLData getCurrentLocation]];
+    NSString *title = [self getDistanceString:distance];
+    
     NSMutableString *userTitle = [[NSMutableString alloc] init];
     [userTitle appendString:title];
     NSString *titleName = @"Destination";
@@ -33,15 +43,15 @@
         titleName = [SLData getNameString];
     }
     SLMapAnnotation *annotation =
-    [[SLMapAnnotation alloc] initWithCoordinates:pinLocation
+    [[SLMapAnnotation alloc] initWithCoordinates:[SLData getMateLocation].coordinate
                                            title:titleName subTitle:userTitle];
     return annotation;
 }
 
-- (MKPolyline*) createLineWithBase:(CLLocation *) basePoint withRemote: (CLLocation *) remotePoint {
+- (MKPolyline*) createLineBetweenCurrentAndMateLocation {
     CLLocationCoordinate2D coordinates[2];
-    coordinates[0] = basePoint.coordinate;
-    coordinates[1] = remotePoint.coordinate;
+    coordinates[0] = [SLData getMateLocation].coordinate;
+    coordinates[1] = [SLData getCurrentLocation].coordinate;
     MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:2];
     return polyLine;
 }

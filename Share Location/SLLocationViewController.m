@@ -38,6 +38,7 @@
         _locationMgr = [self.locationService createLocationManager];
         self.locationMgr.delegate = self;
         [self.locationMgr startUpdatingLocation];
+        _viewMap.showsUserLocation = YES;
         NSLog(@"end initLocationManager started");
     }else{
         NSLog(@"end initLocationManager skip ");
@@ -55,110 +56,78 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-//##############################################
-
-
--(void)deleteMapAnnotations
-{
+-(void) deleteMapAnnotations {
     for (id<MKAnnotation> annotation in _viewMap.annotations){
         [self.viewMap removeAnnotation:annotation];
     }
 }
 
 
--(void)deleteMapOverlays
-{
+-(void) deleteMapOverlays {
     for (id<MKOverlay> overlay in _viewMap.overlays){
         [self.viewMap removeOverlay:overlay];
     }
 }
 
-
-
-/*
- Obsługa update lokalizacji.
- */
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     NSLog(@"didUpdateLocations ");
     CLLocation* location = [locations lastObject];
-    _viewMap.showsUserLocation = YES;
     if ([SLData isLocationChangeRevelant:location]) {
         [self.locationService logLocation:location logString:@"Current location "];
         [SLData setCurrentLocation:location];
+        MKCoordinateRegion viewRegion;
         if([SLData getMateLocation] != nil){
-            CLLocationDistance distance = [location distanceFromLocation:[SLData getMateLocation]];
-            NSString *title = [self.locationService getDistanceString:distance];
-            
-            //
-            [self addPinFromCurrentLocation:[SLData getMateLocation] withTitle:title fromBaseLocation:location];
-            //
+            viewRegion = [self createViewRegionWithMate];
+            [self addPinAndLineFromMateToCurrentLocation];
+            [[SoundService getInstance] playDirectionSound];
             
         }else{
-            CLLocationCoordinate2D zoomLocation = location.coordinate;
-            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 600, 600);
-            
-            [_viewMap setRegion:viewRegion animated:NO];
-            [_viewMap setCenterCoordinate:zoomLocation animated:YES];
+            viewRegion = [self createViewRegionWithoutMate];
         }
+        [_viewMap setRegion:viewRegion animated:NO];
+        [_viewMap setCenterCoordinate:location.coordinate animated:YES];
         NSLog(@"Location stored ");
     }
 }
 
-/*
- Dodaje PINa do mapy.
- */
--(void) addPinFromCurrentLocation:(CLLocation *) location withTitle:(NSString *) title fromBaseLocation: (CLLocation *) baseLocation{
-    if(location != nil){
-        
-        //
-        [self deleteMapOverlays];
-        //
-        
-        //
-        [self deleteMapAnnotations];        
-        //
-        
-        //
-        MKCoordinateRegion viewRegion = [self.locationService calculateRegionWithBase:location withRemote:baseLocation];
-        if([self.locationService isRegionNotAdjusted:[_viewMap regionThatFits:viewRegion]]){
-            viewRegion.span.latitudeDelta = 90;
-            viewRegion.span.longitudeDelta = 180;
-        }
-        [_viewMap setRegion:viewRegion animated:NO];
-        [_viewMap setCenterCoordinate:baseLocation.coordinate animated:YES];
-        //
-        
-        //
-        SLMapAnnotation *annotation = [self.locationService createMapAnnotationWith:location.coordinate withTitle:title];
-        [_viewMap addAnnotation:annotation];
-        [_viewMap selectAnnotation:annotation animated:YES];
-        //
-        
-        //
-        [_viewMap addOverlay:[self.locationService createLineWithBase:location withRemote:baseLocation]];
-        //
-        
-        SoundService* soundService = [SoundService getInstance];
-        [soundService playDirectionSound];
+-(MKCoordinateRegion) createViewRegionWithMate {
+    MKCoordinateRegion viewRegion = [self.locationService calculateRegionForCurrentAndMateLocations];
+    if([self.locationService isRegionNotAdjusted:[_viewMap regionThatFits:viewRegion]]){
+        viewRegion.span.latitudeDelta = 90;
+        viewRegion.span.longitudeDelta = 180;
     }
+    return viewRegion;
 }
 
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay{
+-(MKCoordinateRegion) createViewRegionWithoutMate {
+    MKCoordinateRegion viewRegion = [self.locationService calculateRegionForCurrentLocation];
+    return viewRegion;
+}
+
+-(void) addPinAndLineFromMateToCurrentLocation {
+    [self clearMapAnnotationAndLine];
+    SLMapAnnotation *annotation = [self.locationService createMapAnnotationForMate];
+    [_viewMap addAnnotation:annotation];
+    [_viewMap selectAnnotation:annotation animated:YES];
+    [_viewMap addOverlay:[self.locationService createLineBetweenCurrentAndMateLocation]];
+}
+
+-(void) clearMapAnnotationAndLine {
+    [self deleteMapOverlays];
+    [self deleteMapAnnotations];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     return [self.locationService createLineViewWith:overlay];
 }
 
-/*
- Akcja powrotu do mapy.
- */
 - (IBAction)unwindToMap:(UIStoryboardSegue *)segue {}
 
-// modyfikacja wygladu anotacji
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     if(![annotation isKindOfClass:[SLMapAnnotation class]]){
         return nil;
     }
@@ -166,10 +135,6 @@
     return [self.locationService createAnnotationView:pinView forAnnotation:annotation];
 }
 
-
-
-
-// akcja po dodaniu anotacji do mapy
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     MKAnnotationView *aV;
     for (aV in views) {
@@ -186,9 +151,6 @@
     }
 }
 
-
-
-//###############################################
 - (IBAction)goToMessage:(id)sender {
     NSLog(@"Go to Message");
     dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -197,14 +159,9 @@
     });
 }
 
-/*
- Akcja wyjścia z aplikacji.
- */
--(IBAction)doExit
-{
+- (IBAction)doExit {
     UIAlertController *alert = [SLAlertsFactory createExitAlert];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-//###############################################
 @end
