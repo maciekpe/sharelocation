@@ -68,6 +68,19 @@
     return locationManager;
 }
 
+- (MKOverlayRenderer*) createLineViewWith:(MKPolyline *)polyline {
+    MKPolylineRenderer *polylineView = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
+    if([SLData isDistanceShorter]){
+        polylineView.strokeColor = [UIColor greenColor];
+    }else{
+        polylineView.strokeColor = [UIColor redColor];
+    }
+    polylineView.lineWidth = 4.0;
+    NSArray* array = [NSArray arrayWithObjects:[NSNumber numberWithInt:10], [NSNumber numberWithInt:10], nil];
+    polylineView.lineDashPattern = array;
+    return polylineView;
+}
+
 /*
  Wylicza string okreslajacy odleglosc punktu na podstawie dystansu.
  */

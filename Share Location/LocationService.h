@@ -12,4 +12,5 @@
 - (SLMapAnnotation*) createMapAnnotationWith: (CLLocationCoordinate2D) pinLocation withTitle:(NSString *) title;
 - (MKPolyline*) createLineWithBase:(CLLocation *) basePoint withRemote: (CLLocation *) remotePoint;
 - (MKPinAnnotationView*) createAnnotationView: (MKPinAnnotationView*) annotationView forAnnotation:(id <MKAnnotation>)annotation ;
+- (MKOverlayRenderer*) createLineViewWith:(MKPolyline *)polyline;
 @end

@@ -149,20 +149,8 @@
     }
 }
 
-/*
- Metoda delagata MKMapViewDelegate
- */
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
-    MKPolylineView *polylineView = [[MKPolylineView alloc] initWithPolyline:overlay];
-    if([SLData isDistanceShorter]){
-        polylineView.strokeColor = [UIColor greenColor];
-    }else{
-        polylineView.strokeColor = [UIColor redColor];
-    }
-    polylineView.lineWidth = 4.0;
-    NSArray* array = [NSArray arrayWithObjects:[NSNumber numberWithInt:10], [NSNumber numberWithInt:10], nil];
-    polylineView.lineDashPattern = array;
-    return polylineView;
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay{
+    return [self.locationService createLineViewWith:overlay];
 }
 
 /*
