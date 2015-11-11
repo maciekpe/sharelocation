@@ -32,6 +32,7 @@
 		3AA30A8B18E7567900FAD973 /* SLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA30A8A18E7567900FAD973 /* SLData.m */; };
 		3AA85F291937DA04007FC378 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA85F281937DA04007FC378 /* CoreTelephony.framework */; };
 		3ABAF1B31BF36368009889A3 /* SoundServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABAF1B21BF36368009889A3 /* SoundServiceUT.m */; };
+		3ABAF1B51BF387E4009889A3 /* LocationServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABAF1B41BF387E4009889A3 /* LocationServiceUT.m */; };
 		3AD3F78618E624BF000691D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F78518E624BF000691D0 /* Foundation.framework */; };
 		3AD3F78818E624BF000691D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F78718E624BF000691D0 /* CoreGraphics.framework */; };
 		3AD3F78A18E624BF000691D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD3F78918E624BF000691D0 /* UIKit.framework */; };
@@ -106,6 +107,7 @@
 		3AA30A8A18E7567900FAD973 /* SLData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLData.m; sourceTree = "<group>"; };
 		3AA85F281937DA04007FC378 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3ABAF1B21BF36368009889A3 /* SoundServiceUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundServiceUT.m; sourceTree = "<group>"; };
+		3ABAF1B41BF387E4009889A3 /* LocationServiceUT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationServiceUT.m; sourceTree = "<group>"; };
 		3AD3F78218E624BF000691D0 /* Share Location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Share Location.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD3F78518E624BF000691D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3AD3F78718E624BF000691D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -247,6 +249,7 @@
 		3A777C771BE2C61F0078D7A3 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				3ABAF1B41BF387E4009889A3 /* LocationServiceUT.m */,
 				3ABAF1B21BF36368009889A3 /* SoundServiceUT.m */,
 				3A7674701BEBF3A70056A3BA /* IdentificationServiceUT.m */,
 				3A76746E1BEBDFDA0056A3BA /* MessageServiceUT.m */,
@@ -589,6 +592,7 @@
 				3ABAF1B31BF36368009889A3 /* SoundServiceUT.m in Sources */,
 				3A777C791BE2C6580078D7A3 /* ContactsServiceUT.m in Sources */,
 				FDB11A0C1BEA52F5007705CA /* LinkServiceUT.m in Sources */,
+				3ABAF1B51BF387E4009889A3 /* LocationServiceUT.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

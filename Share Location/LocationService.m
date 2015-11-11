@@ -87,8 +87,8 @@
     return locationManager;
 }
 
-- (MKOverlayRenderer*) createLineViewWith:(MKPolyline *)polyline {
-    MKPolylineRenderer *polylineView = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
+- (MKPolylineRenderer*) createLineViewWith:(MKPolyline *)polyline {
+    MKPolylineRenderer* polylineView = [[MKPolylineRenderer alloc] initWithPolyline:polyline];
     if(self.locationData.isDistanceShorter){
         polylineView.strokeColor = [UIColor greenColor];
     }else{
@@ -100,9 +100,6 @@
     return polylineView;
 }
 
-/*
- Wylicza string okreslajacy odleglosc punktu na podstawie dystansu.
- */
 - (NSString *) getDistanceString:(CLLocationDistance) distance {
     NSString *title = @"";
     if(distance > 1000){
@@ -113,9 +110,6 @@
     return title;
 }
 
-/*
- Loguje lokacje.
- */
 - (void) logLocation: (CLLocation *) location logString:(NSString *) log {
     
     NSString *logString = @"Location : ";

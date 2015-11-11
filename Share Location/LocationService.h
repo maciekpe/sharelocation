@@ -14,6 +14,6 @@
 - (SLMapAnnotation*) createMapAnnotationForMate;
 - (MKPolyline*) createLineBetweenCurrentAndMateLocation;
 - (MKPinAnnotationView*) createAnnotationView: (MKPinAnnotationView*) annotationView forAnnotation:(id <MKAnnotation>)annotation ;
-- (MKOverlayRenderer*) createLineViewWith:(MKPolyline *)polyline;
+- (MKPolylineRenderer*) createLineViewWith:(MKPolyline *)polyline;
 @property (nonatomic, strong, readwrite) SLData* locationData;
 @end
