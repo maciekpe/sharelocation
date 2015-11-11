@@ -84,7 +84,7 @@
         if(locationData.mateLocation != nil){
             viewRegion = [self createViewRegionWithMate];
             [self addPinAndLineFromMateToCurrentLocation];
-            [[SoundService getInstance] playDirectionSound];
+            [[SoundService getInstance] playDirectionSoundWith:[locationData isDistanceShorter]];
             
         }else{
             viewRegion = [self createViewRegionWithoutMate];

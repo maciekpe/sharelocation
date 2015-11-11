@@ -7,6 +7,7 @@
 
 //brak testow UT
 
+
 + (instancetype) getInstance {
      static SoundService *service = nil;
      static dispatch_once_t onceToken;
@@ -16,39 +17,49 @@
      return service;
 }
 
-- (void) playDirectionSound {
+- (BOOL) playDirectionSoundWith:(BOOL) isDistanceShorter {
+    BOOL result = NO;
     if([self isSoundNeeded]){
-        if([[LocationService getInstance].locationData isDistanceShorter]){
-            [self playCorrectDirectionSound];
+        if(isDistanceShorter){
+            result = [self playCorrectDirectionSound];
         }else{
-            [self playIncorrectDirectionSound];
+            result = [self playIncorrectDirectionSound];
         }
     }
+    return result;
 }
 
-- (void) playCorrectDirectionSound {
-    if([self isSoundNeeded]){
-        __block SystemSoundID correctDirection;
-        [self initSound:@"multimedia/audio/sonar" sound: &correctDirection];
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            AudioServicesPlaySystemSound(correctDirection);
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            AudioServicesDisposeSystemSoundID(correctDirection);
-        });
-    }
+- (BOOL) playCorrectDirectionSound {
+    BOOL result = NO;
+    __block SystemSoundID correctDirection;
+    [self initSound:@"multimedia/audio/sonar" sound: &correctDirection];
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        AudioServicesPlaySystemSound(correctDirection);
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        AudioServicesDisposeSystemSoundID(correctDirection);
+    });
+    result = YES;
+    return result;
 }
-- (void) playIncorrectDirectionSound{
-    if([self isSoundNeeded]){
-        __block SystemSoundID incorrectDirection;
-        [self initSound:@"multimedia/audio/error" sound: &incorrectDirection];
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            AudioServicesPlaySystemSound(incorrectDirection);
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            AudioServicesDisposeSystemSoundID(incorrectDirection);
-        });
-    }
+
+- (BOOL) playIncorrectDirectionSound{
+    BOOL result = NO;
+    __block SystemSoundID incorrectDirection;
+    [self initSound:@"multimedia/audio/error" sound: &incorrectDirection];
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        AudioServicesPlaySystemSound(incorrectDirection);
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        AudioServicesDisposeSystemSoundID(incorrectDirection);
+    });
+    /*
+    new approache
+    AudioServicesPlaySystemSoundWithCompletion(incorrectDirection,^(void){
+        NSLog(@"played");
+    });*/
+    result = YES;
+    return result;
 }
 
 - (void)initSound:(NSString *) pathToFile sound: (SystemSoundID *) soundID {
@@ -59,16 +70,15 @@
 
 -(BOOL) isSoundNeeded { 
     NSDate *now = [NSDate date];
-    SLData* locationData = [LocationService getInstance].locationData;
-    if(locationData.lastSound !=nil){
-        if( [now timeIntervalSinceDate:locationData.lastSound] > 5 ) {
-            [locationData setLastSound:now];
+    if(self.lastSoundDate !=nil){
+        if( [now timeIntervalSinceDate:self.lastSoundDate] > 5 ) {
+            [self setLastSoundDate:now];
             return YES;
         }else{
             return NO;
         }
     }else{
-        [locationData setLastSound:now];
+        [self setLastSoundDate:now];
         return YES;
     }
 }

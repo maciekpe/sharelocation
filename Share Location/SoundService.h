@@ -2,8 +2,6 @@
 
 @interface SoundService : NSObject
 + (SoundService*) getInstance ;
-- (void) playCorrectDirectionSound;
-- (void) playIncorrectDirectionSound;
-- (BOOL) isSoundNeeded;
-- (void) playDirectionSound;
+- (BOOL) playDirectionSoundWith:(BOOL) isDistanceShorter;
+@property (nonatomic, strong, readwrite) NSDate* lastSoundDate;
 @end
