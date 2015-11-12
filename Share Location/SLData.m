@@ -16,9 +16,18 @@
 }
 
 - (bool) isLocationChangeRevelant:(CLLocation*) location {
-    NSDate* eventDate = location.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    return (fabs(howRecent) < 15.0 && (self.currentLocation==nil || [location distanceFromLocation:self.currentLocation] >10));
+    bool result = ( self.currentLocation == nil ||
+                   (([location distanceFromLocation:self.currentLocation] > 10) && (fabs([self.currentLocation.timestamp timeIntervalSinceNow]) > 10)) ||
+                   (([location distanceFromLocation:self.mateLocation] < 10) && (fabs([self.currentLocation.timestamp timeIntervalSinceNow]) > 2))
+                   );
+    //NSLog(@"Revelant time interval = [%f]", [self.currentLocation.timestamp timeIntervalSinceNow]);
+    //NSLog(@"Revelant distance =[%f]", [location distanceFromLocation:self.currentLocation]);
+    //NSLog(@"Revelant distance [%d] > 10", ([location distanceFromLocation:self.currentLocation] > 10 ));
+    //NSLog(@"Revelant distance to mate [%d] < 10", ([location distanceFromLocation:self.currentLocation] < 10 ));
+    //NSLog(@"Revelant distance to mate [%f]", [location distanceFromLocation:self.mateLocation]);
+    //NSLog(@"Revelant current is null =[%d]", self.currentLocation == nil);
+    //NSLog(@"Revelant result =[%d]", result);
+    return result;
 }
 
 @end

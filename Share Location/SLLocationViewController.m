@@ -85,6 +85,9 @@
             viewRegion = [self createViewRegionWithMate];
             [self addPinAndLineFromMateToCurrentLocation];
             [[SoundService getInstance] playDirectionSoundWith:[locationData isDistanceShorter]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                [self deleteMapOverlays];
+            });
             
         }else{
             viewRegion = [self createViewRegionWithoutMate];
@@ -142,10 +145,9 @@
         aV.canShowCallout = YES;
         if (![aV.annotation isKindOfClass:[SLMapAnnotation class]]) {
             ((MKUserLocation *)aV.annotation).title = @"Your's current location";
-            [aV setSelected:YES];
             [self.viewMap selectAnnotation:aV.annotation animated:YES];
         }else{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 4 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self.viewMap selectAnnotation:aV.annotation animated:YES];
             });
         }

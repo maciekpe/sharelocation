@@ -25,7 +25,10 @@
 - (MKCoordinateRegion) calculateRegionForCurrentAndMateLocations {
     
     CLLocationDistance distance = [self.locationData.currentLocation distanceFromLocation:self.locationData.mateLocation];
-    double calculatedDistance = distance * 2.5;
+    double calculatedDistance = 300;
+    if(distance > 150){
+        calculatedDistance = distance * 2.5;
+    }
     NSLog(@" calculatedDistance %.0f", calculatedDistance);
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.locationData.currentLocation.coordinate, calculatedDistance, calculatedDistance);
     return viewRegion;
@@ -105,7 +108,11 @@
     if(distance > 1000){
         title = [title stringByAppendingString : [NSString stringWithFormat:@"%.2f kilometers", distance/1000]];
     }else{
-        title = [title stringByAppendingString : [NSString stringWithFormat:@"%.0f meters", distance]];
+        if(distance < 10){
+            title = [title stringByAppendingString : [NSString stringWithFormat:@"aprox 10 meters"]];
+        }else{
+            title = [title stringByAppendingString : [NSString stringWithFormat:@"%.0f meters", distance]];
+        }
     }
     return title;
 }

@@ -1,22 +1,88 @@
 <?xml version="1.0"?>
 <gpx version="1.1" creator="Xcode">
-    
-    <!--
-     Provide one or more waypoints containing a latitude/longitude pair. If you provide one
-     waypoint, Xcode will simulate that specific location. If you provide multiple waypoints,
-     Xcode will simulate a route visitng each waypoint.
-     -->
-    <wpt lat="52.155034" lon="20.795628">
-        <name>Start</name>
-        
-        <!--
-         Optionally provide a time element for each waypoint. Xcode will interpolate movement
-         at a rate of speed based on the time elapsed between each waypoint. If you do not provide
-         a time element, then Xcode will use a fixed rate of speed.
-         
-         Waypoints must be sorted by time in ascending order.
-         -->
-        <time>2014-09-24T14:55:37Z</time>
-    </wpt>
-    
+            <!--<wpt lat="52.220540" lon="20.959650">
+                <name>0</name>
+                <time>2015-11-12T19:11:27Z</time>
+            </wpt>
+            <wpt lat="52.220000" lon="20.959740">
+                <name>0</name>
+                <time>2015-11-12T19:11:42Z</time>
+            </wpt>
+            <wpt lat="52.217910" lon="20.959960">
+                <name>0</name>
+                <time>2015-11-12T19:12:38Z</time>
+            </wpt>-->
+            <wpt lat="52.217250" lon="20.960080">
+                <name>0</name>
+                <time>2015-11-12T19:12:55Z</time>
+            </wpt>
+            <wpt lat="52.216890" lon="20.960230">
+                <name>0</name>
+                <time>2015-11-12T19:13:05Z</time>
+            </wpt>
+            <wpt lat="52.216390" lon="20.960490">
+                <name>0</name>
+                <time>2015-11-12T19:13:19Z</time>
+            </wpt>
+            <wpt lat="52.216220" lon="20.960600">
+                <name>0</name>
+                <time>2015-11-12T19:13:24Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.960760">
+                <name>0</name>
+                <time>2015-11-12T19:13:29Z</time>
+            </wpt>
+            <wpt lat="52.215990" lon="20.960900">
+                <name>0</name>
+                <time>2015-11-12T19:13:32Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961180">
+                <name>0</name>
+                <time>2015-11-12T19:13:37Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961181">
+                <name>0</name>
+                <time>2015-11-12T19:13:41Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961182">
+                <name>0</name>
+                <time>2015-11-12T19:13:45Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961181">
+                <name>0</name>
+                <time>2015-11-12T19:13:49Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961182">
+                <name>0</name>
+                <time>2015-11-12T19:13:51Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961181">
+                <name>0</name>
+                <time>2015-11-12T19:13:55Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961182">
+                <name>0</name>
+                <time>2015-11-12T19:13:58Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961181">
+                <name>0</name>
+                <time>2015-11-12T19:14:02Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961182">
+                <name>0</name>
+                <time>2015-11-12T19:14:07Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961181">
+                <name>0</name>
+                <time>2015-11-12T19:14:11Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961180">
+                <name>0</name>
+                <time>2015-11-12T19:14:15Z</time>
+            </wpt>
+            <wpt lat="52.216070" lon="20.961180">
+                <name>0</name>
+                <time>2015-11-12T19:14:19Z</time>
+            </wpt>
+
 </gpx>
