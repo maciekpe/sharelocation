@@ -50,7 +50,7 @@
 		3AE550EB193DF88900837DBC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE550EA193DF88900837DBC /* AudioToolbox.framework */; };
 		9786F516837B43BC16273124 /* libPods-Share LocationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C0EF39F189265ADF346376 /* libPods-Share LocationTests.a */; };
 		FD213BAA1BC4073C00D58369 /* SLAlertsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */; };
-		FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */; };
+		FD8F60761BD8CEE7000966B3 /* UserInterfaceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8F60751BD8CEE7000966B3 /* UserInterfaceUITests.m */; };
 		FD937B901BEB8001004759D6 /* IdentificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = FD937B8F1BEB8001004759D6 /* IdentificationService.m */; };
 		FDB11A0C1BEA52F5007705CA /* LinkServiceUT.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB11A0B1BEA52F5007705CA /* LinkServiceUT.m */; };
 		FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A92AD281BD94A7B008165D0 /* Consts.m */; };
@@ -134,7 +134,7 @@
 		FD213BA91BC4073C00D58369 /* SLAlertsFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAlertsFactory.m; sourceTree = "<group>"; };
 		FD213BAB1BC4076C00D58369 /* SLAlertsFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLAlertsFactory.h; sourceTree = "<group>"; };
 		FD8F60731BD8CEE7000966B3 /* Share LocationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Share LocationUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Share_LocationUITests.m; sourceTree = "<group>"; };
+		FD8F60751BD8CEE7000966B3 /* UserInterfaceUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInterfaceUITests.m; sourceTree = "<group>"; };
 		FD8F60771BD8CEE7000966B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD937B8E1BEB8001004759D6 /* IdentificationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentificationService.h; sourceTree = "<group>"; };
 		FD937B8F1BEB8001004759D6 /* IdentificationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentificationService.m; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				3A2B1DE11BEFB34B00E957A8 /* GuidanceUITests.m */,
-				FD8F60751BD8CEE7000966B3 /* Share_LocationUITests.m */,
+				FD8F60751BD8CEE7000966B3 /* UserInterfaceUITests.m */,
 				FD8F60771BD8CEE7000966B3 /* Info.plist */,
 				FDF361761BDA4F94003B5A94 /* PrefixHeader.pch */,
 			);
@@ -602,7 +602,7 @@
 			files = (
 				3A7674721BEC05970056A3BA /* SLData.m in Sources */,
 				3A2B1DE21BEFB34B00E957A8 /* GuidanceUITests.m in Sources */,
-				FD8F60761BD8CEE7000966B3 /* Share_LocationUITests.m in Sources */,
+				FD8F60761BD8CEE7000966B3 /* UserInterfaceUITests.m in Sources */,
 				FDF361751BDA3A8B003B5A94 /* Consts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

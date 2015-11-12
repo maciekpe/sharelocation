@@ -23,7 +23,7 @@
 
 - (void)testStory1_ShareLocationWindowShouldPresentLocationPoint {
     XCUIApplication *app = [[XCUIApplication alloc] init];
-    XCUIElement *label =  app.staticTexts[@"aproxx 10 meters"];
+    XCUIElement *label =  app.staticTexts[@"aprox 10 meters"];
     NSPredicate *exists = [NSPredicate predicateWithFormat:@"exists == 1"];
     [self expectationForPredicate:exists evaluatedWithObject:label handler:nil];
     [self waitForExpectationsWithTimeout:48 handler:nil];

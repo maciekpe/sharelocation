@@ -2,11 +2,11 @@
 #import "Consts.h"
 #import "SLData.h"
 
-@interface Share_LocationUITests : XCTestCase
+@interface UserInterfaceUITests : XCTestCase
 
 @end
 
-@implementation Share_LocationUITests
+@implementation UserInterfaceUITests
 
 //dodac dodanie kontakty i usuniecie przed i po tescie.
 //DEBUG po cel.value ; p print(cell.debugDescription)
