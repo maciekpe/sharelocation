@@ -36,21 +36,7 @@
     [super tearDown];
 }
 
-- (void)testStory1_LocationWindowExitAlterWithActionOk {
-    // Use recording to get started writing UI tests.
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-    [self goFromLocationWindowToExitAlert:app];
-    [app.alerts[LABEL_CONFIRMATION].collectionViews.buttons[LABEL_OK] tap];
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-}
 
-- (void)testStory2_LocationWindowExitAlterWithActionChancel {
-    // Use recording to get started writing UI tests.
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-    [self goFromLocationWindowToExitAlert: app];
-    [app.alerts[LABEL_CONFIRMATION].collectionViews.buttons[LABEL_CANCEL] tap];
-    XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_LOCATION);
-}
 
 - (void)testStory3_ShareLocationWindowActionsOnSwitchShouldGenerateUserDataChanges {
     XCUIApplication *app = [[XCUIApplication alloc] init];
@@ -166,12 +152,6 @@
     XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_MESSAGE);
     [app.navigationBars[LABEL_MESSAGE].buttons[LABEL_LOCATION] tap];
     XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_LOCATION);
-}
-
-- (void)goFromLocationWindowToExitAlert:(XCUIApplication *) app {
-    XCTAssertEqualObjects(app.navigationBars.element.identifier, LABEL_LOCATION);
-    [app.toolbars.buttons[LABEL_STOP] tap];
-    XCTAssertEqual(app.alerts[LABEL_CONFIRMATION].exists, TRUE, @"Confirmation alert not found");
 }
 
 - (void)goFromLocationWindowToMessageWindow:(XCUIApplication *) app withRequiredPrefs: (BOOL) isRequiredPrefs {

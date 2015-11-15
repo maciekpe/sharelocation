@@ -1,4 +1,6 @@
 #import <XCTest/XCTest.h>
+#import "Consts.h"
+#import "SLData.h"
 
 @interface GuidanceUITests : XCTestCase
 
@@ -27,6 +29,25 @@
     NSPredicate *exists = [NSPredicate predicateWithFormat:@"exists == 1"];
     [self expectationForPredicate:exists evaluatedWithObject:label handler:nil];
     [self waitForExpectationsWithTimeout:48 handler:nil];
+}
+
+- (void)testStory2_LocationWindowNaviAlterWithActionWalk {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app.toolbars.buttons[@"Play"] tap];
+    [app.alerts[@"Navigation"].collectionViews.buttons[@"Walk"] tap];
+
+}
+
+- (void)testStory3_LocationWindowNaviAlterWithActionDrive {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app.toolbars.buttons[@"Play"] tap];
+    [app.alerts[@"Navigation"].collectionViews.buttons[@"Drive"] tap];
+}
+
+- (void)testStory4_LocationWindowNaviAlterWithActionDrive {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app.toolbars.buttons[@"Play"] tap];
+    [app.alerts[@"Navigation"].collectionViews.buttons[@"Transit"] tap];
 }
 
 @end

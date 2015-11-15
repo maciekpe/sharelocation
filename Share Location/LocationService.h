@@ -15,5 +15,7 @@
 - (MKPolyline*) createLineBetweenCurrentAndMateLocation;
 - (MKPinAnnotationView*) createAnnotationView: (MKPinAnnotationView*) annotationView forAnnotation:(id <MKAnnotation>)annotation ;
 - (MKPolylineRenderer*) createLineViewWith:(MKPolyline *)polyline;
+- (NSDictionary*) getTransitOptions: (NSString*) type;
+- (NSMutableArray*) getMapItems;
 @property (nonatomic, strong, readwrite) SLData* locationData;
 @end

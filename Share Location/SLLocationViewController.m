@@ -8,6 +8,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "SoundService.h"
+#import "Consts.h"
 @import Contacts;
 
 @interface SLLocationViewController ()<UIApplicationDelegate, UIAlertViewDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
@@ -39,10 +40,17 @@
         self.locationMgr.delegate = self;
         [self.locationMgr startUpdatingLocation];
         _viewMap.showsUserLocation = YES;
+        _viewMap.showsScale = YES;
         NSLog(@"end initLocationManager started");
     }else{
         NSLog(@"end initLocationManager skip ");
     }
+}
+
+- (void) openInTransitModeType: (NSString*) type {
+    [MKMapItem openMapsWithItems:[self.locationService getMapItems]
+                   launchOptions:[self.locationService getTransitOptions:type]];
+    
 }
 
 - (void) initContacts {
@@ -85,10 +93,6 @@
             viewRegion = [self createViewRegionWithMate];
             [self addPinAndLineFromMateToCurrentLocation];
             [[SoundService getInstance] playDirectionSoundWith:[locationData isDistanceShorter]];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                [self deleteMapOverlays];
-            });
-            
         }else{
             viewRegion = [self createViewRegionWithoutMate];
         }
@@ -162,9 +166,28 @@
     });
 }
 
-- (IBAction)doExit {
-    UIAlertController *alert = [SLAlertsFactory createExitAlert];
-    [self presentViewController:alert animated:YES completion:nil];
+- (IBAction)doNavigate {
+    
+    UIAlertController* alert=[SLAlertsFactory createEmptyAlert:LABEL_NAVIGATE_MSG withTitle:LABEL_NAVIGATE_TITLE];
+    UIAlertAction* walk = [UIAlertAction actionWithTitle:LABEL_NAVIGATE_WALK style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * action) {
+                                                    [self openInTransitModeType:MKLaunchOptionsDirectionsModeWalking];
+                                                 }];
+    UIAlertAction* drive = [UIAlertAction actionWithTitle:LABEL_NAVIGATE_DRIVE style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * action) {
+                                                    [alert dismissViewControllerAnimated:YES completion:nil];
+                                                    [self openInTransitModeType:MKLaunchOptionsDirectionsModeDriving];
+                                                }];
+    UIAlertAction* communication = [UIAlertAction actionWithTitle:LABEL_NAVIGATE_COMMUNICATE style:UIAlertActionStyleDefault
+                                                  handler:^(UIAlertAction * action) {
+                                                      [alert dismissViewControllerAnimated:YES completion:nil];
+                                                      [self openInTransitModeType:MKLaunchOptionsDirectionsModeTransit];
+                                                  }];
+   [alert addAction:walk];
+   [alert addAction:drive];
+   [alert addAction:communication];
+   [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
+

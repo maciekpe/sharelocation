@@ -22,6 +22,34 @@
     return service;
 }
 
+- (NSDictionary*) getTransitOptions: (NSString*) type {
+    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             type,
+                             MKLaunchOptionsDirectionsModeKey, nil];
+    return options;
+}
+
+- (NSMutableArray*) getMapItems {
+    CLLocationCoordinate2D endLocation = CLLocationCoordinate2DMake(self.locationData.mateLocation.coordinate.latitude,
+                                                                    self.locationData.mateLocation.coordinate.longitude);
+    MKPlacemark* endPlacemark = [[MKPlacemark alloc] initWithCoordinate:endLocation addressDictionary:nil];
+    
+    MKMapItem* startItem = [MKMapItem mapItemForCurrentLocation];
+    MKMapItem* endItem = [[MKMapItem alloc] initWithPlacemark:endPlacemark];
+    
+    CLLocationDistance distance = [self.locationData.currentLocation distanceFromLocation:self.locationData.mateLocation];
+    NSString *title = [self getDistanceString:distance];
+    NSMutableString *userTitle = [[NSMutableString alloc] init];
+    [userTitle appendString:@"Destination, "];
+    [userTitle appendString:title];
+    [endItem setName: userTitle];
+    
+    NSMutableArray *arrayMapItem = [[NSMutableArray alloc] init];
+    [arrayMapItem addObject:startItem];
+    [arrayMapItem addObject:endItem];
+    return arrayMapItem;
+}
+
 - (MKCoordinateRegion) calculateRegionForCurrentAndMateLocations {
     
     CLLocationDistance distance = [self.locationData.currentLocation distanceFromLocation:self.locationData.mateLocation];
